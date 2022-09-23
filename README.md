@@ -2,7 +2,7 @@
 ![Logo](GitHubImage.png)
 
 # TournamentTools #
-This GitHub-repo contains the source-code for the tools used host both 1V1 and Battle Royale-style tournaments within Dane Saber.
+This open-source version of the source-code for the tools used host both 1V1 and Battle Royale-style tournaments within Dane Saber.
 
 ## TODO:
 | Function | Where | Why |
