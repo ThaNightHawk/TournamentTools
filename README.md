@@ -64,7 +64,7 @@ Those are used to communicate the data between the different components.
 ```
 - Type 4 variants are used for scoreupdates:
 ```json
-{"Type":"4","playerId":"76561198086326146","score":"100","combo":"0","acc":"1.00"}
+{"Type":"4","playerId":"76561198086326146","score":"100","combo":"0","acc":"1.00","miss":"0"}
 ```
 
 - Type 5 variants, used by the Webpanel for the 1V1 overlay:
