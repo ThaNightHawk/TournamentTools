@@ -2,12 +2,7 @@
 ![Logo](GitHubImage.png)
 
 # TournamentTools #
-This open-source version of the source-code for the tools used host both 1V1 and Battle Royale-style tournaments within Dane Saber.
-
-## TODO:
-| Function | Where | Why |
-| :----: | :----: | :----: |
-| Full BeatKhana implementation | WebPanel | To allows the user to input a BeatKhana tournament ID, which in return fetches participants, map-pool + bracket, making it easier for the coordinator to pick the match, and eliminates the need for manually typing in username, ScoreSaber ID and Twitch-link |
+This was originally made to be closed-sourced and only for use within the danish Beat Saber Discord, though someone asked me if I would open-source it, and I thought why not, more people would be able to collaborate on it and make it even better.
 
 ## Functions:
 The 1V1 Tools:
@@ -21,9 +16,16 @@ The Battle Royale Tools:
 ```
 - Allows for mass-creation of users on overlay.
 - Allows for managing scores/alive.
-- Allows for changing the spectated playername + stream. (Auto-stream changes requires HTTPS!)
+- Allows for changing the spectated playername + stream. (The auto-stream changing requires HTTPS)
 - Automatically removes users from the panel when declared dead and grays them out on the overlay.
 ```
+
+## TODO:
+| Function | Where | Why |
+| :----: | :----: | :----: |
+| User IDs type change | Everywhere | A numeric user ID shouldn't be a string, that simple |
+| BeatKhana-support | WebPanel | To allows the user to input a BeatKhana tournament ID, which in return fetches participants, map-pool + bracket, making it easier for the coordinator to pick the match, and eliminates the need for manually typing in username, ScoreSaber ID and Twitch-link |
+| TypeScript-version | Everywhere | To enforce types and allow for developers to collaborate easier |
 
 # How to use:
 ### 1V1 Tools:
@@ -40,9 +42,9 @@ The Battle Royale Tools:
 # For Developers
 ## Message Types
 Those are used to communicate the data between the different components.  
-- Type 0 is solely used for first connection-message and heartbeats on the Dane Saber relay-server: 
+- Type 0 is solely used for first connection-message and heartbeats on the  relay-server: 
 ```json
-{"Type":"0","message":"You've connected to the Dane Saber Tournament relay server."}
+{"Type":"0","message":"You've connected to the Tournament relay server."}
 - Confirms that you've connected to the tournament relay server.
 
 {"Type":"0","message":"heartbeat"}
@@ -52,7 +54,7 @@ Those are used to communicate the data between the different components.
 ```json
 {"Type":"1","userid":"ScoreSaberID","order":0}
 ```
-- Type 2 is solely used to delete matches (on the Dane Saber relay-server) and clearing BR overlay.
+- Type 2 is solely used to delete matches on the relay-server and clearing BR overlay.
 ```json
 {"Type":"2"}
 ```
@@ -107,4 +109,6 @@ The types will be expanded upon later, allowing for simultaneous matches, to pre
 
 ## Contributing
 
-Want to contribute? - Create a new branch, commit your changes to that and create a PR.
+Do you want to contribute code? Fork this, create a PR with your change(s) + explanation behind it/them and we'll have a look at it.
+
+If you don't want to contribute code, that's ok, if you see anything completely out of order, don't hesitate to question it.
