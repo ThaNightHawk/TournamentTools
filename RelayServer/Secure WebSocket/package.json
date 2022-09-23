@@ -1,0 +1,22 @@
+{
+  "name": "basicpage",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Hawk",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "watch": "nodemon index.ts"
+  },
+  "dependencies": {
+    "@types/google-protobuf": "^3.15.6",
+    "fs": "^0.0.1-security",
+    "google-protobuf": "^3.21.0",
+    "https": "^1.0.0",
+    "tournament-assistant-client": "^0.7.5",
+    "ws": "^8.8.1"
+  },
+  "devDependencies": {
+    "@types/ws": "^8.5.3"
+  }
+}
