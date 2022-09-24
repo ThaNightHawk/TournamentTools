@@ -92,7 +92,7 @@ taWebsocket.taClient.on('matchUpdated', (e) => {
 taWebsocket.taClient.on('userUpdated', async (e) => {
 	if (matchData.includes(e.data.user_id)) {
 		setTimeout(function () {
-			sockets.send(JSON.stringify({ 'Type': '4', 'playerId': e.data.user_id, 'score': e.data.score, 'combo': e.data.combo, 'acc': e.data.accuracy }));
+			sockets.send(JSON.stringify({ 'Type': '4', 'playerId': e.data.user_id, 'score': e.data.score, 'combo': e.data.combo, 'acc': e.data.accuracy, 'miss': e.data.misses}));
 		}, e.data.stream_delay_ms);
 	}
 });
