@@ -29,6 +29,10 @@ The Battle Royale Tools:
 | BeatKhana-support | WebPanel | To allows the user to input a BeatKhana tournament ID, which in return fetches participants, map-pool + bracket, making it easier for the coordinator to pick the match, and eliminates the need for manually typing in username, ScoreSaber ID and Twitch-link |
 | TypeScript-version | Everywhere | To enforce types and allow for developers to collaborate easier |
 
+# Preview of overlay:
+- [Explaining each component](PreviewDetails.png)
+- [Clean screenshot](PreviewNoDetails.png)
+
 # How to use:
 ### 1V1 Tools:
 - [How to Use](https://www.youtube.com/watch?v=_UYZaVLu1h0) - YouTube link.
