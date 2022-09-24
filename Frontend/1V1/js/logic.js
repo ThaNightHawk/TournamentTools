@@ -2,28 +2,23 @@
 //though I recommend using wss:// to be able to use the twitch-function.
 const relayIp = "wss://domain:port";
 
+//Anything Player1
 let P1;
 let P1Name;
+let P1Score = 0;
+let P1Acc;
+let P1Fc = true;
+
+//Anything Player2
 let P2;
 let P2Name;
-let P1Score = 0;
 let P2Score = 0;
-let currentSong;
-let currentDiff;
-let pointAmountL; //Point amount upper
-let pointAmountU; //Point amount lower
-
-let P1Combo;
-let P2Combo;
-let P1Acc;
 let P2Acc;
-let P1Fc = true;
 let P2Fc = true;
 
-let P1ComboCounter;
-let P2ComboCounter;
-let P1MissCounter;
-let P2MissCounter;
+//Current song data
+let currentSong;
+let currentDiff;
 
 function fancyTimeFormat(duration) {
 	var hrs = ~~(duration / 3600);
@@ -44,7 +39,11 @@ function fancyTimeFormat(duration) {
 //Set the user profile pictures
 async function setOverlay(P1, P1Name, P2, P2Name, Round) {
 	document.getElementById("roundTextP").innerText = Round;
-	fetch('https://new.scoresaber.com/api/player/' + P1 + '/basic', { headers: { 'Access-Control-Request-Headers': 'x-requested-with' } })
+	fetch('https://new.scoresaber.com/api/player/' + P1 + '/basic', {
+			headers: {
+				'Access-Control-Request-Headers': 'x-requested-with'
+			}
+		})
 		.then(response => response.json())
 		.then(data => {
 			let playerCountry = data.playerInfo.country;
@@ -59,7 +58,11 @@ async function setOverlay(P1, P1Name, P2, P2Name, Round) {
 			document.getElementById("Player1Name").style.opacity = '1';
 			document.getElementById("Player1Rank").style.opacity = '0.6';
 		});
-	fetch('https://new.scoresaber.com/api/player/' + P2 + '/basic', { headers: { 'Access-Control-Request-Headers': 'x-requested-with' } })
+	fetch('https://new.scoresaber.com/api/player/' + P2 + '/basic', {
+			headers: {
+				'Access-Control-Request-Headers': 'x-requested-with'
+			}
+		})
 		.then(response => response.json())
 		.then(data => {
 			let playerCountry = data.playerInfo.country;
@@ -75,7 +78,7 @@ async function setOverlay(P1, P1Name, P2, P2Name, Round) {
 			document.getElementById("Player2Rank").style.opacity = '0.6';
 		});
 
-	setTimeout(function () {
+	setTimeout(function() {
 		document.getElementById("PlayerBounds").style.opacity = '1';
 		document.getElementById("PlayerContainers").style.opacity = '1';
 		document.getElementById("leftPoints").style.opacity = '1';
@@ -119,7 +122,7 @@ async function getMap(LevelId, LevelDiff) {
 			.then(response => response.json())
 			.then(data => {
 				document.getElementById("SongBox").style.opacity = "0";
-				setTimeout(function () {
+				setTimeout(function() {
 					document.getElementById("SongCover").style.background = 'url(https://eu.cdn.beatsaver.com/' + songHash.toLowerCase() + '.jpg)';
 					document.getElementById("SongCover").style.backgroundSize = 'cover';
 					document.getElementById("SongCover").style.borderColor = diffColor;
@@ -142,7 +145,7 @@ async function getMap(LevelId, LevelDiff) {
 	} else if (currentSong == songHash && currentDiff != songDiff) {
 		currentDiff = songDiff;
 		document.getElementById("DiffText").style.opacity = "0";
-		setTimeout(function () {
+		setTimeout(function() {
 
 			document.getElementById("DiffText").innerHTML = diffText;
 			document.getElementById("DiffText").style.opacity = "1";
@@ -166,7 +169,7 @@ function scoreUpdate(player, score, combo, acc, miss, reset) {
 			if (P1Fc) {
 				P1Fc = false;
 			}
-		} 
+		}
 		if (reset) {
 			P1Fc = true;
 			document.getElementById("Player1FC").style.color = "#ffffff";
@@ -183,7 +186,7 @@ function scoreUpdate(player, score, combo, acc, miss, reset) {
 			if (P2Fc) {
 				P2Fc = false;
 			}
-		} 
+		}
 		if (reset) {
 			P2Fc = true;
 			document.getElementById("Player2FC").style.color = "#ffffff";
@@ -191,95 +194,45 @@ function scoreUpdate(player, score, combo, acc, miss, reset) {
 		}
 	}
 }
+
 function toFixed(num, fixed) {
 	let re = new RegExp('^-?\\d+(?:\.\\d{0,' + (fixed || +2) + '})?');
 	return num.toString().match(re)[0];
 }
 
-function setBestOf(n) {
-	//Turn above into a switch case
-	setTimeout(function () {
-		switch (n) {
-			case "1":
-				console.log("Best of 1");
-				pointAmountL = 1;
-				pointAmountU = 0;
-				for (i = 1; i <= pointAmountL; i++) {
-					document.getElementById("ll" + i).style.opacity = "1";
-					document.getElementById("rl" + i).style.opacity = "1";
-				}
-				for (i = 1; i <= pointAmountU; i++) {
-					document.getElementById("lu" + i).style.opacity = "1";
-					document.getElementById("ru" + i).style.opacity = "1";
-				}
-				break;
-			case "3":
-				console.log("Best of 3");
-				pointAmountL = 2;
-				pointAmountU = 1;
-				for (i = 1; i <= pointAmountL; i++) {
-					document.getElementById("ll" + i).style.opacity = "1";
-					document.getElementById("rl" + i).style.opacity = "1";
-				}
-				for (i = 1; i <= pointAmountU; i++) {
-					document.getElementById("lu" + i).style.opacity = "1";
-					document.getElementById("ru" + i).style.opacity = "1";
-				}
-				break;
-			case "5":
-				console.log("Best of 5");
-				pointAmountL = 3;
-				pointAmountU = 2;
-				for (i = 1; i <= pointAmountL; i++) {
-					document.getElementById("ll" + i).style.opacity = "1";
-					document.getElementById("rl" + i).style.opacity = "1";
-				}
-				for (i = 1; i <= pointAmountU; i++) {
-					document.getElementById("lu" + i).style.opacity = "1";
-					document.getElementById("ru" + i).style.opacity = "1";
-				}
-				break;
-			case "7":
-				console.log("Best of 7");
-				pointAmountL = 4;
-				pointAmountU = 3;
-				for (i = 1; i <= pointAmountL; i++) {
-					document.getElementById("ll" + i).style.opacity = "1";
-					document.getElementById("rl" + i).style.opacity = "1";
-				}
-				for (i = 1; i <= pointAmountU; i++) {
-					document.getElementById("lu" + i).style.opacity = "1";
-					document.getElementById("ru" + i).style.opacity = "1";
-				}
-				break;
-			case "9":
-				console.log("Best of 9");
-				pointAmountL = 5;
-				pointAmountU = 4;
-				for (i = 1; i <= pointAmountL; i++) {
-					document.getElementById("ll" + i).style.opacity = "1";
-					document.getElementById("rl" + i).style.opacity = "1";
-				}
-				for (i = 1; i <= pointAmountU; i++) {
-					document.getElementById("lu" + i).style.opacity = "1";
-					document.getElementById("ru" + i).style.opacity = "1";
-				}
-				break;
-			default:
-				break;
-		}
-	}, 1000);
-
-}
-
 const ws = new WebSocket(relayIp);
-ws.onopen = function () {
+ws.onopen = function() {
 	console.log("Msg sent, connected");
 };
-ws.onmessage = async function (event) {
+ws.onmessage = async function(event) {
 	jsonObj = JSON.parse(event.data);
-
-	if (jsonObj.Type == 5) { // Match Deleted
+	if (jsonObj.Type == 2) {
+		document.getElementById("SongBox").style.opacity = "0";
+		currentDiff = "";
+		currentSong = "";
+	}
+	if (jsonObj.Type == 3) // LevelChanged
+	{
+		var LevelId = jsonObj.LevelId;
+		var Diff = jsonObj.Diff;
+		getMap(LevelId, Diff);
+		scoreUpdate(P1, 0, 0, 0, 0, 1);
+		scoreUpdate(P2, 0, 0, 0, 0, 1);
+	}
+	if (jsonObj.Type == 4) // Score Update
+	{
+		scoreUpdate(jsonObj.playerId, jsonObj.score, jsonObj.combo, jsonObj.acc * 100, jsonObj.miss);
+	}
+	if (jsonObj.Type == 5) { //Match Created
+		if (jsonObj.command == "createUsers") {
+			P1 = jsonObj.PlayerIds[0];
+			P2 = jsonObj.PlayerIds[1];
+			setOverlay(jsonObj.PlayerIds[0], jsonObj.PlayerNames[0], jsonObj.PlayerIds[1], jsonObj.PlayerNames[1], jsonObj.Round);
+		}
+		if (jsonObj.command == "updateScore") {
+			//Look in ScoreLogic.js for this behemoth... :fearful:
+			changeScoreline(jsonObj.PlayerIds, jsonObj.Score);
+		}
 		if (jsonObj.command == "resetOverlay") {
 
 			document.getElementById("SongBox").style.opacity = "0";
@@ -293,7 +246,7 @@ ws.onmessage = async function (event) {
 			document.getElementById("leftPoints").style.opacity = '0';
 			document.getElementById("rightPoints").style.opacity = '0';
 
-			setTimeout(function () {
+			setTimeout(function() {
 				scoreUpdate(P1, 0, 0, 0, 0, 1);
 				scoreUpdate(P2, 0, 0, 0, 0, 1);
 				P1Score = 0;
@@ -304,40 +257,11 @@ ws.onmessage = async function (event) {
 				document.getElementById("Player2Name").innerText = "";
 				document.getElementById("Player2Rank").innerText = '#0 Global | #0 NaN';
 				document.getElementById("roundTextP").innerText = 'No round set';
-				for (i = 1; i < pointAmountL + 1; i++) {
-					document.getElementById("ll" + i).src = "./images/LeftNoPoint.png";
-					document.getElementById("rl" + i).src = "./images/RightNoPoint.png";
-				}
-				for (i = 1; i < pointAmountU + 1; i++) {
-					document.getElementById("lu" + i).src = "./images/LeftTopNoPoint.png";
-					document.getElementById("ru" + i).src = "./images/RightTopNoPoint.png";
+				for (i = 1; i < 8; i++) {
+					document.getElementById("l" + i).style.opacity = "0";
+					document.getElementById("r" + i).style.opacity = "0";
 				}
 			}, 1000);
-		}
-	}
-	if (jsonObj.Type == 3) // LevelChanged
-	{
-		var LevelId = jsonObj.LevelId;
-		var Diff = jsonObj.Diff;
-		getMap(LevelId, Diff);
-		scoreUpdate(P1, 0, 0, 0, 0, 1);
-		scoreUpdate(P2, 0, 0, 0, 0, 1);
-	}
-	if (jsonObj.Type == 4) // Score Update
-	{
-		scoreUpdate(jsonObj.playerId, jsonObj.score, jsonObj.combo, jsonObj.acc * 100,jsonObj.miss);
-	}
-
-	if (jsonObj.Type == 5) { //Match Created
-		if (jsonObj.command == "createUsers") {
-			P1 = jsonObj.PlayerIds[0];
-			P2 = jsonObj.PlayerIds[1];
-			setBestOf(jsonObj.BestOf);
-			setOverlay(jsonObj.PlayerIds[0], jsonObj.PlayerNames[0], jsonObj.PlayerIds[1], jsonObj.PlayerNames[1], jsonObj.Round);
-		}
-		if (jsonObj.command == "updateScore") {
-			//Look in ScoreLogic.js for this behemoth... :fearful:
-			changeScoreline(jsonObj.PlayerIds, jsonObj.Score);
 		}
 	}
 };
