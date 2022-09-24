@@ -5,6 +5,7 @@ let InMatch = false;
 let matchData = [];
 let songData = ["",0];
 let score = [0,0];
+let coordinator;
 // This is your relay-server port
 var port = 2223;
 const wss = new WebSocketServer({ "port": port });
@@ -41,7 +42,6 @@ sockets.onopen = function (event) {
 taWebsocket.taClient.on('matchCreated', async (e) => {
 	let self = taWebsocket.taClient;
 	let taPackets = Packets;
-	let coordinator;
 	if (!InMatch) {
 
 		e.data.associated_users.push(self.Self);
@@ -50,9 +50,9 @@ taWebsocket.taClient.on('matchCreated', async (e) => {
 			match_updated_event: new taPackets.Event.MatchUpdatedEvent({ match: e.data })
 		}));
 
+		coordinator = e.data.leader.name;
 		for (var i = 0; i < e.data.associated_users.length; i++) {
-			coordinator = e.data.leader.name;
-			if (e.data.associated_users[i].user_id != 0 && e.data.associated_users[i].user_id != "DaneSaberOverlay") {
+			if (e.data.associated_users[i].user_id != 0 && e.data.associated_users[i].user_id != "TAOverlay") {
 				matchData.push(e.data.associated_users[i].user_id);
 				console.log("Player " + [i + 1] + ": " + matchData[i] + " | " + e.data.associated_users[i].name);
 			}
@@ -62,17 +62,18 @@ taWebsocket.taClient.on('matchCreated', async (e) => {
 		console.log("Match created, backend locked by coordinator " + coordinator);
 	}
 });
+
 taWebsocket.taClient.on('matchDeleted', async (e) => {
-	if (matchData[0] == e.data.associated_users[0].user_id) {
+	if (coordinator == e.data.leader.name) {
 		sockets.send(JSON.stringify({ 'Type': '2' }));
 		matchData.length = 0;
 		InMatch = false;
-		console.log("Match deleted, backend unlocked.");
+		console.log("Match deleted, backend unlocked by "+e.data.leader.name);
 	}
 });
 
 taWebsocket.taClient.on('matchUpdated', (e) => {
-	if (matchData[0] == e.data.associated_users[0].user_id) {
+	if (coordinator == e.data.leader.name) {
 		if (typeof e.data.selected_level != "undefined") {
 			if (songData[0] != e.data.selected_level.level_id || songData[1] != e.data.selected_difficulty) {
 				sockets.send(JSON.stringify({ 'Type': '3', 'LevelId': e.data.selected_level.level_id, 'Diff': e.data.selected_difficulty }));
@@ -85,7 +86,7 @@ taWebsocket.taClient.on('matchUpdated', (e) => {
 taWebsocket.taClient.on('userUpdated', async (e) => {
 	if (matchData.includes(e.data.user_id)) {
 		setTimeout(function () {
-			sockets.send(JSON.stringify({ 'Type': '4', 'playerId': e.data.user_id, 'score': e.data.score, 'combo': e.data.combo, 'acc': e.data.accuracy }));
+			sockets.send(JSON.stringify({ 'Type': '4', 'playerId': e.data.user_id, 'score': e.data.score, 'combo': e.data.combo, 'acc': e.data.accuracy, 'miss': e.data.misses}));
 		}, e.data.stream_delay_ms);
 	}
 });
