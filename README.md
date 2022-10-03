@@ -35,9 +35,11 @@ The Battle Royale Tools:
 
 # How to use:
 ### 1V1 Tools:
+- Keep `scoreUpdateFrequency` to 30 in the `serverConfig.json` for your TA Server. (Else the server will eventually just stop updating scores on overlay)
 - [How to Use](https://www.youtube.com/watch?v=_UYZaVLu1h0) - YouTube link.
 
 ### Battle Royale-tools:
+- Set `scoreUpdateFrequency` to between 175-200 in the `serverConfig.json` for your TA Server. (Else the server will eventually just stop updating scores on overlay)
 - [How to Use](https://www.youtube.com/watch?v=FxN-R_RkI7s) - YouTube link.
 
 
