@@ -54,7 +54,7 @@ function updateUsers(name, scoresaberid) {
     if (jsonObj.alive == "true") {
         document.getElementsByClassName("playerScore" + jsonObj.PlayerId)[0].style.opacity = "0";
 
-        setTimeout(function() {
+        setTimeout(function () {
             document.getElementsByClassName("playerScore" + jsonObj.PlayerId)[0].innerHTML = jsonObj.score;
             document.getElementsByClassName("playerScore" + jsonObj.PlayerId)[0].style.opacity = "1";
         }, 1000);
@@ -64,11 +64,11 @@ function updateUsers(name, scoresaberid) {
 }
 
 const ws = new WebSocket(relayIp);
-ws.onopen = function() {
+ws.onopen = function () {
     console.log("Connected to Relay-server: " + relayIp);
 };
 
-ws.onmessage = async function(event) {
+ws.onmessage = async function (event) {
     jsonObj = JSON.parse(event.data);
 
     if (jsonObj.Type == 6) {
@@ -79,7 +79,7 @@ ws.onmessage = async function(event) {
         } else if (jsonObj.command == "resetUsers") {
             document.getElementById("Players").style.opacity = "0";
 
-            setTimeout(function() {
+            setTimeout(function () {
                 $('#Players').empty();
             }, 1000);
         }

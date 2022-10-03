@@ -1,7 +1,3 @@
-//You can use ws:// instead, if you don't have a secured websocket
-//though I recommend using wss:// to be able to use the twitch-function.
-const relayIp = "wss://domain:port";
-
 //Anything Player1
 let P1;
 let P1Name;
@@ -37,13 +33,13 @@ function fancyTimeFormat(duration) {
 }
 
 //Set the user profile pictures
-async function setOverlay(P1, P1Name, P2, P2Name, Round) {
+function setOverlay(P1, P1Name, P2, P2Name, Round) {
 	document.getElementById("roundTextP").innerText = Round;
 	fetch('https://new.scoresaber.com/api/player/' + P1 + '/basic', {
-			headers: {
-				'Access-Control-Request-Headers': 'x-requested-with'
-			}
-		})
+		headers: {
+			'Access-Control-Request-Headers': 'x-requested-with'
+		}
+	})
 		.then(response => response.json())
 		.then(data => {
 			let playerCountry = data.playerInfo.country;
@@ -59,10 +55,10 @@ async function setOverlay(P1, P1Name, P2, P2Name, Round) {
 			document.getElementById("Player1Rank").style.opacity = '0.6';
 		});
 	fetch('https://new.scoresaber.com/api/player/' + P2 + '/basic', {
-			headers: {
-				'Access-Control-Request-Headers': 'x-requested-with'
-			}
-		})
+		headers: {
+			'Access-Control-Request-Headers': 'x-requested-with'
+		}
+	})
 		.then(response => response.json())
 		.then(data => {
 			let playerCountry = data.playerInfo.country;
@@ -78,7 +74,7 @@ async function setOverlay(P1, P1Name, P2, P2Name, Round) {
 			document.getElementById("Player2Rank").style.opacity = '0.6';
 		});
 
-	setTimeout(function() {
+	setTimeout(function () {
 		document.getElementById("PlayerBounds").style.opacity = '1';
 		document.getElementById("PlayerContainers").style.opacity = '1';
 		document.getElementById("leftPoints").style.opacity = '1';
@@ -87,7 +83,7 @@ async function setOverlay(P1, P1Name, P2, P2Name, Round) {
 	}, 1000);
 }
 
-async function getMap(LevelId, LevelDiff) {
+function getMap(LevelId, LevelDiff) {
 	let songHash = LevelId.replace("custom_level_", "");
 	let songDiff = LevelDiff;
 
@@ -122,7 +118,7 @@ async function getMap(LevelId, LevelDiff) {
 			.then(response => response.json())
 			.then(data => {
 				document.getElementById("SongBox").style.opacity = "0";
-				setTimeout(function() {
+				setTimeout(function () {
 					document.getElementById("SongCover").style.background = 'url(https://eu.cdn.beatsaver.com/' + songHash.toLowerCase() + '.jpg)';
 					document.getElementById("SongCover").style.backgroundSize = 'cover';
 					document.getElementById("SongCover").style.borderColor = diffColor;
@@ -145,7 +141,7 @@ async function getMap(LevelId, LevelDiff) {
 	} else if (currentSong == songHash && currentDiff != songDiff) {
 		currentDiff = songDiff;
 		document.getElementById("DiffText").style.opacity = "0";
-		setTimeout(function() {
+		setTimeout(function () {
 
 			document.getElementById("DiffText").innerHTML = diffText;
 			document.getElementById("DiffText").style.opacity = "1";
@@ -201,28 +197,11 @@ function toFixed(num, fixed) {
 }
 
 const ws = new WebSocket(relayIp);
-ws.onopen = function() {
+ws.onopen = function () {
 	console.log("Msg sent, connected");
 };
-ws.onmessage = async function(event) {
+ws.onmessage = async function (event) {
 	jsonObj = JSON.parse(event.data);
-	if (jsonObj.Type == 2) {
-		document.getElementById("SongBox").style.opacity = "0";
-		currentDiff = "";
-		currentSong = "";
-	}
-	if (jsonObj.Type == 3) // LevelChanged
-	{
-		var LevelId = jsonObj.LevelId;
-		var Diff = jsonObj.Diff;
-		getMap(LevelId, Diff);
-		scoreUpdate(P1, 0, 0, 0, 0, 1);
-		scoreUpdate(P2, 0, 0, 0, 0, 1);
-	}
-	if (jsonObj.Type == 4) // Score Update
-	{
-		scoreUpdate(jsonObj.playerId, jsonObj.score, jsonObj.combo, jsonObj.acc * 100, jsonObj.miss);
-	}
 	if (jsonObj.Type == 5) { //Match Created
 		if (jsonObj.command == "createUsers") {
 			P1 = jsonObj.PlayerIds[0];
@@ -246,7 +225,7 @@ ws.onmessage = async function(event) {
 			document.getElementById("leftPoints").style.opacity = '0';
 			document.getElementById("rightPoints").style.opacity = '0';
 
-			setTimeout(function() {
+			setTimeout(function () {
 				scoreUpdate(P1, 0, 0, 0, 0, 1);
 				scoreUpdate(P2, 0, 0, 0, 0, 1);
 				P1Score = 0;

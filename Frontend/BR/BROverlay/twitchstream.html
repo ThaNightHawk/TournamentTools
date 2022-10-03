@@ -39,7 +39,7 @@
 		const parent = "domain.com";
         let playerTwitch = ""
 
-        TAsock.onmessage = async function(event) {
+        ws.onmessage = async function(event) {
 				jsonObj = JSON.parse(event.data);
             if (jsonObj.Type == 6) { //Changed Twitch-stream
                 if (jsonObj.command == "updateSpectator") {

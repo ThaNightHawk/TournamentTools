@@ -33,19 +33,11 @@ async function setOverlay(P1, P1Name, P2, P2Name) {
         .then(data => {
             if (data.playerInfo.playerId == P1) {
                 P1Id = P1;
-			if (data.playerInfo.avatar == "/images/oculus.png") {
-				P1Image = "https://new.scoresaber.com/api/static/avatars/oculus.png";
-            } else {
-				P1Image = "https://new.scoresaber.com/api/static/avatars/"+P1+".jpg";
-			}
-                /*
-                To be used on international tournaments.
-            	
-                document.getElementById("Player1Image").src = "https://new.scoresaber.com" + data.playerInfo.avatar;
-                document.getElementById("Player1Name").innerText = P1Name;
-                document.getElementById("Player1Rank").innerText = '#'+data.playerInfo.rank+' Global | #'+data.playerInfo.countryRank+' '+data.playerInfo.country;
-                document.getElementById("Player1Container").style.opacity = 1
-                */
+                if (data.playerInfo.avatar == "/images/oculus.png") {
+                    P1Image = "https://new.scoresaber.com/api/static/avatars/oculus.png";
+                } else {
+                    P1Image = "https://new.scoresaber.com/api/static/avatars/" + P1 + ".jpg";
+                }
             }
         });
     fetch('https://new.scoresaber.com/api/player/' + P2 + '/basic')
@@ -53,19 +45,11 @@ async function setOverlay(P1, P1Name, P2, P2Name) {
         .then(data => {
             if (data.playerInfo.playerId == P2) {
                 P2Id = P2;
-			if (data.playerInfo.avatar == "/images/oculus.png") {
-				P2Image = "https://new.scoresaber.com/api/static/avatars/oculus.png";
-            } else {
-				P2Image = "https://new.scoresaber.com/api/static/avatars/"+P2+".jpg";
-			}
-                /*
-                To be used on international tournaments.
-            	
-                document.getElementById("Player2Image").src = "https://new.scoresaber.com" + data.playerInfo.avatar;
-                document.getElementById("Player2Name").innerText = P2Name;
-                document.getElementById("Player2Rank").innerText = '#'+data.playerInfo.rank+' Global | #'+data.playerInfo.countryRank+' '+data.playerInfo.country;
-                document.getElementById("Player2Container").style.opacity = 1;
-                */
+                if (data.playerInfo.avatar == "/images/oculus.png") {
+                    P2Image = "https://new.scoresaber.com/api/static/avatars/oculus.png";
+                } else {
+                    P2Image = "https://new.scoresaber.com/api/static/avatars/" + P2 + ".jpg";
+                }
             }
         });
 }

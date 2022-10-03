@@ -1,4 +1,4 @@
-function changeScoreline(player,score) {
+function changeScoreline(player, score) {
     if (P1 == jsonObj.PlayerIds[0]) {
         switch (jsonObj.Score[0]) {
             case "0":
