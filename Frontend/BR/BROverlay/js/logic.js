@@ -41,7 +41,7 @@ async function getMap(LevelId, LevelDiff) {
             .then(data => {
                 document.getElementById("SongBox").style.opacity = "0";
                 document.getElementById("SongCover").style.opacity = "0";
-                setTimeout(function () {
+                setTimeout(function() {
                     document.getElementById("SongCover").style.background = 'url(https://eu.cdn.beatsaver.com/' + songHash.toLowerCase() + '.jpg)';
                     document.getElementById("SongCover").style.backgroundSize = 'cover';
                     document.getElementById("DiffLabel").style.background = diffColor;
@@ -62,7 +62,7 @@ async function getMap(LevelId, LevelDiff) {
     } else if (currentSong == songHash && currentDiff != songDiff) {
         currentDiff = songDiff;
         document.getElementById("DiffText").style.opacity = "0";
-        setTimeout(function () {
+        setTimeout(function() {
 
             document.getElementById("DiffText").innerHTML = diffText;
             document.getElementById("DiffText").style.opacity = "1";
@@ -73,10 +73,10 @@ async function getMap(LevelId, LevelDiff) {
 }
 
 const ws = new WebSocket(relayIp);
-ws.onopen = function () {
+ws.onopen = function() {
     console.log("Connected to Relay-server: " + relayIp);
 };
-ws.onmessage = async function (event) {
+ws.onmessage = async function(event) {
     jsonObj = JSON.parse(event.data);
 
     if (jsonObj.Type == 1) { //Match Created
@@ -86,7 +86,7 @@ ws.onmessage = async function (event) {
         }
         console.log("User count: " + jsonObj.userid.length);
         document.getElementById("PlayersRemCountText").style.opacity = "0";
-        setTimeout(function () {
+        setTimeout(function() {
             document.getElementById("PlayersRemCountText").innerHTML = jsonObj.userid.length;
             document.getElementById("PlayersRemCountText").style.opacity = "1";
         }, 500);
@@ -97,7 +97,7 @@ ws.onmessage = async function (event) {
         document.getElementById("SongCover").style.opacity = "0";
         if (document.getElementById("PlayersRemCountText").innerHTML != "0") {
             document.getElementById("PlayersRemCountText").style.opacity = "0";
-            setTimeout(function () {
+            setTimeout(function() {
                 document.getElementById("PlayersRemCountText").innerHTML = "0";
                 document.getElementById("PlayersRemCountText").style.opacity = "1";
             }, 500);
@@ -114,13 +114,13 @@ ws.onmessage = async function (event) {
     if (jsonObj.Type == 6) {
         if (jsonObj.command == "updateSpectator") {
             document.getElementById("CurrentPlayer").style.opacity = "0";
-            setTimeout(function () {
+            setTimeout(function() {
                 document.getElementById("CurrentPlayer").innerHTML = jsonObj.Player;
                 document.getElementById("CurrentPlayer").style.opacity = "1";
             }, 1000);
         } else if (jsonObj.command == "resetSpectator") {
             document.getElementById("CurrentPlayer").style.opacity = "0";
-            setTimeout(function () {
+            setTimeout(function() {
                 document.getElementById("CurrentPlayer").innerHTML = "None";
             }, 1000);
         }
