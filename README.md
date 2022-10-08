@@ -35,28 +35,24 @@ The Battle Royale Tools:
 
 # How to use:
 ### 1V1 Tools:
-- Keep `scoreUpdateFrequency` to 30 in the `serverConfig.json` for your TA Server. (Else the server will eventually just stop updating scores on overlay)
+- Keep `scoreUpdateFrequency` to 30 in the `serverConfig.json` for your TA Server.
 - [How to Use](https://www.youtube.com/watch?v=_UYZaVLu1h0) - YouTube link.
 
 ### Battle Royale-tools:
-- Set `scoreUpdateFrequency` to between 175-200 in the `serverConfig.json` for your TA Server. (Else the server will eventually just stop updating scores on overlay)
 - [How to Use](https://www.youtube.com/watch?v=FxN-R_RkI7s) - YouTube link.
 
 
 # Want to rehost for yourself? 
-- [README for Twitch functionality](SELFHOSTWT.md)
-- [README without Twitch functionality](SELFHOST.md)
+- [README for hosting on domain](SELFHOSTDOMAIN.md)
+- [README for local hosting](SELFHOSTLOCAL.md)
 
 # For Developers
 ## Message Types
-Those are used to communicate the data between the different components.  
-- Type 0 is solely used for first connection-message and heartbeats on the  relay-server: 
+**OUTDATED | Will get updated with Wiki** ~~Those are used to communicate the data between the different components.~~
+- Type 0 is solely used for first connection-message on the relay-server: 
 ```json
 {"Type":"0","message":"You've connected to the Tournament relay server."}
 - Confirms that you've connected to the tournament relay server.
-
-{"Type":"0","message":"heartbeat"}
-- Ensures connection is kept alive.
 ```
 - Type 1 is solely used for the BR overlay to know the users+order of the users + remaining users.
 ```json
