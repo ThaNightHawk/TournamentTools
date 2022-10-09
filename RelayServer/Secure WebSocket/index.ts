@@ -45,7 +45,7 @@ const taWS = new taWSS.Client("TAOverlay", {
     url: "ws://taserver:2053"
 });
 
-const debug:boolean = true;
+const debug:boolean = false;
 let usersArray: any = [];
 let users: any = [];
 let matchArray: any = [];
@@ -78,7 +78,7 @@ taWS.on("matchCreated", m => {
         }
     }
 
-    if (users.length > 3 && !debug || debug) {
+    if (users.length > 3 || debug) {
         try {
             for (let i = 0; i < users.length; i++) {
                 let index = usersArray.findIndex((x: any) => x.guid == users[i]);
@@ -91,7 +91,7 @@ taWS.on("matchCreated", m => {
             console.log("Error: No user found in UsersArray");
         }
     }
-    if (users.length < 3 && !debug || debug) {
+    if (users.length < 3 || debug) {
         try {
             coordinatorName = usersArray.find((u: { guid: string; }) => u.guid === coordinatorID).name || "Unknown";
         } catch (error) {
