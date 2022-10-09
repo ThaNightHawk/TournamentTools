@@ -43,6 +43,7 @@ If errors still keeps happening, contact [Hawk](https://discordapp.com/users/592
 
 | URL | Scene  | Order | Resolution |
 | :--- | :---: | :---: | :---: |
+| `http://localhost/Tournament/CD/CD.html` | `CD` | - | `1920x1080`|
 | `http://localhost/Tournament/1V1/` | `1V1` | `Top` | `1920x1080`|
 | `http://localhost/Tournament/1V1/twitchstream.html?v=0` | `1V1` | `Bottom` | `1920x1080` |
 | `http://localhost/Tournament/1V1/twitchstream.html?v=1` | `1V1` | `Bottom` | `1920x1080` |
