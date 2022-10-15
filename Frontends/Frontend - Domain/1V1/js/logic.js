@@ -160,11 +160,13 @@ async function getMap(LevelId, LevelDiff, Player) {
 
 //Update the combo-counter, unless combo is 0
 function scoreUpdate(player, score, combo, acc, misses, combined, badCuts, bombHits, wallHits, reset) {
+
 	if (P1 == player) {
 		P1Acc = acc.toFixed(2);
 		document.getElementById("Player1Combo").innerHTML = combo + "x";
 		document.getElementById("Player1ACC").innerHTML = P1Acc + "%";
 		if (misses >= 1) {
+
 			document.getElementById("Player1FC").style.color = "#d15252";
 			document.getElementById("Player1FC").innerHTML = misses + "x";
 			if (P1Fc) {
@@ -172,6 +174,7 @@ function scoreUpdate(player, score, combo, acc, misses, combined, badCuts, bombH
 			}
 		}
 		if (misses == 0) {
+			P1Fc = true;
 			document.getElementById("Player1FC").style.color = "#ffffff";
 			document.getElementById("Player1FC").innerHTML = "FC";
 		}
@@ -193,6 +196,7 @@ function scoreUpdate(player, score, combo, acc, misses, combined, badCuts, bombH
 			}
 		}
 		if (misses == 0) {
+			P2Fc = true;
 			document.getElementById("Player2FC").style.color = "#ffffff";
 			document.getElementById("Player2FC").innerHTML = "FC";
 		}
@@ -227,7 +231,7 @@ ws.onmessage = async function (event) {
 	}
 	if (jsonObj.Type == 4) // Score Update
 	{
-		scoreUpdate(jsonObj.message.id, jsonObj.message.score, jsonObj.message.combo, jsonObj.message.acc * 100, jsonObj.message.Misses, jsonObj.message.notesMissed, jsonObj.message.badCuts, jsonObj.message.bombHits, jsonObj.message.wallHits);
+		scoreUpdate(jsonObj.message.user_id, jsonObj.message.score, jsonObj.message.combo, jsonObj.message.accuracy * 100, jsonObj.message.totalMisses, jsonObj.message.notesMissed, jsonObj.message.badCuts, jsonObj.message.bombHits, jsonObj.message.wallHits);
 	}
 	if (jsonObj.Type == 5) { //Match Created
 		if (jsonObj.command == "createUsers") {

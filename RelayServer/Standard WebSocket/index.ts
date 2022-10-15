@@ -34,16 +34,20 @@ wss.on('connection', function connection(ws) {
 });
 let ws = new WebSocket("ws://localhost:2223");
 
+setInterval(function () {
+    ws.send(JSON.stringify({ 'Type': '1', 'message': 'heartbeat'}));
+}, 29000);
+
 const taWS = new taWSS.Client("TAOverlay", {
     url: "ws://taserver:2053"
 });
 
-const debug:boolean = false;
-let usersArray: any = [];
-let users: any = [];
-let matchArray: any = [];
-let matchusers: any = [];
-let userIds: any = [];
+const debug: boolean = false;
+let usersArray: Array<any>;
+let users: Array<any>;
+let matchArray: Array<any>;
+let matchusers: Array<any>;
+let userIds: Array<string>;
 let songData: [string, number] = ["", 0];
 
 taWS.on("packet", p => {
@@ -59,8 +63,8 @@ taWS.on("packet", p => {
 taWS.on("matchCreated", m => {
     m.data.associated_users.push(taWS.Self.guid);
     taWS.updateMatch(m.data);
-    let coordinatorID:string = m.data.leader;
-    let coordinatorName:string = "";
+    let coordinatorID: string = m.data.leader;
+    let coordinatorName: string = "";
 
     for (let i = 0; i < m.data.associated_users.length; i++) {
         if (m.data.associated_users[i] != taWS.Self.guid) {
@@ -77,9 +81,10 @@ taWS.on("matchCreated", m => {
                 let index = usersArray.findIndex((x: any) => x.guid == users[i]);
                 console.log("Found user " + usersArray[index].name + " | User Id " + usersArray[index].user_id + " in usersArray");
                 userIds.push(usersArray[index].user_id);
-                ws.send(JSON.stringify({ 'Type': '1', 'overlay': 'BattleRoyale' ,'userid': userIds, 'order': 1 }));
-                userIds = [];
             }
+            ws.send(JSON.stringify({ 'Type': '1', 'overlay': 'BattleRoyale', 'userid': userIds, 'order': 1 }));
+            taWS.ServerSettings.score_update_frequency = 175;
+            userIds = [];
         } catch (error) {
             console.log("Error: No user found in UsersArray");
         }
@@ -92,69 +97,125 @@ taWS.on("matchCreated", m => {
             coordinatorID = "00000000-0000-0000-0000-000000000000";
         }
         try {
-        for (let i = 0; i < users.length; i++) {
-            for (let j = 0; j < usersArray.length; j++) {
-                if (users[i] == usersArray[j].guid) {
-                    matchusers.push({ name: usersArray[j].name, user_id: usersArray[j].user_id, guid: usersArray[j].guid });
+            for (let i = 0; i < users.length; i++) {
+                for (let j = 0; j < usersArray.length; j++) {
+                    if (users[i] == usersArray[j].guid) {
+                        matchusers.push({ name: usersArray[j].name, user_id: usersArray[j].user_id, guid: usersArray[j].guid });
+                    }
                 }
             }
-        } } catch (error) {
+        } catch (error) {
             console.log("Error: No user found in UsersArray");
         }
-    
+
         //Push to matchArray
-        matchArray.push({matchData: { matchId: m.data.guid, coordinator: { name: coordinatorName, id: coordinatorID }, players: matchusers}});
+        matchArray.push({ matchData: { matchId: m.data.guid, coordinator: { name: coordinatorName, id: coordinatorID }, players: matchusers } });
         ws.send(JSON.stringify({ 'Type': '1', 'overlay': '1V1', 'message': { matchData: { matchId: m.data.guid, coordinator: { name: coordinatorName, id: coordinatorID }, players: matchusers } } }));
         users = [];
         matchusers = [];
     }
 });
 
+
+//New interface
+interface MatchArray {
+    matchData: Array<any>;
+    matchId: Array<any>;
+    coordinator: Coordinator[];
+}
+
+//Create typescript interface for coordinator
+interface Coordinator {
+    name: string;
+    id: string;
+}
+interface Player {
+    name: string;
+    user_id: string;
+    guid: string;
+    stream_delay_ms: number;
+    stream_sync_start_ms: number;
+}
+
 taWS.on("userAdded", u => {
     if (u.data.client_type == 0) {
-        usersArray.push({ "name": u.data.name, "type": u.data.client_type, "guid": u.data.guid, "user_id": u.data.user_id });
+        usersArray.push({ "name": u.data.name, "type": u.data.client_type, "guid": u.data.guid, "user_id": u.data.user_id, "stream_delay_ms": u.data.stream_delay_ms, "stream_sync_start_ms": u.data.stream_sync_start_ms });
+    }
+});
+
+taWS.on("userUpdated", u => {
+    if (u.data.client_type <= 1) {
+        try {
+            let index = usersArray.findIndex((x: any) => x.guid == u.data.guid);
+            usersArray[index].stream_delay_ms = u.data.stream_delay_ms;
+            usersArray[index].stream_sync_start_ms = u.data.stream_sync_start_ms;
+        } catch (error) {
+            console.log("Error: User doesn't exist in UsersArray");
+        }
     }
 });
 
 taWS.on("userLeft", u => {
-    if (u.data.client_type == 0) {
+    if (u.data.client_type <= 1) {
         let index = usersArray.findIndex((x: any) => x.guid == u.data.guid);
         usersArray.splice(index, 1);
     }
 });
 
-function Score(_id: any, _score: number, _acc: number, _combo: number, _notesMissed: number, _badCuts: number, _bombHits?: number, _wallHits?: number, _maxCombo?: number, _lhAvg?: any, _lhBad?: number, _lhHit?: number, _lhMiss?: number, _rhAvg?: any, _rhBad?: number, _rhHit?: number, _rhMiss?: number) {
-    this.id = _id;
-    this.score = _score;
-    this.acc = _acc;
-    this.combo = _combo;
-    this.notesMissed = _notesMissed;
-    this.badCuts = _badCuts;
-    this.bombHits = _bombHits;
-    this.wallHits = _wallHits;
-    this.maxCombo = _maxCombo;
-    this.lhAvg = _lhAvg;
-    this.lhBad = _lhBad;
-    this.lhHit = _lhHit;
-    this.lhMiss = _lhMiss;
-    this.rhAvg = _rhAvg;
-    this.rhBad = _rhBad;
-    this.rhHit = _rhHit;
-    this.rhMiss = _rhMiss;
-    this.Misses = _notesMissed + _badCuts;
-    //Misses is just the sum of missed and badcuts - Used on the 1V1 for the FC/Miss counter.
+interface Score {
+    user_id: string;
+    score: number;
+    accuracy: number;
+    combo: number;
+    notesMissed: number;
+    badCuts: number;
+    bombHits: number;
+    wallHits: number;
+    maxCombo: number;
+    lhAvg: number[];
+    lhBadCut: number;
+    lhHits: number;
+    lhMiss: number;
+    rhAvg: number[];
+    rhBadCut: number;
+    rhHits: number;
+    rhMiss: number;
+    totalMisses: number;
 }
 
 taWS.on("realtimeScore", s => {
     let index = usersArray.findIndex((x: any) => x.guid == s.data.user_guid);
     let user_id = usersArray[index].user_id;
-    let userScoring = new Score(user_id, s.data.score, s.data.accuracy, s.data.combo, s.data.scoreTracker.notesMissed, s.data.scoreTracker.badCuts, s.data.scoreTracker.bombHits, s.data.scoreTracker.wallHits, s.data.scoreTracker.maxCombo, s.data.scoreTracker.leftHand.avgCut, s.data.scoreTracker.leftHand.badCut, s.data.scoreTracker.leftHand.hit, s.data.scoreTracker.leftHand.miss, s.data.scoreTracker.rightHand.avgCut, s.data.scoreTracker.rightHand.badCut, s.data.scoreTracker.rightHand.hit, s.data.scoreTracker.rightHand.miss);
-    ws.send(JSON.stringify({ 'Type': '4', 'message': userScoring }));
+    let sync_delay = usersArray[index].stream_delay_ms;
+    const userScoring: Score = {
+        user_id: user_id,
+        score: s.data.score,
+        accuracy: s.data.accuracy,
+        combo: s.data.combo,
+        notesMissed: s.data.scoreTracker.notesMissed,
+        badCuts: s.data.scoreTracker.badCuts,
+        bombHits: s.data.scoreTracker.bombHits,
+        wallHits: s.data.scoreTracker.wallHits,
+        maxCombo: s.data.scoreTracker.maxCombo,
+        lhAvg: s.data.scoreTracker.leftHand.avgCut,
+        lhBadCut: s.data.scoreTracker.leftHand.badCut,
+        lhHits: s.data.scoreTracker.leftHand.hit,
+        lhMiss: s.data.scoreTracker.leftHand.miss,
+        rhAvg: s.data.scoreTracker.rightHand.avgCut,
+        rhBadCut: s.data.scoreTracker.rightHand.badCut,
+        rhHits: s.data.scoreTracker.rightHand.hit,
+        rhMiss: s.data.scoreTracker.rightHand.miss,
+        totalMisses: (s.data.scoreTracker.notesMissed + s.data.scoreTracker.badCuts)
+    };
+    setTimeout(() => {
+        ws.send(JSON.stringify({ 'Type': '4', 'message': userScoring }));
+    }, (sync_delay+1));
 });
+
 taWS.on("matchUpdated", m => {
     if (typeof m.data.selected_level != "undefined") {
         if (songData[0] != m.data.selected_level.level_id || songData[1] != m.data.selected_difficulty) {
-            ws.send(JSON.stringify({ 'Type': '3', 'LevelId': m.data.selected_level.level_id, 'Diff': m.data.selected_difficulty }));
+            ws.send(JSON.stringify({ 'Type': '3', 'overlay': 'BattleRoyale', 'LevelId': m.data.selected_level.level_id, 'Diff': m.data.selected_difficulty }));
             songData[0] = m.data.selected_level.level_id;
             songData[1] = m.data.selected_difficulty;
         }

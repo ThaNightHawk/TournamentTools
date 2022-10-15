@@ -303,7 +303,7 @@
                             var player = document.getElementById("Player"+playerId);
                             
                             if (player) {
-                                await setPlayerData(playerId,jsonObj.message.acc * 100,jsonObj.message.combo,true)
+                                await setPlayerData(playerId,jsonObj.message.accuracy * 100,jsonObj.message.combo,true)
                                 sortLeaderboard();
                             }else{
                                 makePlayer(playerId, 0);
