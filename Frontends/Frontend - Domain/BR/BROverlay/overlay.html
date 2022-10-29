@@ -272,9 +272,7 @@
             };
 
 			TAsock.onmessage = async function(event) {
-				//trimmed = event.data.substring(0, event.data.length - 7);
 				jsonObj = JSON.parse(event.data);
-				// console.log(jsonObj);
 				if (jsonObj.Type == 1) { //Match Created
                     if (jsonObj.overlay == "BattleRoyale") {
                         var players = [];
@@ -298,7 +296,7 @@
                     }
 				if (jsonObj.Type == 4) // ScoreUpdate
 					{
-                            var playerId = jsonObj.message.id;
+                            var playerId = jsonObj.message.user_id;
 
                             var player = document.getElementById("Player"+playerId);
                             
@@ -314,8 +312,6 @@
                                 playerLoser.style.right = "0px";
                             }
 				 }
-
-				//console.log(event.data);
 			};
 			} catch(err) {}
 

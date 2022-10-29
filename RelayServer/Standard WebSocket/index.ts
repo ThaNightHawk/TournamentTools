@@ -1,4 +1,4 @@
-import * as taWSS from "tournament-assistant-client";
+import { Client } from "tournament-assistant-client";
 import { WebSocket, WebSocketServer } from "ws";
 
 var port = 2223;
@@ -13,7 +13,7 @@ wss.on('connection', function connection(ws) {
     });
     ws.send(JSON.stringify({ 'Type': '0', 'message': 'You\'ve connected to the Tournament relay server.' }));
     ws.on('message', function message(data) {
-        if (data.toString().startsWith("{") || data.toString().endsWith("}")) {
+        if (data.toString().startsWith("{") && data.toString().endsWith("}")) {
             let jsonObj = JSON.parse(data.toString());
             if (jsonObj.Type == "69" && jsonObj.message == "Close") {
                 console.log("Closed connection to TA server");
@@ -27,6 +27,14 @@ wss.on('connection', function connection(ws) {
                     ws.send(JSON.stringify({ 'Type': '5', command: 'returnMatches', 'message': "No matches found" }));
                 }
             }
+            if (jsonObj.Type == "5" && jsonObj.command == "requestUsers") {
+                console.log("Users got requested");
+                if (usersArray != null) {
+                    ws.send(JSON.stringify({ 'Type': '5', command: 'returnUsers', 'message': { users: usersArray } }));
+                } else {
+                    ws.send(JSON.stringify({ 'Type': '5', command: 'returnUsers', 'message': "No users found" }));
+                }
+            }
         } else {
             console.log("Someone tried to pass a non-JSON message to the relay server");
         }
@@ -38,22 +46,82 @@ setInterval(function () {
     ws.send(JSON.stringify({ 'Type': '1', 'message': 'heartbeat'}));
 }, 29000);
 
-const taWS = new taWSS.Client("TAOverlay", {
-    url: "ws://taserver:2053"
+const taWS = new Client("TAOverlay", {
+    url: "ws://taserver:2053",
+    options: { autoReconnect: true, autoReconnectInterval: 1000 }
 });
 
 const debug: boolean = false;
-let usersArray: Array<any>;
-let users: Array<any>;
-let matchArray: Array<any>;
-let matchusers: Array<any>;
-let userIds: Array<string>;
+let usersArray: Array<any> = [];
+let users: Array<any> = [];
+let matchArray: Array<any> = [];
+let matchusers: Array<any> = [];
+let userIds: Array<string> = [""];
 let songData: [string, number] = ["", 0];
+
+
+//New interface
+interface MatchArray {
+    matchData: Array<any>;
+    matchId: Array<any>;
+    coordinator: Coordinator[];
+}
+
+//Create typescript interface for coordinator
+interface Coordinator {
+    name: string;
+    id: string;
+}
+
+interface Player {
+    name: string;
+    type: number;
+    user_id: string;
+    guid: string;
+    stream_delay_ms: number;
+    stream_sync_start_ms: number;
+}
+
+interface Score {
+    user_id: string;
+    score: number;
+    accuracy: number;
+    combo: number;
+    notesMissed: number;
+    badCuts: number;
+    bombHits: number;
+    wallHits: number;
+    maxCombo: number;
+    lhAvg: number[];
+    lhBadCut: number;
+    lhHits: number;
+    lhMiss: number;
+    rhAvg: number[];
+    rhBadCut: number;
+    rhHits: number;
+    rhMiss: number;
+    totalMisses: number;
+}
 
 taWS.on("packet", p => {
     if (p.has_response && p.response.has_connect) {
         if (p.response.type === 1) {
             console.log(p.response.connect.message);
+
+            //For every user found with taWS.Players map them and push them to the users array
+            for (let i = 0; i < taWS.Players.length; i++) {
+                const Player = taWS.Players.map((p: any) => {
+                    return {
+                        name: p.name,
+                        type: p.client_type,
+                        user_id: p.user_id,
+                        guid: p.guid,
+                        stream_delay_ms: p.stream_delay_ms,
+                        stream_sync_start_ms: p.stream_sync_start_ms
+                    }
+                });
+                usersArray.push(Player[i]);
+            }
         } else {
             throw new Error("Connection was not successful");
         }
@@ -86,7 +154,7 @@ taWS.on("matchCreated", m => {
             taWS.ServerSettings.score_update_frequency = 175;
             userIds = [];
         } catch (error) {
-            console.log("Error: No user found in UsersArray");
+            console.error("Error: No user found in UsersArray | Error: " + error);
         }
     }
     if (users.length < 3 || debug) {
@@ -105,7 +173,7 @@ taWS.on("matchCreated", m => {
                 }
             }
         } catch (error) {
-            console.log("Error: No user found in UsersArray");
+            console.error("Error: No user found in UsersArray | Error: " + error);
         }
 
         //Push to matchArray
@@ -116,30 +184,10 @@ taWS.on("matchCreated", m => {
     }
 });
 
-
-//New interface
-interface MatchArray {
-    matchData: Array<any>;
-    matchId: Array<any>;
-    coordinator: Coordinator[];
-}
-
-//Create typescript interface for coordinator
-interface Coordinator {
-    name: string;
-    id: string;
-}
-interface Player {
-    name: string;
-    user_id: string;
-    guid: string;
-    stream_delay_ms: number;
-    stream_sync_start_ms: number;
-}
-
 taWS.on("userAdded", u => {
     if (u.data.client_type == 0) {
-        usersArray.push({ "name": u.data.name, "type": u.data.client_type, "guid": u.data.guid, "user_id": u.data.user_id, "stream_delay_ms": u.data.stream_delay_ms, "stream_sync_start_ms": u.data.stream_sync_start_ms });
+        const user: Player = {name:u.data.name, type:u.data.client_type,user_id:u.data.user_id, guid:u.data.guid, stream_delay_ms:u.data.stream_delay_ms, stream_sync_start_ms:u.data.stream_sync_start_ms}
+        usersArray.push(user);
     }
 });
 
@@ -161,27 +209,6 @@ taWS.on("userLeft", u => {
         usersArray.splice(index, 1);
     }
 });
-
-interface Score {
-    user_id: string;
-    score: number;
-    accuracy: number;
-    combo: number;
-    notesMissed: number;
-    badCuts: number;
-    bombHits: number;
-    wallHits: number;
-    maxCombo: number;
-    lhAvg: number[];
-    lhBadCut: number;
-    lhHits: number;
-    lhMiss: number;
-    rhAvg: number[];
-    rhBadCut: number;
-    rhHits: number;
-    rhMiss: number;
-    totalMisses: number;
-}
 
 taWS.on("realtimeScore", s => {
     let index = usersArray.findIndex((x: any) => x.guid == s.data.user_guid);
