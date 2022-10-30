@@ -53,8 +53,8 @@ setInterval(function () {
     ws.send(JSON.stringify({ 'Type': '1', 'message': 'heartbeat'}));
 }, 20000);
 
-const taWS = new Client("DaneSaberOverlay", {
-    url: "ws://danesaber.cc:2053",
+const taWS = new Client("TAOverlay", {
+    url: "ws://taserver:2053",
     options: { autoReconnect: true, autoReconnectInterval: 1000 }
 });
 
