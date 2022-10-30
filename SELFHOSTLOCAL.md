@@ -13,7 +13,7 @@ This README is assuming you're **only hosting it locally and not on a domain**
 Install both NodeJS+NPM. (NodeJS should come with NPM default.)
 
 - Copy `RelayServer/Standard WebSocket` to a folder on your PC. (`C:/Tournament/RelayServer/Standard WebSocket` Is used in this example).
-- Change the IP to the TournmantAssistant Server on line `38` in `C:/Tournament/RelayServer/Standard WebSocket/index.ts`.
+- Change the IP to the TournmantAssistant Server on line `50` in `C:/Tournament/RelayServer/Standard WebSocket/index.ts`.
 - Open your terminal of choice and navigate to the Socket-folder. I.e `cd C:/Tournament/RelayServer/Standard WebSocket`.
 - Run `npm install`.
 - Run `npm start` when the installation is finished
