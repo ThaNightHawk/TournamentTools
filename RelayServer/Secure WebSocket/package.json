@@ -2,7 +2,7 @@
   "name": "ta-client-example-node-ts",
   "version": "1.0.0",
   "scripts": {
-    "test": "tsc index.ts && node index.js"
+    "start": "tsc index.ts && node index.js"
   },
   "dependencies": {
     "fs": "^0.0.1-security",

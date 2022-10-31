@@ -227,7 +227,7 @@ ws.onmessage = async function (event) {
 	}
 	if (jsonObj.Type == 4) // Score Update
 	{
-		scoreUpdate(jsonObj.message.id, jsonObj.message.score, jsonObj.message.combo, jsonObj.message.acc * 100, jsonObj.message.Misses, jsonObj.message.notesMissed, jsonObj.message.badCuts, jsonObj.message.bombHits, jsonObj.message.wallHits);
+		scoreUpdate(jsonObj.message.user_id, jsonObj.message.score, jsonObj.message.combo, jsonObj.message.accuracy * 100, jsonObj.message.totalMisses, jsonObj.message.notesMissed, jsonObj.message.badCuts, jsonObj.message.bombHits, jsonObj.message.wallHits);
 	}
 	if (jsonObj.Type == 5) { //Match Created
 		if (jsonObj.command == "createUsers") {
