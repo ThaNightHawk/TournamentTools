@@ -50,7 +50,12 @@ The Battle Royale Tools:
 - [README for hosting on domain](SELFHOSTDOMAIN.md)
 - [README for local hosting](SELFHOSTLOCAL.md)
 
+# Need help?
+- [Discord](https://discord.gg/RHegrVXqWX)
+
 # For Developers
+- [Trello](https://trello.com/b/pEQivTx2/tournamenttools-updates-bugs-more)
+
 ### Message Types
 **OUTDATED | Will get updated with Wiki**
 
