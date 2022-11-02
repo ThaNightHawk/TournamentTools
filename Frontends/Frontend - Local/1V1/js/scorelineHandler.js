@@ -1,6 +1,6 @@
 function changeScoreline(player,score) {
-    if (P1 == jsonObj.PlayerIds[0]) {
-        switch (jsonObj.Score[0]) {
+    if (playerIDs[0] == player[0]) {
+        switch (score[0]) {
             case "0":
                 document.getElementById("l1").style.opacity = 0;
                 document.getElementById("l2").style.opacity = 0;
@@ -77,8 +77,8 @@ function changeScoreline(player,score) {
                 break;
         }
     }
-    if (P2 == jsonObj.PlayerIds[1]) {
-        switch (jsonObj.Score[1]) {
+    if (playerIDs[1] == player[1]) {
+        switch (score[1]) {
             case "0":
                 document.getElementById("r1").style.opacity = 0;
                 document.getElementById("r2").style.opacity = 0;

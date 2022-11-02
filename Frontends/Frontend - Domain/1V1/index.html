@@ -87,8 +87,12 @@
 			<span class="SongPick" id="SongPick">Picked by: Hawk</span>
 		</div>
 	</div>
-	<script src="./js/logic.js"></script>
-	<script src="./js/scoreLogic.js"></script>
+	<script src="./js/mainLogic.js"></script> <!-- Connects and handles the input from the relay server -->
+	<script src="./js/formatHandlers.js"></script> <!-- Handlers to format numbers and time -->
+	<script src="./js/mapHandler.js"></script> <!-- Handler for map data -->
+	<script src="./js/overlayHandler.js"></script> <!-- Handler for the general data on the overlay. I.e usernames, pictures, ranks, country + round number -->
+	<script src="./js/userScoringHandler.js"></script> <!-- Handler for updating user/team score, acc, combo, fc/miss -->
+	<script src="./js/scorelineHandler.js"></script> <!-- Handler for scoreline betweem Player VS Player / Team VS Team -->
 </body>
 
 </html>
