@@ -85,8 +85,35 @@ interface Player {
     type: number;
     user_id: string;
     guid: string;
+    team?: Team[];
     stream_delay_ms: number;
     stream_sync_start_ms: number;
+}
+interface Team {
+    name: string;
+    id: string;
+}
+
+interface Score {
+    user_id: string;
+    team: Team[];
+    score: number;
+    accuracy: number;
+    combo: number;
+    notesMissed: number;
+    badCuts: number;
+    bombHits: number;
+    wallHits: number;
+    maxCombo: number;
+    lhAvg: number[];
+    lhBadCut: number;
+    lhHits: number;
+    lhMiss: number;
+    rhAvg: number[];
+    rhBadCut: number;
+    rhHits: number;
+    rhMiss: number;
+    totalMisses: number;
 }
 
 taWS.on("packet", p => {
@@ -102,6 +129,7 @@ taWS.on("packet", p => {
                         type: p.client_type,
                         user_id: p.user_id,
                         guid: p.guid,
+                        team: p.team,
                         stream_delay_ms: p.stream_delay_ms,
                         stream_sync_start_ms: p.stream_sync_start_ms
                     }
@@ -129,7 +157,7 @@ taWS.on("matchCreated", m => {
         }
     }
 
-    if (users.length > 3 || debug) {
+    if (users.length >= 3 || debug) {
         try {
             for (let i = 0; i < users.length; i++) {
                 let index = usersArray.findIndex((x: any) => x.guid == users[i]);
@@ -143,7 +171,7 @@ taWS.on("matchCreated", m => {
             console.error("Error: No user found in UsersArray | Error: " + error);
         }
     }
-    if (users.length < 3 || debug) {
+    if (users.length <= 2 || debug) {
         try {
             coordinatorName = usersArray.find((u: { guid: string; }) => u.guid === coordinatorID).name || "Unknown";
         } catch (error) {
@@ -172,7 +200,7 @@ taWS.on("matchCreated", m => {
 
 taWS.on("userAdded", u => {
     if (u.data.client_type == 0) {
-        const user: Player = {name:u.data.name, type:u.data.client_type,user_id:u.data.user_id, guid:u.data.guid, stream_delay_ms:u.data.stream_delay_ms, stream_sync_start_ms:u.data.stream_sync_start_ms}
+        const user: Player = {name:u.data.name, type:u.data.client_type,user_id:u.data.user_id, guid:u.data.guid,stream_delay_ms:u.data.stream_delay_ms, team:[], stream_sync_start_ms:u.data.stream_sync_start_ms};
         usersArray.push(user);
     }
 });
@@ -181,6 +209,7 @@ taWS.on("userUpdated", u => {
     if (u.data.client_type <= 1) {
         try {
             let index = usersArray.findIndex((x: any) => x.guid == u.data.guid);
+            usersArray[index].team = [u.data.team.name, u.data.team.id];
             usersArray[index].stream_delay_ms = u.data.stream_delay_ms;
             usersArray[index].stream_sync_start_ms = u.data.stream_sync_start_ms;
         } catch (error) {
@@ -196,33 +225,14 @@ taWS.on("userLeft", u => {
     }
 });
 
-interface Score {
-    user_id: string;
-    score: number;
-    accuracy: number;
-    combo: number;
-    notesMissed: number;
-    badCuts: number;
-    bombHits: number;
-    wallHits: number;
-    maxCombo: number;
-    lhAvg: number[];
-    lhBadCut: number;
-    lhHits: number;
-    lhMiss: number;
-    rhAvg: number[];
-    rhBadCut: number;
-    rhHits: number;
-    rhMiss: number;
-    totalMisses: number;
-}
-
 taWS.on("realtimeScore", s => {
     let index = usersArray.findIndex((x: any) => x.guid == s.data.user_guid);
     let user_id = usersArray[index].user_id;
+    let team = usersArray[index].team;
     let sync_delay = usersArray[index].stream_delay_ms;
     const userScoring: Score = {
         user_id: user_id,
+        team: team,
         score: s.data.score,
         accuracy: s.data.accuracy,
         combo: s.data.combo,
