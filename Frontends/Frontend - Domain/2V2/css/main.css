@@ -1,0 +1,1391 @@
+.fade-inImages {
+    -webkit-transition: opacity 0.5s ease-in-out;
+    -moz-transition: opacity 0.5s ease-in-out;
+    -ms-transition: opacity 0.5s ease-in-out;
+    -o-transition: opacity 0.5s ease-in-out;
+    transition: opacity 0.5 ease-in-out;
+}
+
+.MainContainer {
+    display: flex;
+    overflow: hidden;
+    text-shadow: 0px 0px 4px rgb(0 0 0 / 90%);
+}
+
+.Teams {
+    top: 120px;
+    left: -289px;
+    height: 793px;
+    display: flex;
+    position: absolute;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    margin-right: 0;
+    border-radius: 0px 0px 0px 0px;
+    margin-bottom: 0;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+    transition: opacity 0.5s linear;
+    opacity: 1;
+}
+
+.Team1 {
+    top: 0px;
+    left: 0px;
+    width: 1248px;
+    height: 793px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+}
+
+.Player1 {
+    top: 0px;
+    left: 412px;
+    width: 836px;
+    height: 401px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+}
+
+.Player1Stats {
+    top: 275px;
+    left: 443px;
+    width: 380px;
+    height: 126px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+}
+
+.Player1ACC {
+    top: 66px;
+    left: 50px;
+    color: #ffffff;
+    width: 330px;
+    height: auto;
+    position: absolute;
+    font-size: 40px;
+    align-self: auto;
+    font-style: Bold;
+    text-align: right;
+    font-family: Poppins;
+    font-weight: 700;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+}
+
+.Player1Combo {
+    top: 31px;
+    left: 64px;
+    color: #ffffff;
+    width: 315px;
+    height: auto;
+    position: absolute;
+    font-size: 32px;
+    align-self: auto;
+    font-style: Bold;
+    text-align: right;
+    font-family: Poppins;
+    font-weight: 700;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+}
+
+.Player1FC {
+    color: #ffffff;
+    width: 380px;
+    height: auto;
+    position: absolute;
+    font-size: 24px;
+    align-self: auto;
+    font-style: Medium;
+    text-align: right;
+    font-family: Poppins;
+    font-weight: 500;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+}
+
+.PLayer1Info {
+    top: 15px;
+    left: 0px;
+    width: 822px;
+    height: 50px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+}
+
+.Player1Name {
+    left: 178px;
+    color: rgb(255, 255, 255);
+    width: 550px;
+    overflow: hidden;
+    position: absolute;
+    font-size: 32px;
+    text-align: right;
+    font-family: Poppins;
+    font-weight: 700;
+    line-height: normal;
+    white-space: nowrap;
+}
+
+.Player1PFP {
+    top: 0px;
+    left: 742px;
+    width: 80px;
+    height: 50px;
+    position: absolute;
+    border-color: transparent;
+    border-radius: 13px;
+    object-fit: cover;
+    overflow: hidden;
+    object-fit: cover;
+    overflow: hidden;
+}
+
+.Player2 {
+    top: 395px;
+    left: 425px;
+    width: 823px;
+    height: 398px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+}
+
+.Player2Stats {
+    top: -5px;
+    left: 431px;
+    width: 380px;
+    height: 125px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+}
+
+.Player2ACC {
+    left: 50px;
+    color: #ffffff;
+    width: 330px;
+    height: auto;
+    position: absolute;
+    font-size: 40px;
+    align-self: auto;
+    font-style: Bold;
+    text-align: right;
+    font-family: Poppins;
+    font-weight: 700;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+}
+
+.Player2FC {
+    top: 85px;
+    color: #ffffff;
+    width: 380px;
+    height: auto;
+    position: absolute;
+    font-size: 24px;
+    align-self: auto;
+    font-style: Medium;
+    text-align: right;
+    font-family: Poppins;
+    font-weight: 500;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+}
+
+.Player2Combo {
+    top: 47px;
+    left: 64px;
+    color: #ffffff;
+    width: 315px;
+    height: auto;
+    position: absolute;
+    font-size: 32px;
+    align-self: auto;
+    font-style: Bold;
+    text-align: right;
+    font-family: Poppins;
+    font-weight: 700;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+}
+
+.Player2Info {
+    top: 332px;
+    left: 0px;
+    width: 810px;
+    height: 50px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+}
+
+.Player2Name {
+    left: 165px;
+    color: rgb(255, 255, 255);
+    width: 550px;
+    overflow: hidden;
+    position: absolute;
+    font-size: 32px;
+    font-style: Bold;
+    text-align: right;
+    font-family: Poppins;
+    font-weight: 700;
+    line-height: normal;
+    white-space: nowrap;
+}
+
+.Player2PFP {
+    top: 0px;
+    left: 730px;
+    width: 80px;
+    height: 50px;
+    position: absolute;
+    border-color: transparent;
+    border-radius: 13px;
+    object-fit: cover;
+    overflow: hidden;
+}
+
+.Team1Stats {
+    top: 292px;
+    left: -5px;
+    width: 542px;
+    height: 192px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+}
+
+.Team1Score {
+    top: 100px;
+    color: rgba(255, 255, 255, 1);
+    width: 540px;
+    height: auto;
+    position: absolute;
+    font-size: 36px;
+    align-self: auto;
+    font-style: SemiBold;
+    text-align: right;
+    font-family: Poppins;
+    font-weight: 600;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+}
+
+.Team1ScoreDiffSpan {
+    top: 146px;
+    color: rgba(255, 255, 255, 0.5);
+    width: 540px;
+    height: auto;
+    position: absolute;
+    font-size: 24px;
+    align-self: auto;
+    font-style: SemiBold;
+    text-align: right;
+    font-family: Poppins;
+    font-weight: 600;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+}
+
+.Team1ScoreDifference {
+    color: white;
+}
+
+.Team1ACC {
+    left: 245px;
+    color: rgba(255, 255, 255, 1);
+    width: 295px;
+    height: auto;
+    position: absolute;
+    font-size: 48px;
+    align-self: auto;
+    font-style: Bold;
+    text-align: right;
+    font-family: Poppins;
+    font-weight: 700;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+}
+
+.Team1ACCDiffSpan {
+    top: 56px;
+    left: 245px;
+    color: rgba(255, 255, 255, 0.5);
+    width: 297px;
+    height: auto;
+    position: absolute;
+    font-size: 32px;
+    align-self: auto;
+    font-style: SemiBold;
+    text-align: right;
+    font-family: Poppins;
+    font-weight: 600;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+}
+
+.Team1ACCDifference {
+    color: white;
+}
+
+.Team2 {
+    top: 0px;
+    left: 1250px;
+    width: 1012px;
+    height: 793px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+}
+
+.Player3 {
+    top: 0px;
+    left: 0px;
+    width: 824px;
+    height: 401px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+}
+
+.Player3Stats {
+    top: 275px;
+    left: 12px;
+    width: 380px;
+    height: 126px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+}
+
+.Player3ACC {
+    top: 66px;
+    color: rgba(255, 255, 255, 1);
+    width: 330px;
+    height: auto;
+    position: absolute;
+    font-size: 40px;
+    align-self: auto;
+    font-style: Bold;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 700;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+}
+
+.Player3Combo {
+    top: 31px;
+    left: 1px;
+    color: rgba(255, 255, 255, 1);
+    width: 315px;
+    height: auto;
+    position: absolute;
+    font-size: 32px;
+    align-self: auto;
+    font-style: Bold;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 700;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+}
+
+.Player3FC {
+    color: rgba(255, 255, 255, 1);
+    width: 380px;
+    height: auto;
+    position: absolute;
+    font-size: 24px;
+    align-self: auto;
+    font-style: Medium;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 500;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+}
+
+.Player3Info {
+    top: 15px;
+    left: 14px;
+    width: 810px;
+    height: 50px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+}
+
+.Player3Name {
+    left: 95px;
+    color: rgb(255, 255, 255);
+    width: 550px;
+    overflow: hidden;
+    position: absolute;
+    font-size: 32px;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 700;
+    line-height: normal;
+    white-space: nowrap;
+    -webkit-mask-image: linear-gradient(90deg, #000 81%, transparent);
+}
+
+.Player3PFP {
+    top: 0px;
+    left: 0px;
+    width: 80px;
+    height: 50px;
+    position: absolute;
+    border-color: transparent;
+    border-radius: 13px;
+    object-fit: cover;
+    overflow: hidden;
+}
+
+.Player4 {
+    top: 395px;
+    left: 0px;
+    width: 824px;
+    height: 398px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+}
+
+.Player4Stats {
+    top: -5px;
+    left: 12px;
+    width: 380px;
+    height: 125px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+}
+
+.Player4FC {
+    top: 85px;
+    color: rgba(255, 255, 255, 1);
+    width: 380px;
+    height: auto;
+    position: absolute;
+    font-size: 24px;
+    align-self: auto;
+    font-style: Medium;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 500;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+}
+
+.Player4Combo {
+    top: 47px;
+    color: rgba(255, 255, 255, 1);
+    width: 315px;
+    height: auto;
+    position: absolute;
+    font-size: 32px;
+    align-self: auto;
+    font-style: Bold;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 700;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+}
+
+.Player4ACC {
+    color: rgba(255, 255, 255, 1);
+    width: 330px;
+    height: auto;
+    position: absolute;
+    font-size: 40px;
+    align-self: auto;
+    font-style: Bold;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 700;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+}
+
+.Player4Info {
+    top: 332px;
+    left: 14px;
+    width: 810px;
+    height: 50px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+}
+
+.Player4Name {
+    left: 95px;
+    color: rgb(255, 255, 255);
+    width: 550px;
+    overflow: hidden;
+    position: absolute;
+    font-size: 32px;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 700;
+    line-height: normal;
+    white-space: nowrap;
+    -webkit-mask-image: linear-gradient(90deg, #000 81%, transparent);
+}
+
+.Player4PFP {
+    top: 0px;
+    left: 0px;
+    width: 80px;
+    height: 50px;
+    position: absolute;
+    border-color: transparent;
+    border-radius: 13px;
+    object-fit: cover;
+    overflow: hidden;
+}
+
+.Team2Stats {
+    top: 292px;
+    left: 715px;
+    width: 297px;
+    height: 192px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+}
+
+.Team2Score {
+    top: 100px;
+    left: 2px;
+    color: rgba(255, 255, 255, 1);
+    width: 232px;
+    height: auto;
+    position: absolute;
+    font-size: 36px;
+    align-self: auto;
+    font-style: SemiBold;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 600;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+}
+
+.Team2ScoreDiffSpan {
+    top: 146px;
+    left: 2px;
+    color: rgba(255, 255, 255, 0.5);
+    width: 232px;
+    height: auto;
+    position: absolute;
+    font-size: 24px;
+    align-self: auto;
+    font-style: SemiBold;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 600;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+}
+
+.Team2ScoreDifference {
+    color: white;
+}
+
+.Team2ACC {
+    left: 2px;
+    color: rgba(255, 255, 255, 1);
+    width: 295px;
+    height: auto;
+    position: absolute;
+    font-size: 48px;
+    align-self: auto;
+    font-style: Bold;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 700;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+}
+
+.Team2ACCDiffSpan {
+    top: 56px;
+    color: rgba(255, 255, 255, 0.5);
+    width: 232px;
+    height: auto;
+    position: absolute;
+    font-size: 32px;
+    align-self: auto;
+    font-style: SemiBold;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 600;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+}
+
+.Team2ACCDifference {
+    color: white;
+}
+
+.Bottombar {
+    top: 925px;
+    left: 810px;
+    width: 1100px;
+    height: 155px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    margin-right: 0;
+    border-radius: 0px 0px 0px 0px;
+    margin-bottom: 0;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+}
+
+.RoundDiv {
+    top: 111px;
+    left: 0px;
+    width: 300px;
+    height: 44px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: rgba(20, 20, 20, 0.800000011920929);
+    border-radius: 10px 10px 0px 0px;
+}
+
+.RoundText {
+    top: 6px;
+    left: 0px;
+    color: rgb(255, 255, 255);
+    right: 0px;
+    height: auto;
+    margin: auto;
+    position: absolute;
+    font-size: 24px;
+    align-self: auto;
+    font-style: Medium;
+    text-align: center;
+    font-family: Poppins;
+    font-weight: 500;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+    transition: opacity 0.5s linear;
+    opacity: 1;
+}
+
+.TopBar {
+    top: 0px;
+    left: 0px;
+    width: 1920px;
+    height: 120px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    margin-right: 0;
+    border-radius: 0px 0px 0px 0px;
+    margin-bottom: 0;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: rgba(20, 20, 20, 1);
+}
+
+.TeamsTopBar {
+    top: 15px;
+    left: 18px;
+    width: 1883px;
+    height: 90px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+    transition: opacity 0.5s linear;
+    opacity: 1;
+}
+
+.Team1TopBar {
+    top: 0px;
+    left: 0px;
+    width: 864px;
+    height: 90px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+}
+
+.Team1Image {
+    top: 0px;
+    left: 0px;
+    width: 90px;
+    height: 90px;
+    position: absolute;
+    border-color: transparent;
+    object-fit: cover;
+    overflow: hidden;
+}
+
+.Team1Name {
+    top: 27px;
+    left: 105px;
+    color: rgb(255, 255, 255);
+    width: 400px;
+    overflow: hidden;
+    position: absolute;
+    font-size: 24px;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 500;
+    line-height: normal;
+    white-space: nowrap;
+    -webkit-mask-image: linear-gradient(90deg, #000 81%, transparent);
+}
+
+.Team1Points {
+    top: 29px;
+    left: 532px;
+    width: 332px;
+    height: 32px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+}
+
+.Team1Point7 {
+    top: 0px;
+    left: 0px;
+    width: 32px;
+    height: 32px;
+    position: absolute;
+}
+
+.Team1Point6 {
+    top: 0px;
+    left: 50px;
+    width: 32px;
+    height: 32px;
+    position: absolute;
+}
+
+.Team1Point5 {
+    top: 0px;
+    left: 100px;
+    width: 32px;
+    height: 32px;
+    position: absolute;
+}
+
+.Team1Point4 {
+    top: 0px;
+    left: 150px;
+    width: 32px;
+    height: 32px;
+    position: absolute;
+}
+
+.Team1Point3 {
+    top: 0px;
+    left: 200px;
+    width: 32px;
+    height: 32px;
+    position: absolute;
+}
+
+.Team1Point2 {
+    top: 0px;
+    left: 250px;
+    width: 32px;
+    height: 32px;
+    position: absolute;
+}
+
+.Team1Point1 {
+    top: 0px;
+    left: 300px;
+    width: 32px;
+    height: 32px;
+    position: absolute;
+}
+
+.Team2TopBar {
+    top: 0px;
+    left: 1020px;
+    width: 863px;
+    height: 90px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+}
+
+.Team2Image {
+    top: -4.547473508864641e-13px;
+    left: 773px;
+    width: 90px;
+    height: 90px;
+    position: absolute;
+    border-color: transparent;
+    object-fit: cover;
+    overflow: hidden;
+}
+
+.Team2Name {
+    top: 27px;
+    left: 363px;
+    color: rgba(255, 255, 255, 0.8);
+    width: 400px;
+    overflow: hidden;
+    position: absolute;
+    font-size: 24px;
+    text-align: right;
+    font-family: Poppins;
+    font-weight: 500;
+    line-height: normal;
+    white-space: nowrap;
+    /* -webkit-mask-image: linear-gradient(90deg, #000 81%, transparent); */
+}
+
+.Team2Points {
+    top: 29px;
+    left: 0px;
+    width: 332px;
+    height: 32px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+}
+
+.Team2Point1 {
+    top: 0px;
+    left: 0px;
+    width: 32px;
+    height: 32px;
+    position: absolute;
+}
+
+.Team2Point2 {
+    top: 0px;
+    left: 50px;
+    width: 32px;
+    height: 32px;
+    position: absolute;
+}
+
+.Team2Point3 {
+    top: 0px;
+    left: 100px;
+    width: 32px;
+    height: 32px;
+    position: absolute;
+}
+
+.Team2Point4 {
+    top: 0px;
+    left: 150px;
+    width: 32px;
+    height: 32px;
+    position: absolute;
+}
+
+.Team2Point5 {
+    top: 0px;
+    left: 200px;
+    width: 32px;
+    height: 32px;
+    position: absolute;
+}
+
+.Team2Point6 {
+    top: 0px;
+    left: 250px;
+    width: 32px;
+    height: 32px;
+    position: absolute;
+}
+
+.Team2Point7 {
+    top: 0px;
+    left: 300px;
+    width: 32px;
+    height: 32px;
+    position: absolute;
+}
+
+.Logo {
+    top: 11px;
+    left: 902.5px;
+    width: 115px;
+    height: 97px;
+    position: absolute;
+    border-color: transparent;
+}
+
+.Linegrid {
+    top: 117px;
+    left: 253px;
+    position: absolute;
+    object-fit: cover;
+    z-index: -100;
+}
+
+.SongBox {
+    width: 530px;
+    height: 160px;
+    opacity: 1;
+    position: absolute;
+    right: 0px;
+    top: -4px;
+    overflow: hidden;
+    transition-timing-function: ease-in-out;
+    transition: opacity 1s;
+}
+
+.SongCard {
+    width: 529px;
+    height: 214px;
+    opacity: 1;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.SongCover {
+    width: 144px;
+    height: 142px;
+    background: url("../images/songPlaceholder.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    opacity: 1;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    border-left: 3px solid;
+    border-top: 3px solid;
+    border-bottom: 3px solid;
+    border-color: #039a00;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+    transition-timing-function: ease-in-out;
+    transition: border-color 1s;
+}
+
+.SongInfo {
+    width: 378px;
+    height: 142px;
+    background: rgb(0 0 0 / 79%);
+    opacity: 1;
+    position: absolute;
+    top: 0px;
+    left: 143px;
+    border: 3px solid;
+    border-color: #039a00;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    transition-timing-function: ease-in-out;
+    transition: border-color 1s;
+}
+
+.DiffTag {
+    width: 67px;
+    height: 26px;
+    background: #039a00;
+    opacity: 1;
+    position: absolute;
+    top: 101px;
+    left: 158px;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+    overflow: hidden;
+    transition: opacity 1s;
+    transition-timing-function: ease-in-out;
+    transition: background 1s;
+}
+
+.DiffText {
+    width: 54px;
+    color: rgba(255, 255, 255, 1);
+    position: absolute;
+    top: 104px;
+    left: 165px;
+    font-family: Poppins;
+    font-weight: 700;
+    font-size: 13px;
+    opacity: 1;
+    text-align: center;
+    transition: opacity 1s;
+}
+
+.SongArtist {
+    width: 203px;
+    color: rgba(255, 255, 255, 1);
+    position: absolute;
+    top: 15px;
+    left: 158px;
+    font-family: Poppins;
+    font-weight: Regular;
+    font-size: 15px;
+    opacity: 1;
+    text-align: left;
+    overflow: hidden;
+    white-space: nowrap;
+    -webkit-mask-image: linear-gradient(90deg, #000 81%, transparent);
+}
+
+.SongTitle {
+    width: 340px;
+    color: rgba(255, 255, 255, 1);
+    position: absolute;
+    top: 39px;
+    left: 158px;
+    font-family: Poppins;
+    font-weight: Bold;
+    font-size: 20px;
+    opacity: 1;
+    text-align: left;
+    overflow: hidden;
+    white-space: nowrap;
+    -webkit-mask-image: linear-gradient(90deg, #000 81%, transparent);
+}
+
+.SongMapper {
+    width: 309px;
+    color: rgba(255, 255, 255, 1);
+    position: absolute;
+    top: 72px;
+    left: 158px;
+    font-family: Poppins;
+    font-weight: Regular;
+    font-size: 14px;
+    opacity: 1;
+    text-align: left;
+    overflow: hidden;
+    white-space: nowrap;
+    -webkit-mask-image: linear-gradient(90deg, #000 81%, transparent);
+}
+
+.SongKey {
+    width: 49px;
+    color: rgba(255, 255, 255, 1);
+    position: absolute;
+    top: 15px;
+    left: 450px;
+    font-family: Poppins;
+    font-weight: Regular;
+    font-size: 13px;
+    opacity: 1;
+    text-align: right;
+}
+
+.SongLength {
+    width: 37px;
+    color: rgba(255, 255, 255, 1);
+    position: absolute;
+    top: 104px;
+    left: 463px;
+    font-family: Poppins;
+    font-weight: Regular;
+    font-size: 13px;
+    opacity: 1;
+    text-align: right;
+}
+
+.SongPick {
+    color: rgba(255, 255, 255, 1);
+    position: absolute;
+    top: 104px;
+    left: 233px;
+    font-family: Poppins;
+    font-size: 13px;
+    opacity: 1;
+    text-align: right;
+}
