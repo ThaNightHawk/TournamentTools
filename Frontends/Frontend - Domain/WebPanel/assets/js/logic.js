@@ -620,6 +620,10 @@ function sendToOverlay(type) {
 			case "expertplus":
 				diff = 4;
 				break;
+            //Really would wish that BeatKhana API used the same naming convention as BeatSaver........
+			case "expert+":
+				diff = 4;
+				break;
 			default:
 				diff = 0;
 				break;
