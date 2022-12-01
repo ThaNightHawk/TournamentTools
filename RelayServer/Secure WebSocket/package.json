@@ -1,13 +1,13 @@
 {
-  "name": "ta-client-example-node-ts",
-  "version": "1.0.0",
+  "name": "ttools_secure_relay",
+  "version": "1.9.0",
   "scripts": {
     "start": "tsc index.ts && node index.js"
   },
   "dependencies": {
     "fs": "^0.0.1-security",
     "https": "^1.0.0",
-    "tournament-assistant-client": "0.8.1",
+    "tournament-assistant-client": "^0.9.0",
     "tslib": "^2.4.0",
     "webpack": "^5.74.0",
     "ws": "^8.9.0"
