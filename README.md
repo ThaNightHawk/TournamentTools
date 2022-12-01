@@ -1,7 +1,7 @@
 
 ![Logo](GitHubImage.png)
 
-# Wiki is being worked on! <br /> Incompatible with 0.6.9 for now.
+# Wiki is being worked on! <br /> Compatible with 0.6.9
 
 # TournamentTools #
 This was originally made to be closed-sourced and only for use within the danish Beat Saber Discord, though someone asked me if I would open-source it, and I thought why not, more people would be able to collaborate on it and make it even better.
