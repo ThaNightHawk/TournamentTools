@@ -21,8 +21,8 @@ Install both NodeJS+NPM. (NodeJS should come with NPM default.)
 - Copy `RelayServer/Secure WebSocket` to a folder on your PC. (Gonna be using `C:/Tournament/RelayServer/Secure WebSocket` as an example in this).
 - Copy your `certificate.pem` and `privatkey.pem` to the `Keys`-folder. Rename to `cert.pem` and `privkey.pem` respectively. \
 (I **highly** recommmend symlinking the files, to ensure Certbot automatically can renew them on expiration)
-- Change the `wss://domain.com:2223` on line `50` to the domain associated with the SSL certificate in `C:/Tournament/RelayServer/Secure WebSocket/index.ts`.
-- Change the `ws://taserver:2053` on line `57`, in the same file, to the IP:OverlayPort of the TA Server.
+- Change the `wss://domain.com:2223` on line `51` to the domain associated with the SSL certificate in `C:/Tournament/RelayServer/Secure WebSocket/index.ts`.
+- Change the `ws://taserver:2053` on line `58`, in the same file, to the IP:OverlayPort of the TA Server.
 - Open your terminal of choice and navigate to the Socket-folder. I.e `cd C:/Tournament/RelayServer/Secure WebSocket`.
 - Run `npm install -g typescript`.
 - Run `npm install`.
