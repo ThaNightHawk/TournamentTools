@@ -1,6 +1,6 @@
 const debug = false;
 
-const relayIp = "wss://localhost:2223";
+const relayIp = "ws://localhost:2223";
 
 let usernames;
 let P1;
