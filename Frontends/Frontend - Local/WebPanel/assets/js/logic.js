@@ -1,6 +1,6 @@
 const debug = false;
 
-const relayIp = "ws://localhost:2223";
+const relayIp = "wss://localhost:2223";
 
 let usernames;
 let P1;
@@ -275,8 +275,13 @@ function setSongJSON(playlist) {
             songHashes.push(songList[i].hash);
         }
         var diffNames = [];
+        //Check if songList[i].difficulties[0] exists, if not, use songList[i].difficulties[1]
         for (var i = 0; i < songList.length; i++) {
-            diffNames.push(songList[i].difficulties[0].name);
+            try {
+                diffNames.push(songList[i].difficulties[0].name);
+            } catch(e) {
+                diffNames.push("Easy");
+            }
         }
         var songNames = [];
         for (var i = 0; i < songList.length; i++) {

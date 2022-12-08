@@ -276,7 +276,11 @@ function setSongJSON(playlist) {
         }
         var diffNames = [];
         for (var i = 0; i < songList.length; i++) {
-            diffNames.push(songList[i].difficulties[0].name);
+            try {
+                diffNames.push(songList[i].difficulties[0].name);
+            } catch(e) {
+                diffNames.push("Easy");
+            }
         }
         var songNames = [];
         for (var i = 0; i < songList.length; i++) {
