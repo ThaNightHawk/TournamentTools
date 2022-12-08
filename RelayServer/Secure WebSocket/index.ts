@@ -162,7 +162,11 @@ taWS.on("userUpdated", u => {
     if (u.data.client_type == Models.User.ClientTypes.Player) {
         try {
             let index = usersArray.findIndex((x: any) => x.guid == u.data.guid);
-            usersArray[index].team = [u.data.team.name, u.data.team.id];
+            try {
+                usersArray[index].team = [u.data.team.name, u.data.team.id];
+            } catch (error) {
+                usersArray[index].team = ["", 0];
+            }
             usersArray[index].stream_delay_ms = u.data.stream_delay_ms;
             usersArray[index].stream_sync_start_ms = u.data.stream_sync_start_ms;
         } catch (error) {
