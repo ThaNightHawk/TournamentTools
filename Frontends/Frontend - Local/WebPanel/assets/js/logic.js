@@ -275,8 +275,13 @@ function setSongJSON(playlist) {
             songHashes.push(songList[i].hash);
         }
         var diffNames = [];
+        //Check if songList[i].difficulties[0] exists, if not, use songList[i].difficulties[1]
         for (var i = 0; i < songList.length; i++) {
-            diffNames.push(songList[i].difficulties[0].name);
+            try {
+                diffNames.push(songList[i].difficulties[0].name);
+            } catch(e) {
+                diffNames.push("Easy");
+            }
         }
         var songNames = [];
         for (var i = 0; i < songList.length; i++) {
@@ -332,53 +337,53 @@ function configPop() {
                 }
                 if (value) {
                     return new Promise((resolve) => {
-						if (tmconfig == 1) {
-                        Swal.fire({
-                            title: 'Do you use BeatKhana?',
-                            html: 'If you do, make sure your tournament is public, and map-pools can be seen.',
-                            showDenyButton: true,
-                            showCancelButton: false,
-                            confirmButtonText: 'Yes',
-                            denyButtonText: 'No',
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                local = false;
-                                let timerInterval
-                                Swal.fire({
-                                    title: 'You\'re connected!',
-                                    html: 'Tournament style: <b>' + title + '</b>.<br/>BeatKhana: <b>Yes</b>.<br/>Press the "<b>Configure</b>"-button to setup the overlay.',
-                                    timer: 5000,
-                                    timerProgressBar: true,
-                                    willClose: () => {
-                                        clearInterval(timerInterval)
-                                    }
-                                });
-                                document.getElementById("MATCHDIV").style.display = "inline-block";
-                                //Delay for 1 second
-                                setTimeout(function () {
-                                    document.getElementById("MATCHDIV").style.opacity = "1";
-                                }, 1);
-                            } else if (result.isDenied) {
-                                local = true;
-                                let timerInterval
-                                Swal.fire({
-                                    title: 'You\'re connected!',
-                                    html: 'Tournament style: <b>' + title + '</b>.<br/>BeatKhana: <b>no</b>.<br/>Press the "<b>Configure</b>"-button to setup the overlay.',
-                                    timer: 5000,
-                                    timerProgressBar: true,
-                                    willClose: () => {
-                                        clearInterval(timerInterval)
-                                    }
-                                });
-                                document.getElementById("MATCHDIV").style.display = "inline-block";
-                                //Delay for 1 second
-                                setTimeout(function () {
-                                    document.getElementById("MATCHDIV").style.opacity = "1";
-                                }, 1);
-                            }
-                        });
-						}
-						if (tmconfig == 2) {
+                        if (tmconfig == 1) {
+                            Swal.fire({
+                                title: 'Do you use BeatKhana?',
+                                html: 'If you do, make sure your tournament is public, and map-pools can be seen.',
+                                showDenyButton: true,
+                                showCancelButton: false,
+                                confirmButtonText: 'Yes',
+                                denyButtonText: 'No',
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    local = false;
+                                    let timerInterval
+                                    Swal.fire({
+                                        title: 'You\'re connected!',
+                                        html: 'Tournament style: <b>' + title + '</b>.<br/>BeatKhana: <b>Yes</b>.<br/>Press the "<b>Configure</b>"-button to setup the overlay.',
+                                        timer: 5000,
+                                        timerProgressBar: true,
+                                        willClose: () => {
+                                            clearInterval(timerInterval)
+                                        }
+                                    });
+                                    document.getElementById("MATCHDIV").style.display = "inline-block";
+                                    //Delay for 1 second
+                                    setTimeout(function () {
+                                        document.getElementById("MATCHDIV").style.opacity = "1";
+                                    }, 1);
+                                } else if (result.isDenied) {
+                                    local = true;
+                                    let timerInterval
+                                    Swal.fire({
+                                        title: 'You\'re connected!',
+                                        html: 'Tournament style: <b>' + title + '</b>.<br/>BeatKhana: <b>no</b>.<br/>Press the "<b>Configure</b>"-button to setup the overlay.',
+                                        timer: 5000,
+                                        timerProgressBar: true,
+                                        willClose: () => {
+                                            clearInterval(timerInterval)
+                                        }
+                                    });
+                                    document.getElementById("MATCHDIV").style.display = "inline-block";
+                                    //Delay for 1 second
+                                    setTimeout(function () {
+                                        document.getElementById("MATCHDIV").style.opacity = "1";
+                                    }, 1);
+                                }
+                            });
+                        }
+                        if (tmconfig == 2) {
                             let timerInterval
                             Swal.fire({
                                 title: 'You\'re connected!',
@@ -390,7 +395,7 @@ function configPop() {
                                     configure();
                                 }
                             });
-						}
+                        }
                     });
                 }
             }
@@ -409,7 +414,7 @@ function BeatKhana() {
         allowOutsideClick: false,
         allowEscapeKey: false,
         footer: '<a  href="https://i.imgur.com/jDPd8WN.png" target="blank"_>How to find id?</a>',
-		inputValidator: (value) => { return new Promise((resolve) => { if (value) { resolve() } else { resolve('You need to input something!'); } }) }
+        inputValidator: (value) => { return new Promise((resolve) => { if (value) { resolve() } else { resolve('You need to input something!'); } }) }
     }).then(function (result) {
         if (result.value) {
             checkForFiles(result.value);
@@ -549,90 +554,94 @@ function reload() {
 }
 
 function sendToOverlay(type) {
-	if (type == "requestMatches") {
-		ws.send(JSON.stringify({ 'Type': '5', 'command': 'requestMatches' }));
-	} else if (type == "selectMatch") {
-		//Get the selected match
-		let selectedMatch = $('#currentMatch').find(':selected');
-		//Get the match data
-		//If the index is 0, then the match is not selected
-		if (selectedMatch.index() == 0) {
-			alert("Please select a match");
-			return;
-		} else {
-			//Get the data-player1-name, data-player2-name, data-player1-id, data-player2-id
-			P1 = selectedMatch.data("player1-id");
-			P2 = selectedMatch.data("player2-id");
-			matchId = selectedMatch.data("match-id");
-			configure();
-		}
-	} else if (type == "playerScreen") {
-		//check if alive is not null
-		if (document.getElementById("playerScreenNames").value != "") {
-			if (document.getElementById("alive").value != "") {
-				var username = document.getElementById("playerScreenNames").options[document.getElementById("playerScreenNames").selectedIndex].text;
-				var userid = document.getElementById("playerScreenNames").value;
-				var score = document.getElementById("score").value;
-				var alive = document.getElementById("alive").value;
-				ws.send(JSON.stringify({ 'Type': '6', 'command': 'updateScore', 'PlayerId': userid, 'score': score, 'alive': alive }));
-				if (alive == "false") {
-					var select = document.getElementById("playerSpectatingNames");
-					for (var i = 0; i < select.options.length; i++) {
-						if (select.options[i].text == username) {
-							select.remove(i);
-						}
-					}
-					document.getElementById("score").value = "";
-					document.getElementById("playerScreenNames").selectedIndex = 0;
-					document.getElementById("alive").selectedIndex = 0;
-					$("#playerScreenNames option[value='" + userid + "']").remove();
-					$("#playerSpectatingNames option[value='" + username + "']").remove();
-				}
-			}
-		}
-		if (debug) {
-			console.log(JSON.stringify({ 'Type': '6', 'command': 'updateScore', 'PlayerId': userid, 'score': score, 'alive': alive }));
-		}
-	} else if (type == "playerSpec") {
-		var username = document.getElementById("playerSpectatingNames").options[document.getElementById("playerSpectatingNames").selectedIndex].text;
-		var twitchname = document.getElementById("playerSpectatingNames").value;
-		ws.send(JSON.stringify({ 'Type': '6', 'command': 'updateSpectator', 'Player': username, 'Twitch': twitchname }));
-	} else if (type == "resetSpec") {
-		ws.send(JSON.stringify({ 'Type': '6', 'command': 'resetSpectator' }));
-	} else if (type == "currentMap") {
-		//Get data-hash from currentMap
-		var hash = document.getElementById("currentMap").value;
-		var diff = document.getElementById("currentMap").options[document.getElementById("currentMap").selectedIndex].getAttribute("data-hash");
-		var player = document.getElementById("currentMap").options[document.getElementById("currentMap").selectedIndex].getAttribute("data-player");
-		switch (diff.toLowerCase()) {
-			case "easy":
-				diff = 0;
-				break;
-			case "normal":
-				diff = 1;
-				break;
-			case "hard":
-				diff = 2;
-				break;
-			case "expert":
-				diff = 3;
-				break;
-			case "expertplus":
-				diff = 4;
-				break;
-			default:
-				diff = 0;
-				break;
-		}
-		ws.send(JSON.stringify({ 'Type': '3', 'command': 'updateMap', 'LevelId': hash, 'Diff': diff, 'MatchId': matchId, 'Player': player }));
-	} else if (type == "sendScore") {
-		var p1Score = document.getElementById("P1ScoreSlider").value;
-		var p2Score = document.getElementById("P2ScoreSlider").value;
-		if (debug) {
-			console.log(PlayerInfo[0][0] + " | Score: " + p1Score + " - " + PlayerInfo[1][0] + " | Score: " + p2Score);
-		}
-		ws.send(JSON.stringify({ 'Type': '5', 'command': 'updateScore', 'PlayerIds': [P1, P2], 'Score': [p1Score, p2Score] }));
-	}
+    if (type == "requestMatches") {
+        ws.send(JSON.stringify({ 'Type': '5', 'command': 'requestMatches' }));
+    } else if (type == "selectMatch") {
+        //Get the selected match
+        let selectedMatch = $('#currentMatch').find(':selected');
+        //Get the match data
+        //If the index is 0, then the match is not selected
+        if (selectedMatch.index() == 0) {
+            alert("Please select a match");
+            return;
+        } else {
+            //Get the data-player1-name, data-player2-name, data-player1-id, data-player2-id
+            P1 = selectedMatch.data("player1-id");
+            P2 = selectedMatch.data("player2-id");
+            matchId = selectedMatch.data("match-id");
+            configure();
+        }
+    } else if (type == "playerScreen") {
+        //check if alive is not null
+        if (document.getElementById("playerScreenNames").value != "") {
+            if (document.getElementById("alive").value != "") {
+                var username = document.getElementById("playerScreenNames").options[document.getElementById("playerScreenNames").selectedIndex].text;
+                var userid = document.getElementById("playerScreenNames").value;
+                var score = document.getElementById("score").value;
+                var alive = document.getElementById("alive").value;
+                ws.send(JSON.stringify({ 'Type': '6', 'command': 'updateScore', 'PlayerId': userid, 'score': score, 'alive': alive }));
+                if (alive == "false") {
+                    var select = document.getElementById("playerSpectatingNames");
+                    for (var i = 0; i < select.options.length; i++) {
+                        if (select.options[i].text == username) {
+                            select.remove(i);
+                        }
+                    }
+                    document.getElementById("score").value = "";
+                    document.getElementById("playerScreenNames").selectedIndex = 0;
+                    document.getElementById("alive").selectedIndex = 0;
+                    $("#playerScreenNames option[value='" + userid + "']").remove();
+                    $("#playerSpectatingNames option[value='" + username + "']").remove();
+                }
+            }
+        }
+        if (debug) {
+            console.log(JSON.stringify({ 'Type': '6', 'command': 'updateScore', 'PlayerId': userid, 'score': score, 'alive': alive }));
+        }
+    } else if (type == "playerSpec") {
+        var username = document.getElementById("playerSpectatingNames").options[document.getElementById("playerSpectatingNames").selectedIndex].text;
+        var twitchname = document.getElementById("playerSpectatingNames").value;
+        ws.send(JSON.stringify({ 'Type': '6', 'command': 'updateSpectator', 'Player': username, 'Twitch': twitchname }));
+    } else if (type == "resetSpec") {
+        ws.send(JSON.stringify({ 'Type': '6', 'command': 'resetSpectator' }));
+    } else if (type == "currentMap") {
+        //Get data-hash from currentMap
+        var hash = document.getElementById("currentMap").value;
+        var diff = document.getElementById("currentMap").options[document.getElementById("currentMap").selectedIndex].getAttribute("data-hash");
+        var player = document.getElementById("currentMap").options[document.getElementById("currentMap").selectedIndex].getAttribute("data-player");
+        switch (diff.toLowerCase()) {
+            case "easy":
+                diff = 0;
+                break;
+            case "normal":
+                diff = 1;
+                break;
+            case "hard":
+                diff = 2;
+                break;
+            case "expert":
+                diff = 3;
+                break;
+            case "expertplus":
+                diff = 4;
+                break;
+            //Really would wish that BeatKhana API used the same naming convention as BeatSaver........
+            case "expert+":
+                diff = 4;
+                break;
+            default:
+                diff = 0;
+                break;
+        }
+        ws.send(JSON.stringify({ 'Type': '3', 'command': 'updateMap', 'LevelId': hash, 'Diff': diff, 'MatchId': matchId, 'Player': player }));
+    } else if (type == "sendScore") {
+        var p1Score = document.getElementById("P1ScoreSlider").value;
+        var p2Score = document.getElementById("P2ScoreSlider").value;
+        if (debug) {
+            console.log(PlayerInfo[0][0] + " | Score: " + p1Score + " - " + PlayerInfo[1][0] + " | Score: " + p2Score);
+        }
+        ws.send(JSON.stringify({ 'Type': '5', 'command': 'updateScore', 'PlayerIds': [P1, P2], 'Score': [p1Score, p2Score] }));
+    }
 }
 
 function configure() {
@@ -658,7 +667,7 @@ function configure() {
                 allowEscapeKey: false,
                 confirmButtonText: 'Confirm',
                 footer: '<a href="https://www.youtube.com/watch?v=_UYZaVLu1h0" target="blank"_>How to do this.</a>',
-				inputValidator: (value) => { return new Promise((resolve) => { if (value) { resolve() } else { resolve('You need to input something!');}})}
+                inputValidator: (value) => { return new Promise((resolve) => { if (value) { resolve() } else { resolve('You need to input something!'); } }) }
             }).then(function (result) {
                 if (result.value) {
                     PlayerInfo.push(result.value.split("\n"));
@@ -672,7 +681,7 @@ function configure() {
                         allowEscapeKey: false,
                         confirmButtonText: 'Confirm',
                         footer: '<a  href="https://www.youtube.com/watch?v=_UYZaVLu1h0" target="blank"_>How to do this.</a>',
-						inputValidator: (value) => { return new Promise((resolve) => { if (value) { resolve() } else { resolve('You need to input something!');}})}
+                        inputValidator: (value) => { return new Promise((resolve) => { if (value) { resolve() } else { resolve('You need to input something!'); } }) }
                     }).then(function (result) {
                         if (result.value) {
                             PlayerInfo.push(result.value.split("\n"));
@@ -686,7 +695,7 @@ function configure() {
                                 allowEscapeKey: false,
                                 confirmButtonText: 'Confirm',
                                 footer: '<a  href="https://www.youtube.com/watch?v=_UYZaVLu1h0" target="blank"_>How to do this.</a>',
-								inputValidator: (value) => { return new Promise((resolve) => { if (value) { resolve() } else { resolve('You need to input something!');}})}
+                                inputValidator: (value) => { return new Promise((resolve) => { if (value) { resolve() } else { resolve('You need to input something!'); } }) }
                             }).then(function (result) {
                                 if (result.value) {
                                     PlayerInfo.push(result.value.split("\n"));
@@ -728,7 +737,7 @@ function configure() {
                 allowOutsideClick: false,
                 allowEscapeKey: false,
                 footer: '<a  href="https://www.youtube.com/watch?v=FxN-R_RkI7s" target="blank"_>How to do this.</a>',
-				inputValidator: (value) => { return new Promise((resolve) => { if (value) { resolve() } else { resolve('You need to input something!');}})}
+                inputValidator: (value) => { return new Promise((resolve) => { if (value) { resolve() } else { resolve('You need to input something!'); } }) }
             }).then(function (result) {
                 if (result.value) {
                     usernames = result.value.split("\n");
@@ -741,7 +750,7 @@ function configure() {
                         allowEscapeKey: false,
                         confirmButtonText: 'Confirm',
                         footer: '<a  href="https://www.youtube.com/watch?v=FxN-R_RkI7s" target="blank"_>How to do this.</a>',
-						inputValidator: (value) => { return new Promise((resolve) => { if (value) { resolve() } else { resolve('You need to input something!');}})}
+                        inputValidator: (value) => { return new Promise((resolve) => { if (value) { resolve() } else { resolve('You need to input something!'); } }) }
                     }).then(function (result) {
                         if (result.value) {
                             userids = result.value.split("\n");
@@ -754,7 +763,7 @@ function configure() {
                                 allowOutsideClick: false,
                                 allowEscapeKey: false,
                                 footer: '<a  href="https://www.youtube.com/watch?v=FxN-R_RkI7s" target="blank"_>How to do this.</a>',
-								inputValidator: (value) => { return new Promise((resolve) => { if (value) { resolve() } else { resolve('You need to input something!');}})}
+                                inputValidator: (value) => { return new Promise((resolve) => { if (value) { resolve() } else { resolve('You need to input something!'); } }) }
                             }).then(function (result) {
                                 if (result.value) {
                                     twitchnames = result.value.split("\n");

@@ -1,7 +1,8 @@
-import { Client } from "tournament-assistant-client";
+import { Client, Models } from "tournament-assistant-client";
 import { createServer } from 'https';
 import { readFileSync } from 'fs';
 import { WebSocket, WebSocketServer } from "ws";
+import { MatchArray, Coordinator, Player, Team, Score } from './interfaces';
 
 const server = createServer({
     cert: readFileSync('./Keys/cert.pem'),
@@ -67,55 +68,6 @@ let matchusers: Array<any> = [];
 let userIds: Array<string> = [""];
 let songData: [string, number] = ["", 0];
 
-
-//New interface
-interface MatchArray {
-    matchData: Array<any>;
-    matchId: Array<any>;
-    coordinator: Coordinator[];
-}
-
-//Create typescript interface for coordinator
-interface Coordinator {
-    name: string;
-    id: string;
-}
-interface Player {
-    name: string;
-    type: number;
-    user_id: string;
-    guid: string;
-    team?: Team[];
-    stream_delay_ms: number;
-    stream_sync_start_ms: number;
-}
-interface Team {
-    name: string;
-    id: string;
-}
-
-interface Score {
-    user_id: string;
-    team: Team[];
-    score: number;
-    accuracy: number;
-    combo: number;
-    notesMissed: number;
-    badCuts: number;
-    bombHits: number;
-    wallHits: number;
-    maxCombo: number;
-    lhAvg: number[];
-    lhBadCut: number;
-    lhHits: number;
-    lhMiss: number;
-    rhAvg: number[];
-    rhBadCut: number;
-    rhHits: number;
-    rhMiss: number;
-    totalMisses: number;
-}
-
 taWS.on("packet", p => {
     if (p.has_response && p.response.has_connect) {
         if (p.response.type === 1) {
@@ -172,6 +124,7 @@ taWS.on("matchCreated", m => {
         }
     }
     if (users.length <= 2 || debug) {
+        //Coordinator part is not really implemented yet, I forgot to add the disclaimer for it.
         try {
             coordinatorName = usersArray.find((u: { guid: string; }) => u.guid === coordinatorID).name || "Unknown";
         } catch (error) {
@@ -199,17 +152,21 @@ taWS.on("matchCreated", m => {
 });
 
 taWS.on("userAdded", u => {
-    if (u.data.client_type == 0) {
+    if (u.data.client_type == Models.User.ClientTypes.Player) {
         const user: Player = {name:u.data.name, type:u.data.client_type,user_id:u.data.user_id, guid:u.data.guid,stream_delay_ms:u.data.stream_delay_ms, team:[], stream_sync_start_ms:u.data.stream_sync_start_ms};
         usersArray.push(user);
     }
 });
 
 taWS.on("userUpdated", u => {
-    if (u.data.client_type <= 1) {
+    if (u.data.client_type == Models.User.ClientTypes.Player) {
         try {
             let index = usersArray.findIndex((x: any) => x.guid == u.data.guid);
-            usersArray[index].team = [u.data.team.name, u.data.team.id];
+            try {
+                usersArray[index].team = [u.data.team.name, u.data.team.id];
+            } catch (error) {
+                usersArray[index].team = ["", 0];
+            }
             usersArray[index].stream_delay_ms = u.data.stream_delay_ms;
             usersArray[index].stream_sync_start_ms = u.data.stream_sync_start_ms;
         } catch (error) {
@@ -219,7 +176,7 @@ taWS.on("userUpdated", u => {
 });
 
 taWS.on("userLeft", u => {
-    if (u.data.client_type <= 1) {
+    if (u.data.client_type == Models.User.ClientTypes.Player) {
         let index = usersArray.findIndex((x: any) => x.guid == u.data.guid);
         usersArray.splice(index, 1);
     }

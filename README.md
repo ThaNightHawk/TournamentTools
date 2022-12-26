@@ -1,7 +1,7 @@
 
 ![Logo](GitHubImage.png)
 
-# WIKI COMING SOON <br /> COMPATIBLE WITH TA 0.6.7
+# Wiki is being worked on! <br /> Compatible with 0.6.9
 
 # TournamentTools #
 This was originally made to be closed-sourced and only for use within the danish Beat Saber Discord, though someone asked me if I would open-source it, and I thought why not, more people would be able to collaborate on it and make it even better.
@@ -66,3 +66,11 @@ The Battle Royale Tools:
 Do you want to contribute code? Fork this, create a PR with your change(s) + explanation behind it/them and we'll have a look at it.
 
 If you don't want to contribute code, that's ok, if you see anything completely out of order, don't hesitate to question it.
+
+## Thanks to
+
+| Who | For |
+| :----: | :----: |
+|[MatrikMoon](https://github.com/MatrikMoon)|[TournamentAssistant](https://github.com/MatrikMoon/TournamentAssistant) and rewriting the absolute first version this is expanded upon|
+|[Dannypoke03](https://github.com/Dannypoke03)|[TournamentAssistantClient](https://github.com/Dannypoke03/TournamentAssistantClient)|
+| People with feedback | Good feedback |

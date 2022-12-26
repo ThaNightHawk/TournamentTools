@@ -276,7 +276,11 @@ function setSongJSON(playlist) {
         }
         var diffNames = [];
         for (var i = 0; i < songList.length; i++) {
-            diffNames.push(songList[i].difficulties[0].name);
+            try {
+                diffNames.push(songList[i].difficulties[0].name);
+            } catch(e) {
+                diffNames.push("Easy");
+            }
         }
         var songNames = [];
         for (var i = 0; i < songList.length; i++) {
@@ -618,6 +622,10 @@ function sendToOverlay(type) {
 				diff = 3;
 				break;
 			case "expertplus":
+				diff = 4;
+				break;
+            //Really would wish that BeatKhana API used the same naming convention as BeatSaver........
+			case "expert+":
 				diff = 4;
 				break;
 			default:
