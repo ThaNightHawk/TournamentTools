@@ -1,4 +1,4 @@
-const relayIp = "wss://domain:2223";
+const relayIp = "wss://domain.com:2223";
 
 let currentSong = "";
 let currentDiff = "";

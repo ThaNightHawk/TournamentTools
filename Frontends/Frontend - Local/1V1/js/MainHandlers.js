@@ -1,4 +1,4 @@
-const relayIp = "wss://domain:2223";
+const relayIp = "ws://localhost:2223";
 
 //Player data
 let playerNames = ["",""];
@@ -26,23 +26,23 @@ ws.onmessage = async function (event) {
 			getMap(jsonObj.LevelId, jsonObj.Diff, jsonObj.Player);
 
 			//The scoreUpdate it sent off to userScoringHandler.js, to reset the overlay-data for both players.
-			scoreUpdate(0, 0, 0, 0, 0, 0, 0, 0, 0, 1);
+			scoreUpdate(0, 0, 0, 0, 0, 1);
 		}
 	}
 	if (jsonObj.Type == 4) // Score Update
 	{
 		//This is sent off to the userScoringHandler.js
-		scoreUpdate(jsonObj.message.user_id, jsonObj.message.score, jsonObj.message.combo, jsonObj.message.accuracy * 100, jsonObj.message.totalMisses, jsonObj.message.notesMissed, jsonObj.message.badCuts, jsonObj.message.bombHits, jsonObj.message.wallHits);
+		const data = jsonObj.message;
+		scoreUpdate(data.user_id, data.score, data.combo, data.accuracy * 100, data.totalMisses);
 	}
 	if (jsonObj.Type == 5) { //Match Created
 		if (jsonObj.command == "createUsers") {
 			playerIDs = [jsonObj.PlayerIds[0], jsonObj.PlayerIds[1]];
 			playerNames = [jsonObj.PlayerNames[0], jsonObj.PlayerNames[1]];
-			//This it sent off to overlayHandler.js
 			setOverlay(playerIDs, playerNames, jsonObj.Round);
 		}
 		if (jsonObj.command == "updateScore") {
-			//Look in ScoreLogic.js for this behemoth... :fearful:
+			//Sends the data off to be handled by the userScoringHandler.js
 			changeScoreline(jsonObj.PlayerIds, jsonObj.Score);
 		}
 		if (jsonObj.command == "resetOverlay") {
@@ -54,9 +54,8 @@ ws.onmessage = async function (event) {
 			document.getElementById("leftPoints").style.opacity = '0';
 			document.getElementById("rightPoints").style.opacity = '0';
 
-
 			setTimeout(function () {
-				scoreUpdate(0, 0, 0, 0, 0, 0, 0, 0, 0, 1);
+				scoreUpdate(0, 0, 0, 0, 0, 1);
 				playerScore = [0, 0];
 				songData["",0];
 
