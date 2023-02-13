@@ -1,3 +1,9 @@
+/*
+
+THIS IS NOT FINISHED YET, SO 2V2 WILL _NOT_ WORK UNTIL I'VE GOTTEN AROUND TO FINISHING IT.
+
+*/
+
 //Sets the overlay data for the teams and players + round.
 async function setOverlay(teamNames, teamImages, playerIDs, playerNames, Round) {
 	document.getElementById("RoundText").innerText = Round;

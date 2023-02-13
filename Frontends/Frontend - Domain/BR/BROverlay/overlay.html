@@ -113,6 +113,10 @@
         var leaderboardLoserDiv = document.getElementById("LeaderboardLoser");
         var leaderboardData = {};
 
+        var httpstatus = false;
+
+
+
         function sleep(ms) {
             return new Promise(resolve => setTimeout(resolve, ms));
         }
@@ -266,7 +270,7 @@
         }
 
         try {
-            var TAsock = new WebSocket("wss://domain:2223");
+            var TAsock = new WebSocket("wss://domain.com:2223");
             TAsock.onopen = function (event) {
                 console.log("Connected to Websocket");
             };

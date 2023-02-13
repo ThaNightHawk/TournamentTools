@@ -1,4 +1,4 @@
-const relayIp = "wss://domain:2223";
+const relayIp = "ws://domain:2223";
 
 //Data
 

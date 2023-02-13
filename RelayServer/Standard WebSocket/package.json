@@ -1,8 +1,8 @@
 {
-  "name": "ta-client-example-node-ts",
+  "name": "ttols_standard_relayserver",
   "version": "1.0.0",
   "scripts": {
-    "start": "tsc index.ts && node index.js"
+    "start": "tsc ./src/index.ts && node ./src/index.js"
   },
   "dependencies": {
     "tournament-assistant-client": "^0.9.0",

@@ -1,8 +1,8 @@
 {
-  "name": "ttools_secure_relay",
-  "version": "1.9.0",
+  "name": "ttools_secured_relayserver",
+  "version": "1.0.0",
   "scripts": {
-    "start": "tsc index.ts && node index.js"
+    "start": "tsc ./src/index.ts && node ./src/index.js"
   },
   "dependencies": {
     "fs": "^0.0.1-security",

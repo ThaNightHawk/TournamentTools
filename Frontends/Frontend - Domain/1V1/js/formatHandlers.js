@@ -23,5 +23,5 @@ function toFixed(num, fixed) {
 
 //Used to format scores to a readable format.
 function scoreFormatting(x) {
-    return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".");
+	return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".");
 }

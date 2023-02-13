@@ -1,18 +1,13 @@
-export interface MatchArray {
-    matchData: Array<any>;
-    matchId: Array<any>;
-    coordinator: Coordinator[];
-}
 export interface Coordinator {
     name: string;
-    id: string;
+    guid: string;
 }
 export interface Player {
     name: string;
     type: number;
     user_id: string;
     guid: string;
-    team?: Team[];
+    team: Team[];
     stream_delay_ms: number;
     stream_sync_start_ms: number;
 }
