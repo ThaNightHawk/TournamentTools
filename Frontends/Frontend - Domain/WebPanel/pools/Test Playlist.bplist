@@ -3,7 +3,7 @@
   "playlistAuthor": "NightHawk",
   "playlistDescription": "The playlist for the danish Beat Saber circuit. - This playlist is updated every week!",
   "customData": {
-    "syncURL": "https://api.danesaber.cc/circuit/danesaber.json"
+    "syncURL": "https://api.danesaber.cf/circuit/danesaber.json"
   },
   "songs": [
     {
