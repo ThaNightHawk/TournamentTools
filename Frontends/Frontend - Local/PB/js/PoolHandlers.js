@@ -65,14 +65,32 @@ function setPoolLoop(hash, diff) {
     }, 1000);
 }
 
-function setMapState(hash, state, player) {
+function guidv4(data) {
+    const isGUIDV4 = /^([a-f\d]{8}(-[a-f\d]{4}){3}-[a-f\d]{12}?)$/i.test(data);
+    return isGUIDV4;
+}
+function setMapState(hash, state, actor) {
     const SongCard = document.getElementsByClassName(`SongCard${hash}`)[0];
     const pick = SongCard.getElementsByClassName(`SongPick${hash}`)[0];
     const cover = SongCard.getElementsByClassName(`SongCover${hash}`)[0];
     const info = SongCard.getElementsByClassName(`SongInfo${hash}`)[0];
+    let image;
+    if (guidv4(actor)) {
+        if (actor == TeamIDs[0]) {
+            image = TeamImages[0];
+        } else if (actor == TeamIDs[1]) {
+            image = TeamImages[1];
+        }
+    } else {
+        if (actor == PlayerIDs[0]) {
+            image = PlayerImages[0];
+        } else if (actor == PlayerIDs[1]) {
+            image = PlayerImages[1];
+        }
+    }
 
     if (state === 'Pick') {
-        pick.style.backgroundImage = `url('${player === PlayerIDs[0] ? PlayerImages[0] : PlayerImages[1]}')`;
+        pick.style.backgroundImage = `url('${image}')`;
         cover.style.borderColor = '#3eff68';
         cover.style.boxShadow = '2px 0px 8px #3eff68';
         info.style.borderColor = '#3eff68';
@@ -81,7 +99,7 @@ function setMapState(hash, state, player) {
         pick.style.boxShadow = '2px 0px 8px #3eff68';
         pick.style.opacity = '1';
     } else if (state === 'Ban') {
-        pick.style.backgroundImage = `url('${player === PlayerIDs[0] ? PlayerImages[0] : PlayerImages[1]}')`;
+        pick.style.backgroundImage = `url('${image}')`;
         pick.style.borderColor = '#ff1616';
         pick.style.boxShadow = '#ff1616 2px 0px 8px';
         cover.style.borderColor = '#ff1616';

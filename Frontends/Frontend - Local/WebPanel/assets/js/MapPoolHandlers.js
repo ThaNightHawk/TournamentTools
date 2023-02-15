@@ -1,11 +1,11 @@
-function appendSongs(hash, diff, name, player) {
+function appendSongs(hash, diff, songName, name) {
     const songs = document.getElementById("currentMap");
     const option = document.createElement("option");
-    option.textContent = `${name} | ${diff}`;
+    option.textContent = `${songName} | ${diff}`;
     option.value = hash;
-    option.dataset.songName = name;
+    option.dataset.songName = songName;
     option.dataset.hash = diff;
-    option.dataset.player = player;
+    option.dataset.name = name;
     songs.appendChild(option);
 }
 

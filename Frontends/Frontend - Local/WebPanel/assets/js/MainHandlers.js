@@ -6,7 +6,8 @@ Versus Variables
 let PlayerIDs = []; /* [P1, P2, P3, P4] */
 let PlayerNames = []; /* [P1, P2, P3, P4] */
 let PlayerInfo = []; /* Used for storing data to be sent, if you press "Reload Stream-overlay" */
-
+let TeamNamesIDs = []; /* Team Names and IDs */
+let TeamImages = []; /* Team Images */
 /*
 BR Variables
 */
@@ -29,8 +30,7 @@ let closed = false;
 
 const inputOptions = new Promise((resolve) => {
     resolve({
-        '1': '1V1',
-        // '2': '2V2',
+        '1': '1V1 / 2V2',
         '3': 'Battle Royale'
     })
 });
@@ -70,25 +70,14 @@ function Connect() {
     ws.onmessage = async function (event) {
         const parsedData = JSON.parse(event.data);
         const { Type, overlay, command, message } = parsedData;
-        if (Type == 1 && overlay == "VERSUS") {
+        if (Type == 1 && overlay === "VERSUS") {
             const { matchId, coordinator, players } = message.matchData;
+            const teams = groupPlayersByTeam(players);
+            const [team1, team2] = sortTeamsByName(Object.values(teams));
+            const [player1, player2, player3, player4] = getPlayerNames(team1, team2, players);
 
-            const player1 = players[0] || { name: "Placeholder 1", user_id: "76561198086326146", guid: "0" };
-            const player2 = players[1] || { name: "Placeholder 2", user_id: "76561198086326146", guid: "0" };
-
-            $('#currentMatch').append(`
-            <option 
-            data-match-id="${matchId}"
-            data-coordinator-name="${coordinator.name}"
-            data-coordinator-id="${coordinator.id}"
-            data-player1-name="${player1.name}"
-            data-player1-id="${player1.user_id}"
-            data-player1-guid="${player1.guid}"
-            data-player2-name="${player2.name}"
-            data-player2-id="${player2.user_id}"
-            data-player2-guid="${player2.guid}"
-            >${player1.name} vs ${player2.name}</option>
-            `);
+            const optionHtml = getOptionHtml(matchId, coordinator, player1, player2, player3, player4, players);
+            $('#currentMatch').append(optionHtml);
         }
 
         if (Type == 2) {
@@ -109,24 +98,13 @@ function Connect() {
                 message.matches.forEach(match => {
                     const { matchId, coordinator, players } = match.matchData;
                     if (!$(`#currentMatch option[data-match-id="${matchId}"]`).length) {
-                        const player1 = players[0] || { name: "Placeholder 1", user_id: "76561198086326146", guid: "0" };
-                        const player2 = players[1] || { name: "Placeholder 2", user_id: "76561198086326146", guid: "0" };
+                        const teams = groupPlayersByTeam(players);
+                        const [team1, team2] = sortTeamsByName(Object.values(teams));
+                        const [player1, player2, player3, player4] = getPlayerNames(team1, team2, players);
 
-                        $('#currentMatch').append(`
-                        <option 
-                        data-match-id="${matchId}"
-                        data-coordinator-name="${coordinator.name}"
-                        data-coordinator-id="${coordinator.id}"
-                        data-player1-name="${player1.name}"
-                        data-player1-id="${player1.user_id}"
-                        data-player1-guid="${player1.guid}"
-                        data-player2-name="${player2.name}"
-                        data-player2-id="${player2.user_id}"
-                        data-player2-guid="${player2.guid}"
-                        >${player1.name} vs ${player2.name}</option>
-                        `);
+                        const optionHtml = getOptionHtml(matchId, coordinator, player1, player2, player3, player4, players);
+                        $('#currentMatch').append(optionHtml);
                     }
-
                 });
             }
         }
@@ -138,7 +116,7 @@ function Connect() {
             ws.send(JSON.stringify({ message: "ping" }));
         }
     }, 30000);
-    
+
 };
 function configPop() {
     Swal.fire({
@@ -155,12 +133,8 @@ function configPop() {
             switch (value) {
                 case '1':
                     tmconfig = 1;
-                    title = '1V1';
+                    title = '1V1 - 2V2';
                     break;
-                // case '2':
-                //     tmconfig = 2;
-                //     title = '2V2';
-                //     break;
                 case '3':
                     tmconfig = 3;
                     title = 'Battle Royale';
@@ -168,7 +142,7 @@ function configPop() {
             }
 
             return new Promise(resolve => {
-                if (tmconfig === 1 || tmconfig === 2) {
+                if (tmconfig === 1) {
                     Swal.fire({
                         title: 'Do you use BeatKhana?',
                         html: 'If you do, make sure your tournament is public, and map-pools can be seen.',
@@ -220,20 +194,54 @@ function showConnectedMessage(beatKhana, title) {
     }, 1);
 }
 function reset() {
-    if (!inMatch) {
-        return;
+    if (inMatch) {
+        if (tmconfig == 1) {
+            ws.send(JSON.stringify({ 'Type': '5',
+                'command': 'resetOverlay'
+            }));
+            inMatch = false;
+            location.reload();
+        } else if (tmconfig == 2) {
+            ws.send(JSON.stringify({
+                'Type': '6',
+                'command': 'resetUsers'
+            }));
+            ws.send(JSON.stringify({
+                'Type': '6',
+                'command': 'resetSpectator'
+            }));
+            inMatch = false;
+            location.reload();
+        }
     }
-    const command = tmconfig === 1 ? 'resetOverlay' : 'resetUsers';
-    ws.send(JSON.stringify({ Type: '5', command }));
-    if (tmconfig === 2) {
-        ws.send(JSON.stringify({ Type: '6', command: 'resetSpectator' }));
-    }
-    inMatch = false;
-    location.reload();
 }
 function reload() {
     if (inMatch) {
-        ws.send(JSON.stringify({ 'Type': '5', 'command': 'createUsers', 'PlayerNames': [PlayerInfo[0][0], PlayerInfo[1][0]], 'PlayerIds': [PlayerIDs[0], PlayerIDs[1]], 'TwitchIds': [PlayerInfo[0][1], PlayerInfo[1][1]], 'Round': round }));
+
+        if (!PlayerIDs[3]) {
+            ws.send(JSON.stringify({
+                Type: '5',
+                command: 'createUsers',
+                matchStyle: '1v1',
+                PlayerNames: [PlayerNames[0], PlayerNames[1]],
+                PlayerIds: [PlayerIDs[0], PlayerIDs[1]],
+                TwitchIds: [PlayerInfo[0][1], PlayerInfo[1][1]],
+                Round: round
+            }));
+        } else {
+            ws.send(JSON.stringify({
+                Type: '5',
+                command: 'createUsers',
+                matchStyle: '2v2',
+                PlayerNames: [PlayerNames[0], PlayerNames[1], PlayerNames[2], PlayerNames[3]],
+                PlayerIds: [PlayerIDs[0], PlayerIDs[1], PlayerIDs[2], PlayerIDs[3]],
+                TwitchIds: [PlayerInfo[0][0], PlayerInfo[0][1], PlayerInfo[1][0], PlayerInfo[1][1]],
+                TeamNames: [TeamNamesIDs[0], TeamNamesIDs[2]],
+                TeamIDs: [TeamNamesIDs[1], TeamNamesIDs[3]],
+                TeamImages: [TeamImages[0][0], TeamImages[0][1]],
+                Round: round
+            }));
+        }
     }
 };
 
