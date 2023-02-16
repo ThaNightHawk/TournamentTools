@@ -2,5 +2,9 @@ node_modules/
 
 DevStuff/
 
-RelayServer/Secure Server/**/*.js
-RelayServer/Standard Server/**/*.js
+RelayServer/Secure Server/src/settings.js
+RelayServer/Secure Server/src/includes/functions.js
+RelayServer/Secure Server/src/index.js
+RelayServer/Standard WebSocket/src/settings.js
+RelayServer/Standard WebSocket/src/includes/functions.js
+RelayServer/Standard WebSocket/src/index.js
