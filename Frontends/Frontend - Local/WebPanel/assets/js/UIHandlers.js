@@ -170,9 +170,9 @@ function sendToOverlay(type) {
         var p2Score = document.getElementById("P2ScoreSlider").value;
 
         if (!PlayerIDs[3]) {
-        ws.send(JSON.stringify({ 'Type': '5', 'command': 'updateScore', 'PlayerIds': [PlayerIDs[0], PlayerIDs[1]], 'Score': [p1Score, p2Score] }));
+        ws.send(JSON.stringify({ 'Type': '5', 'matchStyle': '1v1', 'command': 'updateScore', 'PlayerIds': [PlayerIDs[0], PlayerIDs[1]], 'Score': [p1Score, p2Score] }));
         } else {
-            ws.send(JSON.stringify({ 'Type': '5', 'command': 'updateScore', 'PlayerIds': [TeamNamesIDs[1],TeamNamesIDs[3]], 'Score': [p1Score, p2Score] }));
+            ws.send(JSON.stringify({ 'Type': '5', 'matchStyle': '2v2', 'command': 'updateScore', 'TeamIds': [TeamNamesIDs[1],TeamNamesIDs[3]], 'Score': [p1Score, p2Score] }));
         }
     }
 };

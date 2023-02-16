@@ -36,7 +36,7 @@ ws.onmessage = async function (event) {
 		scoreUpdate(data.user_id, data.score, data.combo, data.accuracy * 100, data.totalMisses);
 	}
 	if (jsonObj.Type == 5) { //Match Created
-		if (jsonObj.command == "createUsers") {
+		if (jsonObj.command == "createUsers" && jsonObj.matchStyle == "1v1") {
 			playerIDs = [jsonObj.PlayerIds[0], jsonObj.PlayerIds[1]];
 			playerNames = [jsonObj.PlayerNames[0], jsonObj.PlayerNames[1]];
 			setOverlay(playerIDs, playerNames, jsonObj.Round);
