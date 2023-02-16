@@ -22,5 +22,6 @@ export default {
         port: 2053,
         password: ''
     },
-    Gamemode: "VERSUS"
+    Gamemode: "VERSUS",
+    Modals: false,
 };
