@@ -1,6 +1,6 @@
 import settings from './settings';
 import { Coordinator, Player, Score } from "./includes/types";
-import { getUsers, HJS } from "./includes/functions";
+import { getUsers, HJS, sendModal } from "./includes/functions";
 import { Client, Models, Packets  } from "tournament-assistant-client";
 import { createServer } from 'https';
 import { readFileSync } from 'fs';
@@ -96,10 +96,38 @@ taWS.on("packet", (p: any) => {
             throw new Error("Connection was not successful");
         }
     }
-});
-
-taWS.on("showModal" || "modalResponse", (m) => {
-    console.log(m);
+    if (settings.Modals) {
+        if (p.has_response && p.response.modal) {
+            if (p.response.modal.modal_id) {
+                const modal_id = p.response.modal.modal_id;
+                if (modal_id.startsWith("team_modal_for_")) {
+                    let modal_user = modal_id.replace("team_modal_for_", "");
+                    if (p.response.modal.value == 'deny') {
+                        sendModal(
+                            taWS,
+                            "user_denied_team_",
+                            modal_user,
+                            "You denied",
+                            "Please rejoin the server, and pick the correct team.",
+                            false
+                        );
+                    }
+                    if (p.response.modal.value == 'confirm') {
+                        sendModal(
+                            taWS,
+                            "ready_modal_for_",
+                            modal_user,
+                            "Team selected!",
+                            "You've confirmed that you're\n on the correct team.\n\nWhenever you're ready to play\nclick the \"Ready\"-button!",
+                            false,
+                            "Ready",
+                            "ready"
+                        );
+                    }
+                }
+            }
+        }
+    }
 });
 
 taWS.on("matchCreated", (m) => {
@@ -142,15 +170,17 @@ taWS.on("userAdded", (u) => {
         };
         usersArray.push(user);
 
-        if (!taWS.ServerSettings.enable_teams) {
-            const modalMessage = new Packets.Command.ShowModal({
-                modal_id: "welcome_modal_for" + user.guid,
-                message_title: "Welcome",
-                message_text: "You've joined the " + taWS.ServerSettings.server_name + " server!\n\n Please be aware, that this server is mainly for " + taWS.ServerSettings.server_name + "-use.\n\n",
-                can_close: true,
-            });
-
-            taWS.sendMessage([user.guid], modalMessage);
+        if (settings.Modals) {
+            if (!taWS.ServerSettings.enable_teams) {
+                sendModal(
+                    taWS,
+                    "welcome_modal_for_",
+                    user.guid,
+                    "Welcome",
+                    "You've joined the " + taWS.ServerSettings.server_name + " server!\n\n Please be aware, that this server is mainly for " + taWS.ServerSettings.server_name + "-use.\n\n",
+                    true
+                );
+            }
         }
     }
     if (u.data.client_type === 1) {
@@ -169,17 +199,23 @@ taWS.on("userUpdated", (u) => {
         try {
             const index = usersArray.findIndex((x) => x.guid === u.data.guid);
 
+            if (settings.Modals) {
+                if (taWS.ServerSettings.enable_teams) {
+                    if (usersArray[index].team[1] !== u.data.team.id) {
+                        sendModal(
+                            taWS,
+                            "team_modal_for_",
+                            usersArray[index].guid,
+                            "Team selected!",
+                            "You've selected team:\n\n " + u.data.team.name + "\n\n If you selected a wrong team\n please reconnect and select the right one.\n\nIf your team is correct, please click ready when you are ready to play.",
+                            true,
+                            "Confirm",
+                            "confirm",
+                            "Deny",
+                            "deny"
+                        );
 
-            if (taWS.ServerSettings.enable_teams) {
-                if (usersArray[index].team[1] !== u.data.team.id) {
-                    const modalMessage = new Packets.Command.ShowModal({
-                        modal_id: "team_modal_for" + usersArray[index].guid,
-                        message_title: "Team selected!",
-                        message_text: "You've selected team:\n " + u.data.team.name + "\n If you selected a wrong team\n please reconnect and select the right one.\n\nIf your team is correct, please click ready when you are ready to play.",
-                        can_close: true,
-                    });
-
-                    taWS.sendMessage([u.data.guid], modalMessage);
+                    }
                 }
             }
 

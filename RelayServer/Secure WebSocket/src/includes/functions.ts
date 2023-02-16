@@ -1,3 +1,4 @@
+import { Client, Models, Packets } from "tournament-assistant-client";
 import { Match, Coordinator, Player, Team, Score } from "./types";
 
 export function HJS(str) {
@@ -58,4 +59,46 @@ export function getUsers(taWS, usersArray, coordinatorArray, matchArray) {
 
         matchArray.push({matchData});
     });
+}
+
+export function sendModal(taWS: Client, modal_id: string, modal_user: string, message_title: string, message_text: string, can_close: boolean, option_1?: string, option_1_value?: string, option_2?: string, option_2_value?: string) {
+    if (!option_1 && !option_2) {
+        const modalMessage = new Packets.Command.ShowModal({
+            modal_id: modal_id + modal_user,
+            message_title: message_title,
+            message_text: message_text,
+            can_close: can_close,
+        });
+
+        taWS.sendMessage([modal_user], modalMessage);
+        return;
+    }
+    if ((option_1 || option_2) && !(option_1 && option_2)) {
+        const modalMessage = new Packets.Command.ShowModal({
+            modal_id: modal_id + modal_user,
+            message_title: message_title,
+            message_text: message_text,
+            can_close: can_close,
+            option_1: new Models.ModalOption({
+                label: (option_1 !== undefined && option_1 !== null) ? option_1 : option_2,
+                value: option_1_value ? option_1_value : option_2_value
+            })
+        });
+        taWS.sendMessage([modal_user], modalMessage);
+        return;
+    }
+    if (option_1 && option_2) {
+        const modalMessage = new Packets.Command.ShowModal({
+            modal_id: modal_id + modal_user,
+            message_title: message_title,
+            message_text: message_text,
+            can_close: can_close,
+            option_1: new Models.ModalOption({ label: option_1, value: option_1_value }),
+            option_2: new Models.ModalOption({ label: option_2, value: option_2_value }),
+        });
+        taWS.sendMessage([modal_user], modalMessage);
+        return;
+    }
+    console.log("Reached end of sendModal function, make sure you have the correct parameters");
+    return;
 }
