@@ -1,15 +1,15 @@
-import { Server, TA, Gamemode } from './settings';
+import settings from './settings';
 import { Coordinator, Player, Score } from "./includes/types";
 import { getUsers, HJS } from "./includes/functions";
-import { Client } from "tournament-assistant-client";
+import { Client, Models, Packets } from "tournament-assistant-client";
 import { WebSocket, WebSocketServer } from "ws";
 
-const relay_ip = Server.ip || "ws://localhost"
-const port = Server.port || 2223;
+const relay_ip = settings.Server.ip || "ws://localhost"
+const port = settings.Server.port || 2223;
 const wss = new WebSocketServer({ port });
 const ws = new WebSocket(relay_ip + ":" + port);
 
-console.info("Relay server is running on port " + port + " (" +relay_ip +":"+ port + ") - Mode: " + Gamemode);
+console.info("Relay server is running on port " + port + " (" + relay_ip + ":" + port + ") - Mode: " + settings.Gamemode);
 
 wss.on("connection", (ws) => {
     ws.on('message', function message(data, isBinary) {
@@ -67,12 +67,12 @@ wss.on("connection", (ws) => {
 });
 
 const taWS = new Client("TAOverlay", {
-    url: TA.ip + ":" + TA.port,
+    url: settings.TA.ip + ":" + settings.TA.port,
     options: { autoReconnect: true, autoReconnectInterval: 1000 },
-    password: TA.password,
+    password: settings.TA.password,
 });
 
-const mode: string = Gamemode;
+const mode: string = settings.Gamemode;
 const debug: boolean = false;
 let usersArray: Array<any> = [];
 let coordinatorArray: Array<any> = [];
@@ -88,6 +88,10 @@ taWS.on("packet", (p: any) => {
             throw new Error("Connection was not successful");
         }
     }
+});
+
+taWS.on("showModal" || "modalResponse", (m) => {
+    console.log(m);
 });
 
 taWS.on("matchCreated", (m) => {
@@ -109,7 +113,7 @@ taWS.on("matchCreated", (m) => {
     if (mode == "VERSUS" || debug) {
         const matchusers = users.map(guid => {
             const user = usersArray.find(x => x.guid == guid);
-            return { name: user.name, user_id: user.user_id, team: [user.team.id, user.team.name], guid: user.guid };
+            return { name: user.name, user_id: user.user_id, team: user.team, guid: user.guid };
         });
         const matchData = { matchId: m.data.guid, coordinator: { name: coordinatorName, id: coordinatorID }, players: matchusers };
         matchArray.push({ matchData });
@@ -129,6 +133,17 @@ taWS.on("userAdded", (u) => {
             stream_sync_start_ms: u.data.stream_sync_start_ms,
         };
         usersArray.push(user);
+
+        if (!taWS.ServerSettings.enable_teams) {
+            const modalMessage = new Packets.Command.ShowModal({
+                modal_id: "welcome_modal_for" + user.guid,
+                message_title: "Welcome",
+                message_text: "You've joined the " + taWS.ServerSettings.server_name + " server!\n\n Please be aware, that this server is mainly for " + taWS.ServerSettings.server_name + "-use.\n\n",
+                can_close: true,
+            });
+
+            taWS.sendMessage([user.guid], modalMessage);
+        }
     }
     if (u.data.client_type === 1) {
         const coordinator: Coordinator = {
@@ -145,6 +160,21 @@ taWS.on("userUpdated", (u) => {
     if (u.data.client_type === 0) {
         try {
             const index = usersArray.findIndex((x) => x.guid === u.data.guid);
+
+
+            if (taWS.ServerSettings.enable_teams) {
+                if (usersArray[index].team[1] !== u.data.team.id) {
+                    const modalMessage = new Packets.Command.ShowModal({
+                        modal_id: "team_modal_for" + usersArray[index].guid,
+                        message_title: "Team selected!",
+                        message_text: "You've selected team:\n " + u.data.team.name + "\n If you selected a wrong team\n please reconnect and select the right one.\n\nIf your team is correct, please click ready when you are ready to play.",
+                        can_close: true,
+                    });
+
+                    taWS.sendMessage([u.data.guid], modalMessage);
+                }
+            }
+
             usersArray[index].team = [u.data.team.name, u.data.team.id];
             usersArray[index].stream_delay_ms = u.data.stream_delay_ms;
             usersArray[index].stream_sync_start_ms = u.data.stream_sync_start_ms;
@@ -173,7 +203,7 @@ taWS.on("realtimeScore", (s) => {
 
     const userScoring: Score = {
         user_id: userId,
-        team, 
+        team,
         score: s.data.score,
         accuracy: s.data.accuracy,
         combo: s.data.combo,

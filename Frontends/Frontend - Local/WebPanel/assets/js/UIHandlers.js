@@ -4,12 +4,28 @@ function PB(hashdiff) {
 
     let title = document.querySelector(`img[data-hash="${hash}"]`).getAttribute("data-title");
 
+    let Name1;
+    let Name2;
+    let ID1;
+    let ID2;
+
+    if (!PlayerIDs[3]) {
+        Name1 = PlayerNames[0];
+        Name2 = PlayerNames[1];
+        ID1 = PlayerIDs[0];
+        ID2 = PlayerIDs[1];
+    } else {
+        Name1 = TeamNamesIDs[0];
+        Name2 = TeamNamesIDs[2];
+        ID1 = TeamNamesIDs[1];
+        ID2 = TeamNamesIDs[3];
+    }
     Swal.fire({
         title: 'Who\'s picking?',
         showDenyButton: true,
         showDenyButton: true,
-        confirmButtonText: PlayerNames[0],
-        denyButtonText: PlayerNames[1],
+        confirmButtonText: Name1,
+        denyButtonText: Name2,
         cancelButtonText: `Tiebreaker`,
         confirmButtonColor: '#ff5252',
         denyButtonColor: '#a768eb',
@@ -23,10 +39,10 @@ function PB(hashdiff) {
                 ...swalPBConfig
             }).then((result) => {
                 if (result.isConfirmed) {
-                    ws.send(JSON.stringify({ "Type": "5", "command": "PicksAndBans", "Action": "Pick", "map": hash, "PlayerId": PlayerIDs[0] }));
-                    appendSongs(hash, diff, title, PlayerNames[0]);
+                    ws.send(JSON.stringify({ "Type": "5", "command": "PicksAndBans", "Action": "Pick", "map": hash, "Actor": ID1 }));
+                    appendSongs(hash, diff, title, Name1);
                 } else if (result.isDenied) {
-                    ws.send(JSON.stringify({ "Type": "5", "command": "PicksAndBans", "Action": "Ban", "map": hash, "PlayerId": PlayerIDs[0] }));
+                    ws.send(JSON.stringify({ "Type": "5", "command": "PicksAndBans", "Action": "Ban", "map": hash, "Actor": ID1 }));
                 } else if (result.isDismissed) {
                     PB(hashdiff);
                 }
@@ -36,40 +52,46 @@ function PB(hashdiff) {
                 ...swalPBConfig
             }).then((result) => {
                 if (result.isConfirmed) {
-                    ws.send(JSON.stringify({ "Type": "5", "command": "PicksAndBans", "Action": "Pick", "map": hash, "PlayerId": PlayerIDs[1] }));
-                    appendSongs(hash, diff, title, PlayerNames[1]);
+                    ws.send(JSON.stringify({ "Type": "5", "command": "PicksAndBans", "Action": "Pick", "map": hash, "Actor": ID2 }));
+                    appendSongs(hash, diff, title, Name2);
                 } else if (result.isDenied) {
-                    ws.send(JSON.stringify({ "Type": "5", "command": "PicksAndBans", "Action": "Ban", "map": hash, "PlayerId": PlayerIDs[1] }));
+                    ws.send(JSON.stringify({ "Type": "5", "command": "PicksAndBans", "Action": "Ban", "map": hash, "Actor": ID2 }));
                 } else if (result.isDismissed) {
                     PB(hashdiff);
                 }
             });
         } else if (result.isDismissed) {
-            ws.send(JSON.stringify({ "Type": "5", "command": "PicksAndBans", "Action": "Tiebreaker", "map": hash, "PlayerId": "0" }));
+            ws.send(JSON.stringify({ "Type": "5", "command": "PicksAndBans", "Action": "Tiebreaker", "map": hash, "Actor": "0" }));
             appendSongs(hash, diff, title, "Tiebreaker");
         }
     });
 }
 
 function sendToOverlay(type) {
-    if (type === 'requestMatches') {
+    if (type === "requestMatches") {
         ws.send(JSON.stringify({
             Type: '5',
             command: 'requestMatches'
         }));
-    } else if (type === 'selectMatch') {
-        const selectedMatch = $('#currentMatch').find(':selected');
-        if (selectedMatch.index() === 0) {
+    }
+    if (type === "selectMatch") {
+        if (selectedMatch.index === 0) {
             alert('Please select a match');
             return;
         }
+        PlayerIDs = [];
 
-        PlayerIDs[0] = selectedMatch.data('player1-id');
-        PlayerIDs[1] = selectedMatch.data('player2-id');
-        matchId = selectedMatch.data('match-id');
+        [PlayerIDs[0], PlayerIDs[1]] = [selectedMatch.dataset.player1Id, selectedMatch.dataset.player2Id];
+        [PlayerNames[0], PlayerNames[1]] = [selectedMatch.dataset.player1Name, selectedMatch.dataset.player2Name];
+
+        if (selectedMatch.dataset.player3Guid != "00000000-0000-0000-0000-000000000000" && selectedMatch.dataset.player4Guid != "00000000-0000-0000-0000-000000000000") {
+            [PlayerIDs[2], PlayerIDs[3]] = [selectedMatch.dataset.player3Id, selectedMatch.dataset.player4Id];
+            [PlayerNames[2], PlayerNames[3]] = [selectedMatch.dataset.player3Name, selectedMatch.dataset.player4Name];
+        }
+        matchId = selectedMatch.dataset.matchId;
         configure();
     }
-    if (type == "playerScreen") {
+    if (type === "playerScreen") {
         const playerScreenNames = document.getElementById("playerScreenNames");
         const alive = document.getElementById("alive");
         if (playerScreenNames.value === "") return;
@@ -115,8 +137,7 @@ function sendToOverlay(type) {
             })
         );
     }
-
-    if (type == "resetSpec") {
+    if (type === "resetSpec") {
         ws.send(
             JSON.stringify({
                 Type: 6,
@@ -129,7 +150,7 @@ function sendToOverlay(type) {
         const hash = selectElement.value;
         const diffOption = selectElement.options[selectElement.selectedIndex];
         const diff = diffOption.getAttribute("data-hash").toLowerCase();
-        const player = diffOption.getAttribute("data-player");
+        const player = diffOption.getAttribute("data-name");
         const diffValue = diff === "easy" ? 0 :
             diff === "normal" ? 1 :
                 diff === "hard" ? 2 :
@@ -144,9 +165,14 @@ function sendToOverlay(type) {
             Player: player
         }));
     }
-    if (type == "sendScore") {
+    if (type === "sendScore") {
         var p1Score = document.getElementById("P1ScoreSlider").value;
         var p2Score = document.getElementById("P2ScoreSlider").value;
+
+        if (!PlayerIDs[3]) {
         ws.send(JSON.stringify({ 'Type': '5', 'command': 'updateScore', 'PlayerIds': [PlayerIDs[0], PlayerIDs[1]], 'Score': [p1Score, p2Score] }));
+        } else {
+            ws.send(JSON.stringify({ 'Type': '5', 'command': 'updateScore', 'PlayerIds': [TeamNamesIDs[1],TeamNamesIDs[3]], 'Score': [p1Score, p2Score] }));
+        }
     }
 };

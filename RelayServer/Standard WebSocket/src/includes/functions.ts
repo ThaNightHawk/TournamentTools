@@ -1,6 +1,7 @@
+import { Client } from "tournament-assistant-client";
 import { Match, Coordinator, Player, Team, Score } from "./types";
 
-export function HJS(str) {
+export function HJS(str: string) {
     if (typeof str !== 'string') return false;
     try {
         const result = JSON.parse(str);
@@ -12,14 +13,14 @@ export function HJS(str) {
     }
 }
 
-export function getUsers(taWS, usersArray, coordinatorArray, matchArray) {
+export function getUsers(taWS: Client, usersArray: any[], coordinatorArray: any[], matchArray: any[]) {
     taWS.Players.forEach((p: any) => {
         const player: Player = {
             name: p.name,
             type: p.client_type,
             user_id: p.user_id,
             guid: p.guid,
-            team: p.team,
+            team: [p.team?.name || "", p.team?.id || 0],
             stream_delay_ms: p.stream_delay_ms,
             stream_sync_start_ms: p.stream_sync_start_ms
         };
@@ -37,12 +38,12 @@ export function getUsers(taWS, usersArray, coordinatorArray, matchArray) {
     });
 
     taWS.Matches.forEach((m: any) => {
-        const users = m.associated_users.filter(guid => {
+        const users = m.associated_users.filter((guid: string) => {
             const index = usersArray.findIndex(x => x.guid == guid);
             return index !== -1 && guid !== taWS.Self.guid;
         });
 
-        const matchusers = users.map(guid => {
+        const matchusers = users.map((guid: string) => {
             const index = usersArray.findIndex(x => x.guid == guid);
             return usersArray[index];
         });

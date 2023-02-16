@@ -36,7 +36,7 @@
         if (!value) { value = '0'; }
 
         const ws = new WebSocket("wss://domain.com:2223");
-		const parent = "localhost";
+		const parent = "domain.com";
         let playerTwitch = "";
 
         ws.onmessage = async function(event) {
