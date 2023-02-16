@@ -102,7 +102,9 @@ function resetAllPlayers() {
 		document.getElementById(`Team${i + 1}FC`).innerHTML = "FC";
 		document.getElementById(`Team${i + 1}Score`).innerHTML = "0";
 		document.getElementById(`Team${i + 1}ScoreDifference`).innerHTML = "0";
+		document.getElementById(`Team${i + 1}ScoreDifference`).style.color = "#ffffff";
 		document.getElementById(`Team${i + 1}ACC`).innerHTML = "0.00%";
 		document.getElementById(`Team${i + 1}ACCDifference`).innerHTML = "0.00%";
+		document.getElementById(`Team${i + 1}ACCDifference`).style.color = "#ffffff";
 	}
 }
