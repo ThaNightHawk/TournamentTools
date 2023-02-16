@@ -1,5 +1,5 @@
-//Sets the overlay data for Player 1, Player 2 and the round.
 async function setOverlay(playerIDs, playerNames, teamNames, teamImages, Round) {
+	console.log(teamImages);
 	document.getElementById("Team1Name").innerText = teamNames[0];
 	document.getElementById("Team2Name").innerText = teamNames[1];
 	document.getElementById("Team1Image").src = teamImages[0];
