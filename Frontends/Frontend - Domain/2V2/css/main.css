@@ -1,3 +1,8 @@
+body {
+    overflow: hidden;
+    background-color: #080808;
+}
+
 .fade-inImages {
     -webkit-transition: opacity 0.5s ease-in-out;
     -moz-transition: opacity 0.5s ease-in-out;
@@ -341,7 +346,7 @@
 
 .Team1Stats {
     top: 292px;
-    left: -5px;
+    left: -10px;
     width: 542px;
     height: 192px;
     display: flex;
@@ -358,6 +363,23 @@
     flex-direction: row;
     justify-content: flex-start;
     background-color: transparent;
+}
+
+.Team1Misses {
+    top: -35px;
+    color: rgba(255, 255, 255, 1);
+    width: 540px;
+    height: auto;
+    position: absolute;
+    font-size: 36px;
+    align-self: auto;
+    font-style: SemiBold;
+    text-align: right;
+    font-family: Poppins;
+    font-weight: 600;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
 }
 
 .Team1Score {
@@ -396,6 +418,7 @@
 
 .Team1ScoreDifference {
     color: white;
+    opacity: 0.5;
 }
 
 .Team1ACC {
@@ -435,6 +458,7 @@
 
 .Team1ACCDifference {
     color: white;
+    opacity: 0.5;
 }
 
 .Team2 {
@@ -760,6 +784,24 @@
     background-color: transparent;
 }
 
+.Team2Misses {
+    top: -35px;
+    left: 2px;
+    color: rgba(255, 255, 255, 1);
+    width: 232px;
+    height: auto;
+    position: absolute;
+    font-size: 36px;
+    align-self: auto;
+    font-style: SemiBold;
+    text-align: left;
+    font-family: Poppins;
+    font-weight: 600;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+}
+
 .Team2Score {
     top: 100px;
     left: 2px;
@@ -798,6 +840,7 @@
 
 .Team2ScoreDifference {
     color: white;
+    opacity: 0.5;
 }
 
 .Team2ACC {
@@ -836,6 +879,7 @@
 
 .Team2ACCDifference {
     color: white;
+    opacity: 0.5;
 }
 
 .Bottombar {
@@ -976,6 +1020,7 @@
     border-color: transparent;
     object-fit: cover;
     overflow: hidden;
+    border-radius: 50%;
 }
 
 .Team1Name {
@@ -1101,6 +1146,7 @@
     border-color: transparent;
     object-fit: cover;
     overflow: hidden;
+    border-radius: 50%;
 }
 
 .Team2Name {
@@ -1380,6 +1426,7 @@
 }
 
 .SongPick {
+    width: 220px;
     color: rgba(255, 255, 255, 1);
     position: absolute;
     top: 104px;
@@ -1387,5 +1434,7 @@
     font-family: Poppins;
     font-size: 13px;
     opacity: 1;
-    text-align: right;
+    overflow: hidden;
+    white-space: nowrap;
+    -webkit-mask-image: linear-gradient(90deg, #000 81%, transparent);
 }

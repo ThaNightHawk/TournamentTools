@@ -1,3 +1,6 @@
 node_modules/
 
 DevStuff/
+
+RelayServer/Secure Server/**/*.js
+RelayServer/Standard Server/**/*.js

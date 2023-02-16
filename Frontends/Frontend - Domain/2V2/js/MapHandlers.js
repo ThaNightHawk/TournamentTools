@@ -1,4 +1,4 @@
-async function getMap(LevelId, LevelDiff, Team) {
+async function getMap(LevelId, LevelDiff, Player) {
 	let songHash = LevelId.replace("custom_level_", "");
 	let songDiff = LevelDiff;
 
@@ -27,7 +27,6 @@ async function getMap(LevelId, LevelDiff, Team) {
 	if (songData[0] != songHash) {
 		songData[0] = songHash;
 		songData[1] = songDiff;
-		console.log(songData[0] + " " + songData[1]);
 
 		fetch('https://api.beatsaver.com/maps/hash/' + songData[0])
 			.then(response => response.json())
@@ -48,23 +47,24 @@ async function getMap(LevelId, LevelDiff, Team) {
 					if (Player == "Tiebreaker") {
 						document.getElementById("SongPick").innerHTML = "Picked as tiebreaker";
 					} else {
-						document.getElementById("SongPick").innerHTML = "Picked by " + Team;
+						document.getElementById("SongPick").innerHTML = "Picked by " + Player;
 					}
-					document.getElementById("SongBox").style.opacity = "1";
+					setTimeout(function () {
+						document.getElementById("SongBox").style.opacity = "1";
+					}, 1000);
 
-				}, 2000);
+				}, 1000);
 			});
 	} else if (songData[0] == songHash && songData[1] != songDiff) {
 		songData[1] = songDiff;
-		document.getElementById("DiffText").style.opacity = "0";
-		setTimeout(function () {
-
-			document.getElementById("DiffText").innerHTML = diffText;
-			document.getElementById("DiffText").style.opacity = "1";
-
-		}, 1000);
 		document.getElementById("DiffTag").style.background = diffColor;
 		document.getElementById("SongCover").style.borderColor = diffColor;
 		document.getElementById("SongInfo").style.borderColor = diffColor;
+
+		setTimeout(function () {
+			document.getElementById("DiffText").style.opacity = "0";
+			document.getElementById("DiffText").innerHTML = diffText;
+			document.getElementById("DiffText").style.opacity = "1";
+		}, 1000);
 	}
 }
