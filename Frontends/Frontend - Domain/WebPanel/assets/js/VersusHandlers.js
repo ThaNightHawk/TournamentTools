@@ -71,18 +71,18 @@ function TwoVTwoHandler() {
         if (result.value) {
             TeamImages.push(result.value.split('\n'));
             createSwal({
-                title: 'Team 1 Twitch-names (Only name)',
+                title: 'Team 1 Twitch-names\n(Only name)',
                 input: 'textarea',
-                inputPlaceholder: 'Player 1\nPlayer 2',
+                inputPlaceholder: `${PlayerNames[0]}\n${PlayerNames[1]}`,
                 footer: '<a href="https://www.youtube.com/watch?v=_UYZaVLu1h0" target="blank"_>How to do this.</a>',
                 ...swalConfig,
             }).then((result) => {
                 if (result.value) {
                     PlayerInfo.push(result.value.split('\n'));
                     createSwal({
-                        title: 'Team 2 Twitch-names (Only name)',
+                        title: 'Team 2 Twitch-names\n(Only name)',
                         input: 'textarea',
-                        inputPlaceholder: 'Player 3\nPlayer 4',
+                        inputPlaceholder: `${PlayerNames[2]}\n${PlayerNames[3]}`,
                         footer: '<a href="https://www.youtube.com/watch?v=_UYZaVLu1h0" target="blank"_>How to do this.</a>',
                         ...swalConfig,
                     }).then((result) => {
