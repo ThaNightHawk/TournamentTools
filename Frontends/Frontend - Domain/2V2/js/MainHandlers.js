@@ -60,7 +60,7 @@ ws.onmessage = async function (event) {
 		}
 		if (jsonObj.command == "updateScore") {
 			//Sends the data off to be handled by the userScoringHandler.js
-			changeScoreline(jsonObj.PlayerIds, jsonObj.Score);
+			changeScoreline(jsonObj.TeamIds, jsonObj.Score);
 		}
 		if (jsonObj.command == "resetOverlay") {
 
