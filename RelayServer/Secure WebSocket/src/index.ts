@@ -75,9 +75,9 @@ wss.on("connection", (ws) => {
 });
 
 const taWS = new Client("TAOverlay", {
-    url: TA.ip + ":" + TA.port,
+    url: settings.TA.ip + ":" + settings.TA.port,
     options: { autoReconnect: true, autoReconnectInterval: 1000 },
-    password: TA.password,
+    password: settings.TA.password,
 });
 
 const mode: string = settings.Gamemode;
