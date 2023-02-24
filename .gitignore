@@ -8,3 +8,6 @@ RelayServer/Secure Server/src/index.js
 RelayServer/Standard WebSocket/src/settings.js
 RelayServer/Standard WebSocket/src/includes/functions.js
 RelayServer/Standard WebSocket/src/index.js
+RelayServer/Beta WebSocket/src/settings.js
+RelayServer/Beta WebSocket/src/includes/functions.js
+RelayServer/Beta WebSocket/src/index.js
