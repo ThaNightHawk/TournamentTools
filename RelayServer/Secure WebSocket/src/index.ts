@@ -199,25 +199,25 @@ taWS.on("userUpdated", (u) => {
         try {
             const index = usersArray.findIndex((x) => x.guid === u.data.guid);
 
-            if (settings.Modals) {
-                if (taWS.ServerSettings.enable_teams) {
-                    if (usersArray[index].team[1] !== u.data.team.id) {
-                        sendModal(
-                            taWS,
-                            "team_modal_for_",
-                            usersArray[index].guid,
-                            "Team selected!",
-                            "You've selected team:\n\n " + u.data.team.name + "\n\n If you selected a wrong team\n please reconnect and select the right one.\n\nIf your team is correct, please click ready when you are ready to play.",
-                            true,
-                            "Confirm",
-                            "confirm",
-                            "Deny",
-                            "deny"
-                        );
+            // if (settings.Modals) {
+            //     if (taWS.ServerSettings.enable_teams) {
+            //         if (usersArray[index].team[1] !== u.data.team.id) {
+            //             sendModal(
+            //                 taWS,
+            //                 "team_modal_for_",
+            //                 usersArray[index].guid,
+            //                 "Team selected!",
+            //                 "You've selected team:\n\n " + u.data.team.name + "\n\n If you selected a wrong team\n please reconnect and select the right one.\n\nIf your team is correct, please click ready when you are ready to play.",
+            //                 true,
+            //                 "Confirm",
+            //                 "confirm",
+            //                 "Deny",
+            //                 "deny"
+            //             );
 
-                    }
-                }
-            }
+            //         }
+            //     }
+            // }
 
             usersArray[index].team = [u.data.team?.name ?? "", u.data.team?.id ?? 0];
             usersArray[index].stream_delay_ms = u.data.stream_delay_ms;
