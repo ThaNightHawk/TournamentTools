@@ -219,11 +219,11 @@ taWS.on("userUpdated", (u) => {
                 }
             }
 
-            usersArray[index].team = [u.data.team.name, u.data.team.id];
+            usersArray[index].team = [u.data.team?.name ?? "", u.data.team?.id ?? 0];
             usersArray[index].stream_delay_ms = u.data.stream_delay_ms;
             usersArray[index].stream_sync_start_ms = u.data.stream_sync_start_ms;
         } catch (error) {
-            console.log("Error: User doesn't exist in UsersArray");
+            console.log("Error occured while updating user: " + error);
         }
     }
 });
