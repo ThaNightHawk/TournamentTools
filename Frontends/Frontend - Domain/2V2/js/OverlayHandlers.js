@@ -7,15 +7,9 @@ async function setOverlay(playerIDs, playerNames, teamNames, teamImages, Round) 
 	document.getElementById("RoundText").innerText = Round;
 
 	for (let i = 0; i < playerIDs.length; i++) {
-		const response = await fetch('https://new.scoresaber.com/api/player/' + playerIDs[i] + '/basic', {
-			headers: {
-				'Access-Control-Request-Headers': 'x-requested-with'
-			}
-		})
+		const response = await fetch('https://skillsaber.vercel.app/api/player?id=' + playerIDs[i])
 		const data = await response.json();
-		document.getElementById("Player" + [i + 1] + "Image").src = data.playerInfo.avatar === '/images/oculus.png'
-			? 'https://new.scoresaber.com/api/static/avatars/oculus.png'
-			: 'https://new.scoresaber.com/api/static/avatars/' + playerIDs[i] + '.jpg';
+		document.getElementById("Player" + [i + 1] + "Image").src = data.profilePicture;
 		document.getElementById("Player" + [i + 1] + "Name").innerText = playerNames[i];
 		document.getElementById("Player" + [i + 1] + "Name").style.opacity = '1';
 	}

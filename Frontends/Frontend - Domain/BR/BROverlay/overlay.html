@@ -204,7 +204,7 @@
         }
 
         makePlayer = function (scoresaber_id, order) {
-            fetch('https://new.scoresaber.com/api/player/' + scoresaber_id + '/full')
+            fetch('https://skillsaber.vercel.app/api/player?id='+scoresaber_id)
                 .then(response => {
                     return response.json()
                 })
@@ -212,15 +212,9 @@
                     var newPlayer = playerTemplate.cloneNode(true);
                     newPlayer.id = "Player" + scoresaber_id;
                     var newPlayerPfp = newPlayer.getElementsByClassName("pfp")[0];
-                    newPlayerPfp.src = "https://new.scoresaber.com/api/static/avatars/" + scoresaber_id + ".jpg";
-
-                    if (data.playerInfo.avatar == "/images/oculus.png") {
-                        newPlayerPfp.src = "https://cdn.scoresaber.com/avatars/oculus.png";
-                    } if (data.playerInfo.avatar == "/images/steam.png") {
-                        newPlayerPfp.src = "https://i.imgur.com/iRDpe0R.jpeg";
-                    }
+                    newPlayerPfp.src = data.profilePicture;
                     var newPlayerName = newPlayer.getElementsByClassName("name")[0];
-                    newPlayerName.innerHTML = data.playerInfo.playerName;
+                    newPlayerName.innerHTML = data.name;
                     newPlayerName.classList.add("Name" + scoresaber_id);
                     var newPlayerAcc = newPlayer.getElementsByClassName("accuracy")[0];
                     newPlayerAcc.classList.add("Accuracy" + scoresaber_id);
@@ -240,16 +234,9 @@
                     var newPlayer2 = playerTemplate.cloneNode(true);
                     newPlayer2.id = "PlayerLoser" + scoresaber_id;
                     var newPlayer2Pfp = newPlayer2.getElementsByClassName("pfp")[0];
-                    newPlayer2Pfp.src = "https://new.scoresaber.com/api/static/avatars/" + scoresaber_id + ".jpg";
-
-                    if (data.playerInfo.avatar == "/images/oculus.png") {
-                        newPlayer2Pfp.src = "https://i.imgur.com/3KgARpG.png";
-                    }
-                    if (data.playerInfo.avatar == "/images/steam.png") {
-                        newPlayer2Pfp.src = "https://i.imgur.com/iRDpe0R.jpeg";
-                    }
+                    newPlayer2Pfp.src = data.profilePicture;
                     var newPlayer2Name = newPlayer2.getElementsByClassName("name")[0];
-                    newPlayer2Name.innerHTML = data.playerInfo.playerName;
+                    newPlayer2Name.innerHTML = data.name;
                     newPlayer2Name.classList.add("Name" + scoresaber_id);
                     var newPlayer2Acc = newPlayer2.getElementsByClassName("accuracy")[0];
                     newPlayer2Acc.classList.add("Accuracy2" + scoresaber_id);

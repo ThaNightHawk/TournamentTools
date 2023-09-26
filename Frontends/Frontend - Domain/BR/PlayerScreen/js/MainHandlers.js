@@ -4,17 +4,11 @@ function createUsers(names, scoresaberIDs) {
   scoresaberIDs.forEach((scoresaberID, index) => {
     const playerDiv = document.getElementById("playerDivTemplate").cloneNode(true);
 
-    fetch(`https://new.scoresaber.com/api/player/${scoresaberID}/full`)
+    fetch(`https://skillsaber.vercel.app/api/player?id=${scoresaberID}`)
       .then((response) => response.json())
       .then((data) => {
         const newPlayerPfp = playerDiv.getElementsByClassName("playerImage")[0];
-        newPlayerPfp.src = `https://cdn.scoresaber.com/avatars/${scoresaberID}.jpg`;
-
-        if (data.playerInfo.avatar === "/images/oculus.png") {
-          newPlayerPfp.src = "https://cdn.scoresaber.com/avatars/oculus.png";
-        } else if (data.playerInfo.avatar === "/images/steam.png") {
-          newPlayerPfp.src = "https://i.imgur.com/3KgARpG.png";
-        }
+        newPlayerPfp.src = data.profilePicture;
       });
 
     const newPlayerText = playerDiv.getElementsByClassName("playerText")[0];
