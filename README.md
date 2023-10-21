@@ -1,3 +1,5 @@
+> [!NOTE]  
+> This is the updated, though public, version of the DaneSaber branded TournamentTools
 
 ![Logo](GitHubImage.png)
 
