@@ -1,98 +1,89 @@
 <html>
+	<head>
+		<link href="https://fonts.googleapis.com/css?family=Poppins&amp;display=swap" rel="stylesheet">
+		<link href="./css/main.css" rel="stylesheet">
+		<title>1V1 Screen</title>
+	</head>
+	
+	<body style="font-family: 'Poppins';">
+		<div class="MainClass" style="color: white;min-height: 1080px;min-width: 1920px;max-height: 1080px;max-width: 1920px;display: flex;flex-direction: column;align-items: flex-start;justify-content: space-between;">
+			<div class="PlayerContainers" id="PlayerContainers" style="min-width: 1920px;margin-top: 34px;margin-left: 104px;height: fit-content;opacity:0;transition:opacity 0.5s linear;display: flex;gap: 184px;">
+				<div class="Player1Container" id="Player1Container" style="display: flex;max-height: 87px;align-items: center;gap: 10px;">
+					<div class="pointsP1" style="display: flex;align-items: center;">
+						<img class="left7 fade-inImages" id="l7" src="./images/PointLeft.png" style="opacity:0;margin-right: -10px;">
+						<img class="left6 fade-inImages" id="l6" src="./images/PointLeft.png" style="opacity:0;margin-right: -10px;">
+						<img class="left5 fade-inImages" id="l5" src="./images/PointLeft.png" style="opacity:0;margin-right: -10px;">
+						<img class="left4 fade-inImages" id="l4" src="./images/PointLeft.png" style="opacity:0;margin-right: -10px;">
+						<img class="left3 fade-inImages" id="l3" src="./images/PointLeft.png" style="opacity:0;margin-right: -10px;">
+						<img class="left2 fade-inImages" id="l2" src="./images/PointLeft.png" style="opacity:0;margin-right: -10px;">
+						<img class="left1 fade-inImages" id="l1" src="./images/PointLeft.png" style="opacity:0;margin-right: -10px;">
+					</div>
+					<p id="Player1Name" style="max-width: 440px;min-width: 440px;max-height: 87px;margin-right: 15px;font-weight: bold;direction: rtl;font-size: 24px;">PLAYER_NAME</p>
+					<p id="Player1Rank" style="min-width: 64px;max-width: 64px;height: 24px;font-size: 16px;text-align: center;">#0</p>		
+				</div>
+				<div class="Player2Container" id="Player2Container" style="display: flex;max-height: 87px;align-items: center;gap: 6px;">
+					<p id="Player2Rank" style="min-width: 64px;max-width: 64px;height: 24px;font-size: 16px;text-align: center;">#0</p>
+					<p id="Player2Name" style="max-width: 440px;min-width: 440px;max-height: 87px;margin-left: 15px;font-weight: bold;font-size: 24px;">PLAYER_NAME</p>
 
-<head>
-	<link href="https://fonts.googleapis.com/css?family=Poppins&amp;display=swap" rel="stylesheet">
-	<link href="./css/main.css" rel="stylesheet">
-	<title>1V1 Screen</title>
-</head>
-
-<body>
-	<!--Streamborders-->
-	<div id="Background"></div>
-	<!--Topbar player-containers-->
-	<div class="MainClass">
-		<div class="PlayerContainers" id="PlayerContainers" style="opacity:0;transition:opacity 0.5s linear;">
-			<div class="Player1Container" id="Player1Container">
-				<div class="Player1Class" id="Player1Class">
-					<img src="./images/Placeholder.png" class="Player1Image" id="Player1Image">
-					<img src="" class="Player1Flag" id="Player1Flag">
-					<span class="Player1Name" id="Player1Name">{Player1Name}</span>
-					<span class="Player1Rank" id="Player1Rank">#0 Global | #0 NaN</span>
+					<div class="pointsP2" style="display: flex;align-items: center;">
+					    <img class="right1 fade-inImages" id="r1" src="./images/PointRight.png" style="opacity:0;margin-right: -10px;">
+					    <img class="right2 fade-inImages" id="r2" src="./images/PointRight.png" style="opacity:0;margin-right: -10px;">
+					    <img class="right3 fade-inImages" id="r3" src="./images/PointRight.png" style="opacity:0;margin-right: -10px;">
+					    <img class="right4 fade-inImages" id="r4" src="./images/PointRight.png" style="opacity:0;margin-right: -10px;">
+					    <img class="right5 fade-inImages" id="r5" src="./images/PointRight.png" style="opacity:0;margin-right: -10px;">
+					    <img class="right6 fade-inImages" id="r6" src="./images/PointRight.png" style="opacity:0;margin-right: -10px;">
+					    <img class="right7 fade-inImages" id="r7" src="./images/PointRight.png" style="opacity:0;margin-right: -10px;">
+					</div>
 				</div>
 			</div>
-			<div class="Player2Container" id="Player2Container">
-				<div class="Player2Class" id="Player2Class">
-					<img src="./images/Placeholder.png" class="Player2Image" id="Player2Image">
-					<img src="" class="Player2Flag" id="Player2Flag">
-					<span class="Player2Name" id="Player2Name">{Player2Name}</span>
-					<span class="Player2Rank" id="Player2Rank">#0 Global | #0 NaN</span>
+
+			<!-- REALTIME SCORING-->
+			<div class="PlayerBounds" id="PlayerBounds" style="opacity:0;margin-top: 465px;padding: 15px;display:flex;width: 1885px;justify-content: space-between;">
+				<div class="Player1Classs" id="Player1Classs">
+					<span class="Player1FC" id="Player1FC">FC</span>
+					<span class="Player1Combo" id="Player1Combo">0x</span>
+					<span class="Player1ACC" id="Player1ACC">0.00%</span>
+				</div>
+				<div class="Player2Classs" id="Player2Classs">
+					<span class="Player2FC" id="Player2FC">FC</span>
+					<span class="Player2Combo" id="Player2Combo">0x</span>
+					<span class="Player2ACC" id="Player2ACC">0.00%</span>
+				</div>
+			</div>
+
+			<!-- CURRENT ROUND -->
+			<div class="roundTextP fade-inText" id="roundTextP" style="opacity:0;transition: opacity 0.5s linear;width: 275px;text-align: center;position: absolute;top: 850px;left: 822px;color: white;font-weight: 900;font-size: 22px;">Round X</div>
+
+			<!-- Current song -->
+			<div class="SongBox" id="SongBox" style="opacity: 0;margin-left: 15px;">
+				<div id="SongCard" class="SongCard" style="display: flex;">
+					<div class="SongCover" id="SongCover" style="background: url(&quot;https://eu.cdn.beatsaver.com/43304202ec7681e52b4026313c7ab9099be2890d.jpg&quot;) 0% 0% / cover; border-color: rgb(0, 128, 85);"></div>
+					<div class="SongInfo" id="SongInfo" style="border-color: rgb(0, 128, 85);">
+						<div style="min-width: 350px;max-width: 350px;display: flex;justify-content: space-between;margin-bottom: 6px;">
+							<span class="SongArtist" id="SongArtist" style="display:block;min-width:280px;">VERY LONG SONG ARTIST LMAO LMAO LMAO</span>
+							<span class="SongKey" id="SongKey" style="direction: rtl;">2576d</span>
+						</div>
+						<span class="SongTitle" id="SongTitle">666 - (Nanodesu's Elect"6" Swing...)</span>
+						<span class="SongMapper" id="SongMapper" style="display:block;max-width: 350px;min-width: 350px;-webkit-mask-image: linear-gradient(90deg, #000 81%, transparent);">VERY LONG SONG ARTIST LMAO LMAO LMAO</span>
+						<div style="margin-top: 6px;display: flex;gap: 10px;align-items: center;">
+							<div class="DiffDiv">
+								<div class="DiffTag" id="DiffTag" style="display: flex;background: rgb(0, 128, 85);font-family: Poppins;font-weight: 700;font-size: 13px;align-items: center;justify-content: center;">Easy</div>
+							</div>
+    	    				<div style="display: flex;justify-content: space-between;min-width: 270px;max-width: 270px;">
+								<span class="SongPick" id="SongPick">Picked by: Hawk</span>
+								<span class="SongLength" id="SongLength">2:39</span>
+    	    				</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<!--Point-bar-->
-	<section class="points" id="points" style="position: absolute;top: 3%;left: 27.5%;z-index:2;">
-		<section class="leftPoints" id="leftPoints" style="margin-top: 16px; opacity: 0;">
-			<img class="left1 fade-inImages" id="l1" src="./images/Point.png" style="position: absolute;opacity:0;left: 320px;height: 32px;width: 32px;object-fit: cover;">
-			<img class="left1 fade-inImages" id="l2" src="./images/Point.png" style="position: absolute;opacity:0;left: 285px;height: 32px;width: 32px;object-fit: cover;">
-			<img class="left1 fade-inImages" id="l3" src="./images/Point.png" style="position: absolute;opacity:0;left: 250px;height: 32px;width: 32px;object-fit: cover;">
-			<img class="left1 fade-inImages" id="l4" src="./images/Point.png" style="position: absolute;opacity:0;left: 215px;height: 32px;width: 32px;object-fit: cover;">
-			<img class="left1 fade-inImages" id="l5" src="./images/Point.png" style="position: absolute;opacity:0;left: 180px;height: 32px;width: 32px;object-fit: cover;">
-			<img class="left1 fade-inImages" id="l6" src="./images/Point.png" style="position: absolute;opacity:0;left: 145px;height: 32px;width: 32px;object-fit: cover;">
-			<img class="left1 fade-inImages" id="l7" src="./images/Point.png" style="position: absolute;opacity:0;left: 110px;height: 32px;width: 32px;object-fit: cover;">
-		</section>
-		<section class="rightPoints" id="rightPoints" style="position: absolute;margin-left: 510px;opacity: 0;">
-			<img class="right1 fade-inImages" id="r1" src="./images/Point.png" style="position: absolute;opacity:0;left: 0px;height: 32px;width: 32px;object-fit: cover;">
-			<img class="right1 fade-inImages" id="r2" src="./images/Point.png" style="position: absolute;opacity:0;left: 35px;height: 32px;width: 32px;object-fit: cover;">
-			<img class="right1 fade-inImages" id="r3" src="./images/Point.png" style="position: absolute;opacity:0;left: 70px;height: 32px;width: 32px;object-fit: cover;">
-			<img class="right1 fade-inImages" id="r4" src="./images/Point.png" style="position: absolute;opacity:0;left: 105px;height: 32px;width: 32px;object-fit: cover;">
-			<img class="right1 fade-inImages" id="r5" src="./images/Point.png" style="position: absolute;opacity:0;left: 140px;height: 32px;width: 32px;object-fit: cover;">
-			<img class="right1 fade-inImages" id="r6" src="./images/Point.png" style="position: absolute;opacity:0;left: 175px;height: 32px;width: 32px;object-fit: cover;">
-			<img class="right1 fade-inImages" id="r7" src="./images/Point.png" style="position: absolute;opacity:0;left: 210px;height: 32px;width: 32px;object-fit: cover;">
-		</section>
-	</section>
-
-	<!--Round tag-->
-	<div class="roundText" style="color: white;text-align: center;font-family: Poppins;margin-top: 95vh;">
-		<p class="roundTextP fade-inText" id="roundTextP" style="opacity: 0;font-size: 28px;font-weight: 600;">No round	set</p>
-	</div>
-
-	<!--Playerscores-->
-	<div class="PlayerBounds" id="PlayerBounds" style="opacity:0;display:flex;width: 98vw;">
-		<div class="Player1Classs" id="Player1Classs">
-			<span class="Player1FC" id="Player1FC">FC</span>
-			<span class="Player1Combo" id="Player1Combo">0x</span>
-			<span class="Player1ACC" id="Player1ACC">0.00%</span>
-		</div>
-		<div class="Player2Classs" id="Player2Classs">
-			<span class="Player2FC" id="Player2FC">FC</span>
-			<span class="Player2Combo" id="Player2Combo">0x</span>
-			<span class="Player2ACC" id="Player2ACC">0.00%</span>
-		</div>
-	</div>
-
-	<!-- Current song -->
-	<div class="SongBox" id="SongBox" style="opacity: 0;">
-		<div class="SongCard" id="SongCard">
-			<div class="SongCover" id="SongCover" style="background: url(&quot;https://eu.cdn.beatsaver.com/43304202ec7681e52b4026313c7ab9099be2890d.jpg&quot;) 0% 0% / cover; border-color: rgb(0, 128, 85);"></div>
-			<div class="SongInfo" id="SongInfo" style="border-color: rgb(0, 128, 85);"></div>
-			<div class="DiffTag" id="DiffTag" style="background: rgb(0, 128, 85);"></div>
-			<span class="DiffText" id="DiffText">Easy</span>
-			<span class="SongArtist" id="SongArtist">RoughSketch</span>
-			<span class="SongTitle" id="SongTitle">666 - (Nanodesu's Elect"6" Swing Bootleg)</span>
-			<span class="SongMapper" id="SongMapper">Bitz &amp; Luck</span>
-			<span class="SongKey" id="SongKey">2576d</span>
-			<span class="SongLength" id="SongLength">2:39</span>
-			<span class="SongPick" id="SongPick">Picked by: Hawk</span>
-		</div>
-	</div>
-	<script src="./js/MainHandlers.js"></script> <!-- Connects and handles the input from the relay server -->
-	<script src="./js/FormatHandlers.js"></script> <!-- Handlers to format numbers and time -->
-	<script src="./js/MapHandlers.js"></script> <!-- Handler for map data -->
-	<script src="./js/OverlayHandlers.js"></script> <!-- Handler for the general data on the overlay. I.e usernames, pictures, ranks, country + round number -->
-	<script src="./js/ScorelineHandlers.js"></script> <!-- Handler for scoreline betweem Player VS Player / Team VS Team -->
-	<script src="./js/UserScoringHandlers.js"></script> <!-- Handler for updating user/team score, acc, combo, fc/miss -->
-</body>
-
+		<script src="./js/MainHandlers.js"></script> <!-- Connects and handles the input from the relay server -->
+		<script src="./js/FormatHandlers.js"></script> <!-- Handlers to format numbers and time -->
+		<script src="./js/MapHandlers.js"></script> <!-- Handler for map data -->
+		<script src="./js/OverlayHandlers.js"></script> <!-- Handler for the general data on the overlay. I.e usernames, pictures, ranks, country + round number -->
+		<script src="./js/ScorelineHandlers.js"></script> <!-- Handler for scoreline betweem Player VS Player / Team VS Team -->
+		<script src="./js/UserScoringHandlers.js"></script> <!-- Handler for updating user/team score, acc, combo, fc/miss -->
+	</body>
 </html>

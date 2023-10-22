@@ -38,11 +38,11 @@ async function getMap(LevelId, LevelDiff, Player) {
 					document.getElementById("SongCover").style.borderColor = diffColor;
 					document.getElementById("SongInfo").style.borderColor = diffColor;
 					document.getElementById("DiffTag").style.background = diffColor;
+					document.getElementById("DiffTag").innerHTML = diffText;
 					document.getElementById("SongTitle").innerHTML = data.metadata.songName;
 					document.getElementById("SongMapper").innerHTML = data.metadata.levelAuthorName;
 					document.getElementById("SongArtist").innerHTML = data.metadata.songAuthorName;
 					document.getElementById("SongKey").innerHTML = data.id;
-					document.getElementById("DiffText").innerHTML = diffText;
 					document.getElementById("SongLength").innerHTML = fancyTimeFormat(data.metadata.duration);
 					if (Player == "Tiebreaker") {
 						document.getElementById("SongPick").innerHTML = "Picked as tiebreaker";
@@ -62,9 +62,9 @@ async function getMap(LevelId, LevelDiff, Player) {
 		document.getElementById("SongInfo").style.borderColor = diffColor;
 
 		setTimeout(function () {
-			document.getElementById("DiffText").style.opacity = "0";
-			document.getElementById("DiffText").innerHTML = diffText;
-			document.getElementById("DiffText").style.opacity = "1";
+			document.getElementById("DiffTag").style.opacity = "0";
+			document.getElementById("DiffTag").innerHTML = diffText;
+			document.getElementById("DiffTag").style.opacity = "1";
 		}, 1000);
 	}
 }
