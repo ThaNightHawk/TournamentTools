@@ -72,11 +72,15 @@ function Connect() {
         const { Type, overlay, command, message } = parsedData;
         if (Type == 1 && overlay === "VERSUS") {
             const { matchId, coordinator, players } = message.matchData;
-            const teams = groupPlayersByTeam(players);
-            const [team1, team2] = sortTeamsByName(Object.values(teams));
-            const [player1, player2, player3, player4] = getPlayerNames(team1, team2, players);
-
-            const optionHtml = getOptionHtml(matchId, coordinator, player1, player2, player3, player4, players);
+            const player1 = players[0];
+            let player2;
+            if (!players[1]) {
+                player2 = {name:"Placeholder",user_id: "76561198086326146",team: [null, null],guid: "00000000-0000-0000-0000-000000000000"};
+            } else {
+                player2 = players[1];
+            }
+            console.log(player1, player2);
+            const optionHtml = getOptionHtml(matchId, coordinator, player1, player2);
             $('#currentMatch').append(optionHtml);
         }
 
