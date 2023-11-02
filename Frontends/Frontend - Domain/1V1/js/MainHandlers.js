@@ -33,7 +33,7 @@ ws.onmessage = async function (event) {
 	{
 		//This is sent off to the userScoringHandler.js
 		const data = jsonObj.message;
-		scoreUpdate(data.id, data.score, data.combo, data.accuracy * 100, data.totalMisses);
+		scoreUpdate(data.user_id, data.score, data.combo, data.accuracy * 100, data.totalMisses);
 	}
 	if (jsonObj.Type == 5) { //Match Created
 		if (jsonObj.command == "createUsers" && jsonObj.matchStyle == "1v1") {

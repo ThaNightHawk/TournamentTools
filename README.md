@@ -1,12 +1,10 @@
-> [!NOTE]  
-> This is the updated, though public, version of the DaneSaber branded TournamentTools
 
 ![Logo](GitHubImage.png)
 
-# COMPATIBLE WITH TA 0.7.4 / TAC 0.9.6
+# WIKI COMING SOON <br /> COMPATIBLE WITH TA 0.7.4 / TAC 0.9.5
 
 # TournamentTools #
-The DaneSaber branded version of TournamentTools
+This was originally made to be closed-sourced and only for use within the danish Beat Saber Discord, though someone asked me if I would open-source it, and I thought why not, more people would be able to collaborate on it and make it even better.
 
 ## Functions:
 Stream Assets:

@@ -1,18 +1,16 @@
 body {
   /*Hide scrollsbars*/
   overflow: hidden;
-  margin: 0;
-  height: 1080px;
-  width: 1920px;
-  background: url("../images/overlay.png");
-  background-repeat: no-repeat;
 }
 
 #Background {
-  height: 1440px;
-  width: 2560px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  background: url("../images/BG.png");
+  height: 11vh;
+  width: 100%;
   z-index: -1;
-  object-fit: fill;
 }
 
 .fade-inImages {
@@ -81,7 +79,7 @@ section.leftPoints {
   font-weight: 700;
   font-size: 20px;
   text-align: left;
-  opacity: 0.9;
+  opacity: 0.6;
 }
 
 .Player2Container {
@@ -115,7 +113,7 @@ section.leftPoints {
   font-family: Poppins;
   font-weight: 700;
   font-size: 20px;
-  opacity: 0.9;
+  opacity: 0.6;
   text-align: right;
 }
 
@@ -130,15 +128,24 @@ section.leftPoints {
 }
 
 .SongBox {
-  width: 560px;
-  height: 170px;
+  width: 530px;
+  height: 160px;
+  opacity: 1;
+  position: absolute;
+  top: 912px;
+  right: 20px;
   overflow: hidden;
   transition-timing-function: ease-in-out;
   transition: opacity 1s;
 }
 
 .SongCard {
+  width: 529px;
+  height: 214px;
   opacity: 1;
+  position: absolute;
+  top: 0px;
+  left: 0px;
 }
 
 .SongCover {
@@ -149,6 +156,9 @@ section.leftPoints {
   background-position: center center;
   background-size: cover;
   opacity: 1;
+  position: absolute;
+  top: 0px;
+  left: 0px;
   border-left: 3px solid;
   border-top: 3px solid;
   border-bottom: 3px solid;
@@ -161,13 +171,13 @@ section.leftPoints {
 }
 
 .SongInfo {
-  padding: 12px;
-  max-width: 377px;
-  min-width: 364px;
-  min-height: 118px;
-  max-height: 118px;
+  width: 378px;
+  height: 142px;
   background: rgb(0 0 0 / 79%);
   opacity: 1;
+  position: absolute;
+  top: 0px;
+  left: 143px;
   border: 3px solid;
   border-color: #039a00;
   border-top-right-radius: 25px;
@@ -182,6 +192,9 @@ section.leftPoints {
   height: 26px;
   background: #039a00;
   opacity: 1;
+  position: absolute;
+  top: 101px;
+  left: 158px;
   border-top-left-radius: 7px;
   border-top-right-radius: 7px;
   border-bottom-left-radius: 7px;
@@ -193,7 +206,11 @@ section.leftPoints {
 }
 
 .DiffText {
+  width: 54px;
   color: rgba(255, 255, 255, 1);
+  position: absolute;
+  top: 104px;
+  left: 165px;
   font-family: Poppins;
   font-weight: 700;
   font-size: 13px;
@@ -203,23 +220,27 @@ section.leftPoints {
 }
 
 .SongArtist {
+  width: 203px;
   color: rgba(255, 255, 255, 1);
+  position: absolute;
+  top: 15px;
+  left: 158px;
   font-family: Poppins;
+  font-weight: Regular;
   font-size: 15px;
   opacity: 1;
   text-align: left;
   overflow: hidden;
   white-space: nowrap;
-  max-width: 280px;
   -webkit-mask-image: linear-gradient(90deg, #000 81%, transparent);
 }
 
 .SongTitle {
-  margin-bottom: 5px;
-  display: flex;
+  width: 340px;
   color: rgba(255, 255, 255, 1);
-  min-width: 363px;
-  max-width: 363px;
+  position: absolute;
+  top: 39px;
+  left: 158px;
   font-family: Poppins;
   font-weight: Bold;
   font-size: 20px;
@@ -231,26 +252,40 @@ section.leftPoints {
 }
 
 .SongMapper {
+  width: 309px;
   color: rgba(255, 255, 255, 1);
+  position: absolute;
+  top: 72px;
+  left: 158px;
   font-family: Poppins;
-  font-size: 15px;
+  font-weight: Regular;
+  font-size: 14px;
   opacity: 1;
   text-align: left;
   overflow: hidden;
   white-space: nowrap;
+  -webkit-mask-image: linear-gradient(90deg, #000 81%, transparent);
 }
 
 .SongKey {
+  width: 49px;
   color: rgba(255, 255, 255, 1);
+  position: absolute;
+  top: 15px;
+  left: 450px;
   font-family: Poppins;
-  font-weight: 600;
-  font-size: 15px;
+  font-weight: Regular;
+  font-size: 13px;
   opacity: 1;
   text-align: right;
 }
 
 .SongLength {
+  width: 37px;
   color: rgba(255, 255, 255, 1);
+  position: absolute;
+  top: 104px;
+  left: 463px;
   font-family: Poppins;
   font-weight: Regular;
   font-size: 13px;
@@ -260,18 +295,24 @@ section.leftPoints {
 
 .SongPick {
 	color: rgba(255, 255, 255, 1);
-	font-family: Poppins;
-	font-size: 13px;
-	opacity: 1;
-	text-align: right;
+    position: absolute;
+    top: 104px;
+    left: 233px;
+    font-family: Poppins;
+    font-size: 13px;
+    opacity: 1;
+    text-align: right;
 }
 
 .PlayerBounds {
+  position: absolute;
+  top: 66%;
   transition-timing-function: ease-in-out;
   transition: opacity 1s;
 }
 
 .Player1Classs {
+  /* padding-left: 05%; */
   display: flex;
   align-content: flex-start;
   align-items: flex-start;
@@ -279,12 +320,15 @@ section.leftPoints {
 }
 
 .Player1Combo {
+  width: 445px;
   color: rgba(255,255,255,1);
-  line-height: 100%;
   text-shadow: 2px 7px 11px rgba(0, 0, 0, 1);
   font-family: Poppins;
   font-size: 48px;
   opacity: 1;
+  line-height: 0%;
+  padding-top: 9%;
+  padding-bottom: 12%;
 }
 .Player1FC {
   color: rgba(255,255,255,1);
@@ -292,17 +336,16 @@ section.leftPoints {
   font-family: Poppins;
   font-size: 32px;
   opacity: 1;
-  line-height: 100%;
-  padding-left: 5px;
+  line-height: 0%;
+  padding-left: 1%;
 }
 .Player1ACC {
-  line-height: 100%;
-  width: 300px;
   color: rgba(255,255,255,1);
   text-shadow: 2px 7px 11px rgba(0, 0, 0, 1);
   font-family: Poppins;
   font-size: 64px;
   opacity: 1;
+  line-height: 0%;
   -webkit-transition: font-size .5s ease;
   -moz-transition: font-size .5s ease;
   -o-transition: font-size .5s ease;
@@ -323,6 +366,8 @@ section.leftPoints {
 }
 
 .Player2Classs {
+  position: absolute;
+  right: -1%;
   display: flex;
   align-content: flex-start;
   align-items: flex-end;
@@ -336,7 +381,8 @@ section.leftPoints {
   font-size: 48px;
   opacity: 1;
   direction: rtl;
-  line-height: 100%;
+  position: absolute;
+  top: 2px;
 }
 .Player2FC {
   color: rgba(255,255,255,1);
@@ -345,10 +391,10 @@ section.leftPoints {
   font-size: 32px;
   opacity: 1;
   direction: rtl;
-  line-height: 100%;
+  position: absolute;
+  top: -24px;
 }
 .Player2ACC {
-  width: 300px;
   color: rgba(255,255,255,1);
   text-shadow: 2px 7px 11px rgba(0, 0, 0, 1);
   font-family: Poppins;
@@ -359,7 +405,8 @@ section.leftPoints {
   -moz-transition: font-size .5s ease;
   -o-transition: font-size .5s ease;
   transition: font-size .5s ease;
-  line-height: 100%;
+  position: absolute;
+  top: 44px;
 }
 
 .Player2Flag {
