@@ -9,17 +9,11 @@ function PB(hashdiff) {
     let ID1;
     let ID2;
 
-    if (!PlayerIDs[3]) {
-        Name1 = PlayerNames[0];
-        Name2 = PlayerNames[1];
-        ID1 = PlayerIDs[0];
-        ID2 = PlayerIDs[1];
-    } else {
-        Name1 = TeamNamesIDs[0];
-        Name2 = TeamNamesIDs[2];
-        ID1 = TeamNamesIDs[1];
-        ID2 = TeamNamesIDs[3];
-    }
+    Name1 = PlayerNames[0];
+    Name2 = PlayerNames[1];
+    ID1 = PlayerIDs[0];
+    ID2 = PlayerIDs[1];
+    
     Swal.fire({
         title: 'Who\'s picking?',
         showDenyButton: true,
@@ -169,10 +163,6 @@ function sendToOverlay(type) {
         var p1Score = document.getElementById("P1ScoreSlider").value;
         var p2Score = document.getElementById("P2ScoreSlider").value;
 
-        if (!PlayerIDs[3]) {
         ws.send(JSON.stringify({ 'Type': '5', 'matchStyle': '1v1', 'command': 'updateScore', 'PlayerIds': [PlayerIDs[0], PlayerIDs[1]], 'Score': [p1Score, p2Score] }));
-        } else {
-            ws.send(JSON.stringify({ 'Type': '5', 'matchStyle': '2v2', 'command': 'updateScore', 'TeamIds': [TeamNamesIDs[1],TeamNamesIDs[3]], 'Score': [p1Score, p2Score] }));
-        }
     }
 };
