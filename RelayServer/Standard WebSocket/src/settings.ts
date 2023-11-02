@@ -18,7 +18,7 @@ export default {
         port: 2223
     },
     TA: {
-        ip: 'ws://danesaber.cf',
+        ip: 'ws://tournamentassistant.net',
         port: 2053,
         password: ''
     },

@@ -150,9 +150,9 @@ function getPlayerNames(team1, team2, players) {
     const defaultPlayer = { name: "Placeholder", user_id: "76561198086326146", team: [null, null], guid: "00000000-0000-0000-0000-000000000000" };
     let [player1, player2, player3, player4] = [defaultPlayer, defaultPlayer, defaultPlayer, defaultPlayer];
 
-    if (players.length === 2) {
+    if (players.length === 1 || players.length === 2) {
         [player1, player2] = [team1[0] || defaultPlayer, team1[1] || defaultPlayer];
-    } else if (players.length > 2) {
+    } else if (players.length === 3 || players.length === 4 ) {
         [player1, player2, player3, player4] = [team1[0] || defaultPlayer, team1[1] || defaultPlayer, team2[0] || defaultPlayer, team2[1] || defaultPlayer];
     }
 
