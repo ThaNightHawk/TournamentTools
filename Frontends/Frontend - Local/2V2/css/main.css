@@ -964,7 +964,7 @@ body {
     margin-bottom: 0;
     flex-direction: row;
     justify-content: flex-start;
-    background-color: rgba(20, 20, 20, 1);
+    background-image: linear-gradient(to right, #8C2323, black, #324897);
 }
 
 .TeamsTopBar {

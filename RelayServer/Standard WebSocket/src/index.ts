@@ -1,7 +1,7 @@
 import settings from './settings';
 import { Coordinator, Player, Score } from "./includes/types";
 import { getUsers, HJS, sendModal } from "./includes/functions";
-import { Client, Models, Packets } from "tournament-assistant-client";
+import { Client } from "tournament-assistant-client";
 import { WebSocket, WebSocketServer } from "ws";
 
 const relay_ip = settings.Server.ip || "ws://localhost"
