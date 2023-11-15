@@ -2,7 +2,6 @@
 | Program                                                                  |                                               Usecase                                                |
 | :----------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------: |
 | [NodeJS](https://nodejs.org/en/download/)                                |                                        Starting relay server                                         |
-| [NPM](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) |                               Installing dependencies for relay server                               |
 | [XAMPP](https://www.apachefriends.org/download.html)                     | Webserver for hosting it online + Domain/IP with HTTPS/SSL Certificate. Allows for transportability. |
 
 This README is assuming you're **hosting it on your own dedicated server with a domain pointed to it**. 
@@ -16,7 +15,7 @@ Don't have an SSL certificate for your domain? Use [Certbot](https://certbot.eff
 If you plan on deploying as production, do **not** use XAMPP as it requires configuration to be safe. 
 
 ## Setup relay-server.
-Install both NodeJS+NPM. (NodeJS should come with NPM default.)
+Install both NodeJS.
 
 - Copy `RelayServer/Secure WebSocket` to a folder on your PC. (Gonna be using `C:/Tournament/RelayServer/Secure WebSocket` as an example in this).
 - Copy your `certificate.pem` and `privatkey.pem` to the `Keys`-folder. Rename to `cert.pem` and `privkey.pem` respectively. \
@@ -35,7 +34,7 @@ If it works, and you see `{"Type": "0","message": "You've connected to the relay
 If errors still keeps happening, contact [Hawk](https://discordapp.com/users/592779895084679188)
 
 ## Setup on Webserver:
-- Copy the contents of `Frontends/Frontend - Domain/` to your folder of choice on your webserver.
+- Copy the contents of `Frontends/Frontend - Domain/` to your folder of choice on your webserver. I'm gonna use XAMPP, so I'll copy it to `C:/xampp/htdocs/`.
 - Change the IP in the following files:
 
 | Filepath                                              | Line  |
