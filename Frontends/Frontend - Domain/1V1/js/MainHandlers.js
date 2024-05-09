@@ -1,4 +1,4 @@
-const relayIp = "wss://batthew.co.uk:2223";
+const relayIp = "wss://overlay.batthew.co.uk:2223";
 
 //Player data
 let playerNames = ["",""];
