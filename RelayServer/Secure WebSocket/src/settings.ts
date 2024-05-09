@@ -14,11 +14,11 @@ Gamemode: VERSUS / BR
 */
 export default {
     Server: {
-        ip: 'wss://domain.com',
+        ip: 'wss://overlay.batthew.co.uk',
         port: 2223
     },
     TA: {
-        ip: 'ws://danesaber.cf',
+        ip: 'ws://ta.batthew.co.uk',
         port: 2053,
         password: ''
     },
