@@ -12,6 +12,14 @@ let playerFC = [true,true];
 //Current song data
 let songData = ["",0];
 
+function test (){
+	document.getElementById("PlayerBounds").style.opacity = '1';
+	document.getElementById("PlayerContainers").style.opacity = '1';
+	document.getElementById("leftPoints").style.opacity = '1';
+	document.getElementById("rightPoints").style.opacity = '1';
+	document.getElementById("roundTextP").style.opacity = '1';
+}
+
 const ws = new WebSocket(relayIp);
 ws.onopen = function () {
 	console.log("Msg sent, connected");

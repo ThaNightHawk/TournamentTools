@@ -30,5 +30,6 @@ async function setOverlay(playerIDs, playerNames, Round) {
 		document.getElementById("leftPoints").style.opacity = '1';
 		document.getElementById("rightPoints").style.opacity = '1';
 		document.getElementById("roundTextP").style.opacity = '1';
+		document.getElementById('SongBox').style.opacity = '1';
 	}, 1000);
 }
