@@ -79,4 +79,11 @@ ws.onmessage = async function (event) {
 			}, 1000);
 		}
 	}
+	function test (){
+		document.getElementById("PlayerBounds").style.opacity = '1';
+		document.getElementById("PlayerContainers").style.opacity = '1';
+		document.getElementById("leftPoints").style.opacity = '1';
+		document.getElementById("rightPoints").style.opacity = '1';
+		document.getElementById("roundTextP").style.opacity = '1';
+	}
 };
