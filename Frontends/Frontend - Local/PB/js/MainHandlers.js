@@ -29,6 +29,7 @@ try {
                 return;
             }
             if (jsonObj.command === "setPool") {
+                $("#Songs").empty(); //Empty the P&B pool before pushing a new map-pool, to prevent overflow of maps.
                 setPoolLoop(jsonObj.songHash, jsonObj.songDiff);
                 return;
             }
