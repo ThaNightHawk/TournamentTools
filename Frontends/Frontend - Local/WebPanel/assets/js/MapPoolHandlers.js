@@ -41,40 +41,70 @@ function setPool(hashArray, diffArray, songNameArray) {
 function localPools() {
     Swal.fire({
         title: 'Upload your local pools',
-        html: 'Please click on "Upload", upload your pools, and then confirm.',
+        html: `
+            <p>Please click on "Upload", select your pools, and then confirm.</p>
+            <input type="file" id="fileInput" multiple>
+        `,
         heightAuto: true,
         confirmButtonText: 'Confirm',
         showCancelButton: false,
         allowOutsideClick: false,
         allowEscapeKey: false,
-        footer: '<a href="./upload.php" target="blank"_>Upload.</a>'
+        footer: '<a href="./upload.php" target="_blank">Upload.</a>',
+        preConfirm: () => {
+            const files = document.getElementById('fileInput').files;
+            if (!files.length) {
+                Swal.showValidationMessage('Please select at least one file.');
+                return false;
+            }
+            return files;
+        }
     }).then(function (result) {
-        if (result.value) {
-            $.ajax({
-                url: "./pools/",
-                success: function (data) {
-                    $(data).find("a").attr("href", function (i, val) {
-                        if (val.match(/\.bplist$/) || val.match(/\.json$/)) {
-                            songOptions[val] = decodeURI(val).replace(/\.[^/.]+$/, "");
-                            selectLocalMapPool();
+        if (result.isConfirmed) {
+            const files = result.value;
+            const songOptions = {};
+            const fileContents = {};
+
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const fileName = file.name;
+
+                if (fileName.match(/\.bplist$/) || fileName.match(/\.json$/)) {
+                    const reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        const fileContent = e.target.result;
+                        songOptions[fileName] = decodeURI(fileName).replace(/\.[^/.]+$/, "");
+                        fileContents[fileName] = fileContent;
+                        
+                        if (Object.keys(songOptions).length === files.length) {
+                            selectLocalMapPool(songOptions, fileContents);
                         }
-                    });
+                    };
+
+                    reader.readAsText(file);
                 }
-            });
+            }
         }
     });
-};
+}
 
-function selectLocalMapPool() {
+function selectLocalMapPool(songOptions, fileContents) {
     Swal.fire({
-        ...mapPoolNotifConf
+        ...mapPoolNotifConf,
+        inputOptions: songOptions,
+        confirmButtonText: 'Select',
     }).then((result) => {
-        if (result.value) {
+        if (result.isConfirmed) {
+            const selectedPool = result.value;
+            const selectedFileContent = fileContents[selectedPool];
+
             Swal.fire({
                 title: 'Map pool selected!',
-                html: 'You selected map pool<b>: ' + decodeURI(result.value).replace(/\.[^/.]+$/, "</b>"),
+                html: `You selected map pool <b>${decodeURI(selectedPool).replace(/\.[^/.]+$/, "")}</b>`,
             });
-            setSongJSON(result.value);
+            
+            setSongJSON(selectedFileContent);
             document.getElementById("MATCHDIV").style.opacity = "0";
             setTimeout(function () {
                 document.getElementById("VERSUSDIV").style.display = "inline-block";
@@ -84,33 +114,26 @@ function selectLocalMapPool() {
                 }, 1);
             }, 1);
         }
-    })
-};
-
-function setSongJSON(playlist) {
-    $.getJSON("./pools/" + playlist, function (data) {
-        var songList = data.songs;
-        var songHashes = [];
-        for (var i = 0; i < songList.length; i++) {
-            songHashes.push(songList[i].hash);
-        }
-        var diffNames = [];
-        for (var i = 0; i < songList.length; i++) {
-            diffNames.push(songList[i].difficulties[0].name);
-        }
-        var songNames = [];
-        for (var i = 0; i < songList.length; i++) {
-            songNames.push(songList[i].songName);
-        }
-        ws.send(JSON.stringify({
-            'Type': '5',
-            'command': 'setPool',
-            'songHash': songHashes,
-            'songDiff': diffNames
-        }));
-        setPool(songHashes, diffNames, songNames);
     });
-};
+}
+
+function setSongJSON(fileContent) {
+    const data = JSON.parse(fileContent);
+    const songList = data.songs;
+    const songHashes = songList.map(song => song.hash);
+    const diffNames = songList.map(song => song.difficulties[0].name);
+    const songNames = songList.map(song => song.songName);
+
+    ws.send(JSON.stringify({
+        'Type': '5',
+        'command': 'setPool',
+        'songHash': songHashes,
+        'songDiff': diffNames
+    }));
+
+    setPool(songHashes, diffNames, songNames);
+}
+
 
 function BeatKhana() {
     Swal.fire({
