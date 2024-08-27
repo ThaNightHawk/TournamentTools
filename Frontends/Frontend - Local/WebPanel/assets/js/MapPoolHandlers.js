@@ -50,7 +50,7 @@ function localPools() {
         showCancelButton: false,
         allowOutsideClick: false,
         allowEscapeKey: false,
-        footer: '<a href="./upload.php" target="_blank">Upload.</a>',
+        footer: 'Needs to be .bplist/.json files.',
         preConfirm: () => {
             const files = document.getElementById('fileInput').files;
             if (!files.length) {
