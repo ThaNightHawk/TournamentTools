@@ -1,9 +1,20 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "lib": ["es6", "dom"],
-    "module": "commonjs",
-    "strict": true
+    "module": "NodeNext",
+    "target": "ESNext",
+    "outDir": "./dist",
+    "esModuleInterop": true,
+    "useDefineForClassFields": true,
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "allowJs": true,
+    "checkJs": true,
+    "strict": true,
+    "isolatedModules": true,
+    "declaration": true,
+    "sourceMap": true,
   },
-  "include": ["src/**/*"]
+  "include": [
+    "src/**/*"
+  ]
 }

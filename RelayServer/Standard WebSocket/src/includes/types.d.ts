@@ -25,7 +25,7 @@ export interface Team {
 }
 export interface Score {
     user_id: any;
-    team: Team[];
+    team: Team;
     score: number;
     accuracy: number;
     combo: number;

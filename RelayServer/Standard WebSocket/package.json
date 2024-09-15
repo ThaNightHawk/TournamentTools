@@ -1,15 +1,16 @@
 {
   "name": "ttools_standard_relayserver",
   "version": "1.0.0",
+  "type": "module",
   "scripts": {
-    "start": "tsc ./src/index.ts && node ./src/index.js"
+    "start": "tsc && node ./dist/index.js"
   },
   "dependencies": {
-    "tournament-assistant-client": "^0.9.8",
+    "moons-ta-client": "^1.1.0",
     "tslib": "^2.4.0",
+    "typescript": "^5.3.3",
     "webpack": "^5.74.0",
-    "ws": "^8.16.0",
-    "typescript": "^5.3.3"
+    "ws": "^8.16.0"
   },
   "devDependencies": {
     "@types/ws": "^8.5.3"

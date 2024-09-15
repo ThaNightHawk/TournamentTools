@@ -1,0 +1,21 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "TypeScript Compile",
+            "type": "shell",
+            "command": "npx tsc",
+            "options": {
+                "cwd": "${workspaceFolder}/RelayServer/Standard WebSocket"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$tsc"
+            ],
+            "detail": "This task runs the TypeScript compiler."
+        }
+    ]
+}

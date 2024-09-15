@@ -76,7 +76,7 @@ function Connect() {
             const [team1, team2] = sortTeamsByName(Object.values(teams));
             const [player1, player2, player3, player4] = getPlayerNames(team1, team2, players);
 
-            const optionHtml = getOptionHtml(matchId, coordinator, player1, player2, player3, player4, players);
+            const optionHtml = getOptionHtml(matchId, coordinator, message.teams, player1, player2, player3, player4, players);
             $('#currentMatch').append(optionHtml);
         }
 
@@ -96,13 +96,16 @@ function Connect() {
                 });
 
                 message.matches.forEach(match => {
-                    const { matchId, coordinator, players } = match.matchData;
-                    if (!$(`#currentMatch option[data-match-id="${matchId}"]`).length) {
+                    const { guid, leader, associatedUsers } = match;
+                    const players = message.players.filter(x => associatedUsers.includes(x.guid));
+                    const coordinator = message.coordinators.find(x => x.guid === leader);
+
+                    if (!$(`#currentMatch option[data-match-id="${guid}"]`).length) {
                         const teams = groupPlayersByTeam(players);
                         const [team1, team2] = sortTeamsByName(Object.values(teams));
                         const [player1, player2, player3, player4] = getPlayerNames(team1, team2, players);
 
-                        const optionHtml = getOptionHtml(matchId, coordinator, player1, player2, player3, player4, players);
+                        const optionHtml = getOptionHtml(guid, coordinator, message.teams, player1, player2, player3, player4, players);
                         $('#currentMatch').append(optionHtml);
                     }
                 });
@@ -196,7 +199,8 @@ function showConnectedMessage(beatKhana, title) {
 function reset() {
     if (inMatch) {
         if (tmconfig == 1) {
-            ws.send(JSON.stringify({ 'Type': '5',
+            ws.send(JSON.stringify({
+                'Type': '5',
                 'command': 'resetOverlay'
             }));
             inMatch = false;

@@ -132,7 +132,7 @@ dropdown.addEventListener('change', function () {
 function groupPlayersByTeam(players) {
     const teams = {};
     players.forEach(player => {
-        const teamId = player.team[1];
+        const teamId = player.teamId;
         if (!teams[teamId]) {
             teams[teamId] = [player];
         } else {
@@ -152,7 +152,7 @@ function getPlayerNames(team1, team2, players) {
 
     if (players.length === 1 || players.length === 2) {
         [player1, player2] = [team1[0] || defaultPlayer, team1[1] || defaultPlayer];
-    } else if (players.length === 3 || players.length === 4 ) {
+    } else if (players.length === 3 || players.length === 4) {
         [player1, player2, player3, player4] = [team1[0] || defaultPlayer, team1[1] || defaultPlayer, team2[0] || defaultPlayer, team2[1] || defaultPlayer];
     }
 
@@ -165,7 +165,7 @@ function getOptionHtml(matchId, coordinator, player1, player2, player3, player4,
         optionHtml = `<option 
             data-match-id="${matchId}"
             data-coordinator-name="${coordinator.name}"
-            data-coordinator-id="${coordinator.id}"
+            data-coordinator-id="${coordinator.guid}"
             data-player1-name="${player1.name}"
             data-player1-id="${player1.user_id}"
             data-player1-guid="${player1.guid}"
@@ -203,7 +203,7 @@ function getOptionHtml(matchId, coordinator, player1, player2, player3, player4,
             data-player4-teamname="${player4.team[0]}"
             data-player4-teamguid="${player4.team[1]}"
             >2V2 | ${player1.team[0]} vs ${player3.team[0]}</option>`;
-            
+
         TeamNamesIDs = [player1.team[0], player1.team[1], player3.team[0], player3.team[1]];
     }
     return optionHtml;
