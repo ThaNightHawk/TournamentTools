@@ -20,7 +20,7 @@ Install both NodeJS.
 - Run `npm start` when the installation is finished
 
 You should now see "Connected to relay-server". If not, start from step 1 and try again. - If it keeps happening, contact [Hawk](https://discordapp.com/users/592779895084679188)
-- To verify the websocket-server functions, head over to [WebSocketKing](https://websocketking.com/) and connect to `ws://localhost:YourPort`.
+- To verify the websocket-server functions, head over to [WebSocketKing - Chrome Webstore](https://chromewebstore.google.com/detail/websocket-king-client/cbcbkhdmedgianpaifchdaddpnmgnknn), download it and connect to `ws://localhost:YourPort`.
 If it works, you should see `{"Type": "0","message": "You've connected to the relay server."}` in the output.
 
 If errors still keeps happening, contact [Hawk](https://discordapp.com/users/592779895084679188)
