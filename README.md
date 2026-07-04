@@ -1,7 +1,8 @@
 
 ![Logo](GitHubImage.png)
 
-# WIKI COMING SOON <br /> "COMPATIBLE" WITH TA 0.7.9 / TAC 0.9.5 (MINOR CHANGES NEEDS TO BE MADE)
+# Archival Notice:
+Dues to focus shifting to [CompSaber](https://compsaber.com), this version of TournamentTools have been sunset, and will no longer receive any further updates.
 
 # TournamentTools #
 This was originally made to be closed-sourced and only for use within the danish Beat Saber Discord, though someone asked me if I would open-source it, and I thought why not, more people would be able to collaborate on it and make it even better.
